@@ -1,0 +1,316 @@
+/* Define mobile styles */
+@media only screen 
+{
+  /*Commons.*/
+  body, header nav ul li a:hover{background-color: #2A3239;}
+
+  body,
+  #ui-datepicker-div{font-family: "raleway-regular", arial;}
+  b, strong{display: inline-block; margin: 4px 0;}
+  
+  body,
+  .content,
+  .columns,
+  #ui-datepicker-div .ui-datepicker-title,
+  #ui-datepicker-div a,
+  #ui-datepicker-div th,
+  #faq li,
+  textarea,
+  label{font-size: 12px;}
+
+  .content h5{margin: 0;}
+  button, .button
+  {
+    padding-top: 9px; 
+    margin: 4px 0; 
+    font-size: 11px !important;
+  }
+  input[type="text"],
+  select,
+  button,
+  .button,
+  input[type="email"],
+  input[type="password"]{height: 30px;}
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"]{margin: 4px 0;}
+
+  #home .listing.panel,
+  .tabs dd > a{padding: 8px;}
+  .tabs-content > .content{padding: 8px;}
+
+  .tabs dd > a,
+  input[type="text"],
+  textarea,
+  select,
+  #home.index ul{font-size: 12px;}
+
+  .slogan{font-size: 11px;}
+  .tabs-content > .content.active{width: 100%;}
+  .main{padding-top: 10px; padding-bottom: 30px;}
+  /*BUG:  Solves Foundation JS bug that's related to CSS.*/
+  meta.foundation-data-attribute-namespace {font-family: false;}
+  form{font-size: 13px;}
+  .ui-datepicker-title{font-size: 14px;}
+  .ui-datepicker th{font-size: 12px;}
+  .row .row{margin-left: 0; margin-right: 0;}
+  
+  .avatar{max-width: 160px;}
+  .main .work{max-width: 250px; margin: 1px;}
+  
+  .main .work,
+  .avatar{height: auto;}
+  
+  table{width: 100%;}
+  
+  /*header nav ul li a{font-size: 12px;}*/
+  
+  h5, p{font-size: 13px; margin-bottom: 3px;}
+  
+  hr{border-color: rgba(43, 50, 57, 0.15); margin: 8px 0;}
+  
+  table .button{margin: 0;}
+  table tbody tr td, table tr td{padding-top: 2px; padding-bottom: 2px;}
+
+  .button.radius,
+  button.small,
+  .button.small{padding: 9px; font-size: 11px;}
+  .postfix.button{width: 30px;}
+
+  #search{margin-top: 11px;}
+  #search .fa.fa-search{font-size: 11px;}
+  #search button{padding-top: 8px;}
+  
+  input[type="file"],
+  input[type="text"],
+  button,
+  #home.index ul{margin: 4px 0;}
+
+  .tabs dd.active a{outline: none;}
+
+  .alert-box.alert{padding: 8px;}
+  .show_menu{margin: 8px 0;}
+  .alert-box.alert p{margin: 0;}
+  .header.columns{padding: 0;}
+
+  header{background-color: #fff;}
+
+  header nav ul li a:hover{color: #fff;}
+  header nav ul li a{padding: 4px 0;}
+  header nav ul{margin-top: 40px;}
+  header .logo{margin-top: 27px;}
+  header .logo img{max-width: 150px !important; height: 45px !important;}
+  .row.panel{margin-bottom: 4px; background-color: #fff; padding: 8px;}
+  .row.panel .columns{padding-left: 0;}
+  /*.row.panel .columns:nth-child(2){margin-top: 11px;}*/
+
+  #search button{margin-left: 4px;}
+
+  #user .avatar,
+  #resume .avatar{width: 100px; height: 100px;}
+  /*/Commons.*/
+
+  /*FAQ.*/
+  #faq h5{font-weight: bold;}
+  /*/FAQ.*/
+  
+  /*Home.*/ 
+  #home.index .row.features{clear: left; margin-top: 20px;}
+  #home.index .row.features img{width: 100%; height: auto;}
+  #home.index .row.features .button{margin-top: 8px;}
+  #home.index .summary.panel{padding-bottom: 5px;}
+  #home.index ul{list-style-type: none;}
+  #home .listing.panel{padding-bottom: 0; margin-bottom: 0;}
+  #home.index .row.works .work a
+  {
+    display: inline-block;
+    height: 250px;
+  }
+  #home.index .row.works .work a,
+  #home.index .row.works{width: 250px;}
+  /*/Home.*/
+  
+  /*Applicant.*/
+  #applicant.read #user.read .avatar{margin-left: 15px;}
+  #applicant.read .comments .comment
+  {
+    margin: 4px;
+    padding: 8px;
+  }
+  #applicant.read .comments{margin-top: 8px;}
+  #applicant.read .comments .dateTime{color: #666; font-size: 13px; padding-top: 3px;}
+  /*/Applicant.*/
+
+  /*Resume.*/
+  #resume.update .options .panel.recipients input[type="text"]{margin: 0;}
+  #resume.update .options .panel.recipients input[type="text"],
+  #resume.update .options .panel.recipients button{display: inline;}
+  #resume.update .options .button{margin-bottom: 4px;}
+  #resume.update .options .panel.recipients{padding: 4px;}
+  #resume.update .options .panel.recipients .columns{padding-left: 0;}
+
+  #resume .hidden{display: none;}
+  #resume img{width: 100px;}
+  #resume li{list-style-type: none; /*font-size: 12px;*/}
+  #resume .close,
+  #resume i{font-size: 15px;}
+  #resume i{cursor: pointer; cursor: hand;}
+  #resume input[type="text"],
+  #resume textarea,
+  select{font-size: 11px; padding: 4px; margin: 4px 0;}
+  #resume textarea{height: 100px;}
+
+  #resume.update li
+  {
+    padding: 4px; 
+    padding-right: 20px; 
+    position: relative;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #bbb;
+    background-color: #eee;
+    margin-bottom: 20px;
+  }
+  #resume.update li .row .columns{padding: 4px;}
+  #resume li .close{
+    position: absolute; 
+    right: 5px;
+    top: -5px;
+    font-size: 20px;
+  }
+
+  #resume.read ul{margin-left: 15px;}
+  #resume.read li{font-size: 12px;}
+  #resume.read > section.panel.radius{background-color: #fff;}
+  #resume.read li .row .columns{padding: 0;}
+  #resume.read .row .row .columns{line-height: 21px;}
+  #resume.read .row.panel{padding: 4px 8px;}
+  /*/Resume.*/
+
+  /*Internship.*/
+  #search .listing .row .columns{margin-bottom: 8px;}
+  #internship .listing .row .columns.primary,
+  #search .listing .row .columns.primary{border: none;}
+  #internship .listing .row .columns a,
+  #internship .listing .row .columns .calendar,
+  #search .listing .row .columns a,
+  #search .listing .row .columns .calendar
+  {
+    margin-bottom: 8px;
+    display: block;
+  }
+  .listing .row .columns a
+  {
+    display: inline !important;
+    margin-top: 4px;
+    font-size: 13px;
+  }
+  .listing .row .columns a.alert{color: #F04124;}
+  .listing .row .columns a:hover{text-decoration: underline;}
+  #internship .button.radius{margin-bottom: 0;}
+  /*/Internship.*/
+
+  /*Internship Applications.*/
+  #internshipApplication.index.employer .applicants.panel
+  {
+    padding: 4px !important;
+    margin-top: 8px;
+  }
+  /*/Internship Application.*/
+
+  /*Contact.*/
+  #contact .social{margin: 0;}
+  #contact .social li
+  {
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  #contact i.fa{font-size: 20px;}
+  /*/Contact.*/
+
+  /*TOC and EULA.*/
+  #toc strong,
+  #eula strong{display: block; margin-top: 20px; margin-bottom: 4px;}
+  /*/TOC and EULA.*/
+
+  /*Analytics.*/
+  #analytics input[type="checkbox"],
+  #analytics label{margin: 0;}
+  #analytics input[type="checkbox"]{margin-top: 7px;}
+
+  /*/Analytics.*/
+}
+
+/* min-width 641px, medium screens */
+@media only screen and (min-width: 40.063em) { 
+    /*Commons.*/
+    header{padding-left: 0;} 
+    #map{min-height: 250px;}
+    header .logo{margin-top: 17px; display: inline-block;}
+    header nav ul{margin-left: 0;}
+    header nav ul li{margin-bottom: 3px;}
+    #search .columns:nth-child(1){padding: 0;}
+    #search .columns:nth-child(2){padding-right: 0;}
+
+    input[type="email"]{margin: 0;}
+    .row.panel .columns:nth-child(2){margin-top: 0;}
+
+    #comment h4,
+    #pooledApplicant h4,
+    #applicant h4,
+    #internship.read h4,
+    #internship.industry h4,
+    #home h4,
+    #analytics h4{margin-left: -15px;}
+    /*/Commons.*/
+
+    /*Home.*/
+    #home.index .expandable .columns{padding-left: 0;}
+    #home.index .intro .columns{padding: 0;}
+    #home.index .row.works{width: auto;}
+    #home.index .row.features .columns:first-child{padding-left: 0;}
+    /*/Home.*/
+
+    /*Auth.*/
+    #auth.resetPassword .alert-box a
+    {
+      font-weight: bold; 
+      color: #fff;
+      text-decoration: underline;
+    }
+    #auth.login .columns{padding-left: 0;}
+    #auth.resetPassword button{margin: 0;}
+    #auth.login .row.options .columns:nth-child(2){padding: 4px 0;}
+    /*/Auth.*/
+
+    /*Internship.*/
+    #search .listing .row .columns.primary{padding-left: 0;}
+    /*/Internship.*/
+
+    /*Applicant.*/
+    #applicant.read #user.read .avatar{margin-left: 0;}
+    /*/Applicant.*/
+
+    /*Pooled Applicant.*/
+    #pooledApplicant.index button{margin-top: 0;}
+    /*/Pooled Applicant.*/
+} 
+
+
+/* min-width 1025px, large screens */
+@media only screen and (min-width: 64.063em) 
+{ 
+  header{padding-left: 20px; border-right: 1px solid rgba(43, 50, 57, 0.15);}
+  header nav ul li a{display: block; padding-left: 8px;}
+  #internship .row.panel .columns:nth-child(2){margin-top: 0;}
+}
+
+/* min-width 1441px, xlarge screens */
+@media only screen and (min-width: 90.063em)
+{
+  header{padding-left: 20px;}
+}
+
+
+@media only screen and (min-width: 120.063em) { } /* min-width 1921px, xxlarge screens */

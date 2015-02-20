@@ -1,0 +1,8 @@
+CREATE TABLE resumes(id INT NOT NULL AUTO_INCREMENT,
+headline VARCHAR(255) NOT NULL,
+applicant_id INT NOT NULL,
+availability VARCHAR(255) NOT NULL,
+current_industry VARCHAR(255) NOT NULL,
+qualification VARCHAR(255) NOT NULL,
+summary TEXT NOT NULL,
+PRIMARY KEY (id))
