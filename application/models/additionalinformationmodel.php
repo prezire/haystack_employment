@@ -1,4 +1,5 @@
-<?php	class AdditionalInformationModel extends CI_Model
+<?php	
+	class AdditionalInformationModel extends CI_Model
 	{
 		public function __construct()
 		{

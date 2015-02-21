@@ -94,15 +94,6 @@ $config = array
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
-	'pooledApplicant/update' => array
-	(
-		array
-		(
-			'field' => 'notes',
-			'label' => 'Notes',
-			'rules' => 'required|xss_clean|trim'
-		)
-	),
   	'employer/create' => array
 	(
 		array
@@ -166,49 +157,7 @@ $config = array
 			'rules' => ''
 		)
 	),
-  	'subscriber/create' => array
-	(
-		array
-		(
-			'field' => 'email',
-			'label' => 'Email',
-			'rules' => 'required|xss_clean|is_unique[users.email]|trim|valid_email'
-		),
-		array
-		(
-			'field' => 'password',
-			'label' => 'Password',
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'full_name',
-			'label' => 'Full Name',
-			'rules' => 'required|xss_clean|trim'
-		)
-	),
-  	'subscriber/update' => array
-	(
-		array
-		(
-			'field' => 'email',
-			'label' => 'Email',
-			'rules' => 'required|xss_clean|trim|valid_email'
-		),
-		array
-		(
-			'field' => 'password',
-			'label' => 'Password',
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'full_name',
-			'label' => 'Full Name',
-			'rules' => 'required|xss_clean|trim'
-		)
-	),
-	'internship/create' => array
+	'position/create' => array
 	(
 		array
 		(
@@ -247,7 +196,7 @@ $config = array
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
-  	'internship/update' => array
+  	'position/update' => array
 	(
 		array
 		(
@@ -370,7 +319,7 @@ $config = array
         'rules' => 'required|xss_clean|trim'
       )
     ),
-    'organization/create' => array
+    'company/create' => array
 	(
 		array
 		(
@@ -379,7 +328,7 @@ $config = array
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
-	'organization/update' => array
+	'company/update' => array
 	(
 		array
 		(

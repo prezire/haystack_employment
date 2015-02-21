@@ -40,8 +40,8 @@
     DSNs for multiple DBs.
     Usage in models:
       $c = $this->config->item('db');
-      $s = $this->load->database($c['simplifie']);
-      $h = $this->load->database($c['haystack']);
+      $s = $this->load->database($c['simplifie'], true);
+      $h = $this->load->database($c['haystack'], true);
   */
   $config['db'] = array
   (
