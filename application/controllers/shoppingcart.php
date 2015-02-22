@@ -1,50 +1,81 @@
 <?php 
   if(!defined('BASEPATH')) 
     exit('No direct script access allowed');
-  //TODO: Rename ShoppingCart names to Transactions.
-  class ShoppingCart extends CI_Controller 
+  class Transaction extends CI_Controller 
   {
   	public function __construct()
   	{
   		parent::__construct();
-      validateLoginSession();
-      $this->load->model('shoppingcartmodel');
+      //
+      if($this->input->post())
+      {
+        validateLoginSession();
+      }
+      else
+      {
+        $c = $this->input->controller_name;
+        if
+        (
+          $c != 'chequePayment' || 
+          $c != 'directBankTransfer' || 
+          $c != 'payPal'
+        )
+        {
+          validateLoginSession();   
+        }
+      }
+      //
+      $this->load->model('transactionmodel');
   	}
     public final function index()
     {
-      //List all purchases.
-      $a = array('items' => $this->shoppingcartmodel->index());
-      showView('shopping_carts/index', $a);
+      $a = array
+      (
+        'items' => $this->transactionmodel->index()
+      );
+      showView('transactions/index', $a);
     }
     public final function checkout()
     {
-      $this->load->model('companymodel');
-      $u = getLoggedUser();
-      $c = $this->companymodel->readByUserId($u->id)->row();
-      $a = array
+      $a = $this->transactionmodel->readUserDetails();
+      $a['items'] = $this->transactionmodel->index();
+      showView
       (
-        'user' => array
-        (
-          'id' => $u->id, 
-          'fullName' => $u->fullName
-        ),
-        'company' => array
-        (
-          'name' => $c->name,
-          'address' => $c->address,
-          'city' => $c->city,
-          'state' => $c->state,
-          'country' => $c->country
-        ),
-        'items' => $this->shoppingcartmodel->index()
+        'transactions/checkout', 
+        $a
       );
-      showView('shopping_carts/checkout', $a);
     }
-    public final function directBankTransfer($transferId)
+    public final function chequePayment($orderId)
     {
       if($this->input->post())
       {
-        $id = $this->shoppingcartmodel->createDirectBankTransfer()->row()->id;
+        $id = $this->transactionmodel->createChequePayment()->row()->id;
+        redirect
+        (
+          site_url
+          (
+            'shoppingcart/chequePayment/' . $id
+          )
+        );
+      }
+      else
+      {
+        $summary = array
+        (
+          'summary' => 
+          $this->transactionmodel->readCheckPayment($orderId)->row()
+        );
+        showView
+        (
+          'transactions/check_payment_summary'
+        ); 
+      } 
+    }
+    private final function directBankTransfer($orderId)
+    {
+      if($this->input->post())
+      {
+        $id = $this->transactionmodel->createDirectBankTransfer()->row()->id;
         redirect
         (
           site_url
@@ -58,17 +89,31 @@
         $summary = array
         (
           'summary' => 
-          $this->shoppingcartmodel->readDirectBankTransfer()->row()
+          $this->transactionmodel->readDirectBankTransfer()->row()
         );
         showView
         (
-          'shopping_carts/direct_bank_transfer_summary'
+          'transactions/direct_bank_transfer_summary'
         );
       }
     }
     public final function payPal()
     {
-      //
+      $a = array
+      (
+        'items' => $this->transactionmodel->index(),
+        'payPal' => array
+        (
+          'business' => 'admin@simplifie.net',
+          'currency' => 'USD',
+          'curSymbol' => 'USD',
+          'location' => 'Philippines',
+          'returnUrl' => 'http://mysite/myreturnpage',
+          'returnTxt' => 'Return to Cart',
+          'cancelUrl' => 'http://mysite/mycancelpage',
+        )
+      );
+      showView('transactions/paypals/checkout', $a);
     }
     //Perform CRUD using AJAX.
     private final function checkRequestType()
@@ -89,8 +134,8 @@
     public final function create()
     {
       $this->checkRequestType();
-      $a = $this->shoppingcartmodel->readParams();
-      $rowId = $this->shoppingcartmodel->create
+      $a = $this->transactionmodel->readParams();
+      $rowId = $this->transactionmodel->create
       (
         $a['id'], 
         $a['quantity'], 
@@ -102,14 +147,14 @@
     }
     public final function read($rowId)
     {
-      $item = $this->shoppingcartmodel->read($rowId);
+      $item = $this->transactionmodel->read($rowId);
       showJsonView(array('item' => $data));
     }
     public final function update($rowId)
     {
       $this->checkRequestType();
-      $a = $this->shoppingcartmodel->readParams();
-      $this->shoppingcartmodel->update
+      $a = $this->transactionmodel->readParams();
+      $this->transactionmodel->update
       (
         $a['id'], 
         $a['quantity'], 
@@ -117,9 +162,16 @@
         $a['name'], 
         $a['options']
       );
-      showJsonView(array('status' => 'success', 'row_id' => $rowId));
+      showJsonView
+      (
+        array
+        (
+          'status' => 'success', 
+          'row_id' => $rowId
+        )
+      );
     }
     public final function delete($destroyAll, $rowId)
     {
-      $this->shoppingcartmodel->delete($destroyAll, $rowId);
+      $this->transactionmodel->delete($destroyAll, $rowId);
     }

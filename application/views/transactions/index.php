@@ -1,4 +1,4 @@
-<div id="shoppingCart" class="index row">
+<div id="transaction" class="index row">
 	<h4>Shopping Cart</h4>
 		<?php foreach($items as $i){ ?>
 			<div class="row">

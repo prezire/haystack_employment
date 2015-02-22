@@ -1,4 +1,4 @@
-function Cart()
+function Transaction()
 {
   this.baseUrl;
   this.init = function()
@@ -32,7 +32,7 @@ function Cart()
   		var p = t.parent();//TODO: Change this based on the markup.
   		var o = o.readItem(p);
   		var rowId = t.attr('rowId');
-  		var url = 'shoppingcart/create';
+  		var url = 'transaction/create';
   		.aja
   		$.ajax({
   			url: url,
@@ -50,13 +50,13 @@ function Cart()
   			}
   		});
   	});
-  	$('#shoppingCart.index button.update').click(function(e){
+  	$('#transaction.index button.update').click(function(e){
   		e.preventDefault();
   		var t = $(this);
   		var p = t.parent();
   		var o = o.readItem(p);
   		var rowId = t.attr('rowId');
-  		var url = 'shoppingcart/update';
+  		var url = 'transaction/update';
   		$.ajax({
   			url: url,
   			data: o,

@@ -1,10 +1,5 @@
-<?php	
-	/*
-		KLUDGE: We create this model instead of extending
-		the cart class so that other controllers
-		can use the cart library in a centralized manner.
-	*/
-	class ShoppingCartModel extends CI_Model
+<?php
+	class TransactionModel extends CI_Model
 	{
 		public function __construct()
 		{
@@ -35,7 +30,49 @@
 	    	//Return the row ID.
 	    	return $this->cart->insert($data);
 	    }
-		//Helper for other controllers to
+	    public final function createChequePayment()
+	    {
+	    	$a = $this->readUserDetails();
+	    	$b = array
+	    	(
+	    		'user_id' => $a['user']['id'],
+	    		'company_id' => $a['company']['id']
+	    	);
+	    	$this->db->insert('cheque_payments', $b);
+	    	return $this->readChequePayment($this->db->insert_id());
+	    }
+	    public final function createDirectBankTransfer()
+	    {
+	    	$a = $this->readUserDetails();
+	    	$b = array
+	    	(
+	    		'user_id' => $a['user']['id'],
+	    		'company_id' => $a['company']['id']
+	    	);
+	    	$this->db->insert('direct_bank_transfers', $b);
+	    	return $this->readDirectBankTransfer
+	    	(
+	    		$this->db->insert_id()
+	    	);
+	    }
+	    //
+	    public final function readChequePayment($orderId)
+	    {
+	    	return $this->db->get_where
+	    	(
+	    		'cheque_payments', 
+	    		array('id' => $orderId)
+	    	);
+	    }
+	    public final function readDirectBankTransfer($orderId)
+	    {
+	    	return $this->db->get_where
+	    	(
+	    		'direct_bank_transfers', 
+	    		array('id' => $orderId)
+	    	);
+	    }
+	    //Helper for other controllers to
 		//modify params in any case.
 		public final function readParams()
 	    {
@@ -51,6 +88,30 @@
 	      return $a;
 	    }
 	    //
+	    public final function readUserDetails()
+	    {
+	    	$this->load->model('companymodel');
+			$u = getLoggedUser();
+			$c = $this->companymodel->readByUserId($u->id)->row();
+			$a = array
+			(
+				'user' => array
+				(
+				  'id' => $u->id, 
+				  'full_name' => $u->fullName
+				),
+				'company' => array
+				(
+					'id' => $c->id,
+					'name' => $c->name,
+					'address' => $c->address,
+					'city' => $c->city,
+					'state' => $c->state,
+					'country' => $c->country
+				)
+			);
+			return $a;
+	    }
 	    public final function read($rowId)
 	    {
 	    	$c = $this->cart->contents();
