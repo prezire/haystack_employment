@@ -43,27 +43,25 @@
           </div>
         </div>    
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns">
+          <div class="small-6 medium-6 large-6 columns">
             <strong>Country:</strong> <?php echo $resume->country; ?>
           </div>
-        </div>
-        <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             <strong>Landline:</strong> <?php echo $resume->landline; ?>      
           </div>
+        </div>
+        <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             <strong>Mobile:</strong> <?php echo $resume->mobile; ?>
           </div>
-        </div>
-        <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             <strong>Availability:</strong> <?php echo $resume->availability; ?>
           </div>
+        </div>
+        <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             <strong>Expected Salary (USD):</strong> <?php echo $resume->expected_salary; ?>
           </div>
-        </div>
-        <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             <strong>Current Position Title:</strong> 
             <?php echo $resume->current_position_title; ?>
@@ -71,9 +69,7 @@
           <div class="small-6 medium-6 large-6 columns">
             <strong>Qualification:</strong> <?php echo $resume->qualification; ?>
           </div>
-        </div>
-        <div class="row">
-          <div class="small-12 medium-12 large-12 columns">
+          <div class="small-6 medium-6 large-6 columns">
             <strong>Summary:</strong> <?php echo $resume->summary; ?>
           </div>
         </div>
@@ -87,47 +83,60 @@
           <h5>Work History</h5>
         </div>
       </div>
-      
-        <ul>
+          <?php if($workHistories){ ?>
+          <ul>
           <?php foreach($workHistories as $w){ ?>
-            <li>
+              <li class="row panel">
+                  <div class="row">
+                      <div class="small-6 medium-6 large-6 columns">
+                        <strong>Position:</strong>
+                        <?php echo $w->position; ?>
+                      </div>
+                      <div class="small-6 medium-6 large-6 columns">
+                        <strong>Company:</strong>
+                        <?php echo $w->company; ?>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="small-6 medium-6 large-6 columns">
+                        <strong>From:</strong>
+                        <?php echo $w->date_from; ?>
+                      </div>
+                      <div class="small-6 medium-6 large-6 columns">
+                        <strong>To:</strong>
+                        <?php echo $w->date_to; ?>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="small-12 medium-12 large-12 columns">
+                        <strong>Location:</strong>
+                        <?php echo $w->location; ?>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="small-12 medium-12 large-12 columns">
+                        <strong>Summary:</strong>
+                        <?php echo nl2br($w->summary); ?>
+                      </div>
+                  </div>
               
-                <div class="row">
-                    <div class="small-6 medium-6 large-6 columns">
-                      <strong>Position:</strong>
-                      <?php echo $w->position; ?>
-                    </div>
-                    <div class="small-6 medium-6 large-6 columns">
-                      <strong>Company:</strong>
-                      <?php echo $w->company; ?>
-                    </div>
+              </li>
+            <?php } ?>
+            </ul>
+            <?php
+              }
+              else
+              {
+            ?>
+              <div class="row">
+                <div class="small-12 medium-12 large-12 columns">
+                  No work history provided.
                 </div>
-                <div class="row">
-                    <div class="small-6 medium-6 large-6 columns">
-                      <strong>From:</strong>
-                      <?php echo $w->from; ?>
-                    </div>
-                    <div class="small-6 medium-6 large-6 columns">
-                      <strong>To:</strong>
-                      <?php echo $w->to; ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="small-12 medium-12 large-12 columns">
-                      <strong>Location:</strong>
-                      <?php echo $w->location; ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="small-12 medium-12 large-12 columns">
-                      <strong>Summary:</strong>
-                      <?php echo nl2br($w->summary); ?>
-                    </div>
-                </div>
-            
-            </li>
-          <?php } ?>
-        </ul>
+              </div>
+            <?php
+              }
+            ?>
+        
       
     </section>
     <hr />
@@ -142,7 +151,7 @@
         <ul>
           <?php foreach($educations as $e){ ?>
             <li>
-              <div class="row panel radius">
+              <div class="row panel">
                 <div class="row">
                     <div class="small-6 medium-6 large-6 columns">
                       <strong>Degree:</strong>
@@ -172,11 +181,11 @@
                 <div class="row">
                     <div class="small-6 medium-6 large-6 columns">
                       <strong>From:</strong>
-                      <?php echo $e->from; ?>
+                      <?php echo $e->date_from; ?>
                     </div>
                     <div class="small-6 medium-6 large-6 columns">
                       <strong>To:</strong>
-                      <?php echo $e->to; ?>
+                      <?php echo $e->date_to; ?>
                     </div>
                 </div>
               </div>
@@ -256,7 +265,16 @@
       </div>
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
-          <?php echo nl2br($resume->additional_information); ?>
+          <?php 
+            if(empty($additionalInformations))
+            {
+              echo 'No additional information provided.';
+            }
+            else
+            {
+              echo nl2br($additionalInformations);
+            }
+          ?>
         </div>
       </div>
     </section>
@@ -269,8 +287,11 @@
   ?>
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      <a href="<?php echo site_url('resume/updateBySession'); ?>" class="button tiny radius">
+      <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">
         Back
+      </a>
+      <a href="<?php echo site_url('resume/update/' . $resume->resume_id); ?>" class="button tiny">
+        Update
       </a>
     </div>
   </div>

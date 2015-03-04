@@ -7,9 +7,9 @@
     </div>
     <div class="row">
         <div class="small-6 medium-6 large-6 columns">From
-            <input type="text" name="from[]" class="from datepicker" value="" /> </div>
+            <input type="text" name="date_from[]" class="from datepicker" value="" /> </div>
         <div class="small-6 medium-6 large-6 columns">To
-            <input type="text" name="to[]" class="to datepicker" value="" /> </div>
+            <input type="text" name="date_to[]" class="to datepicker" value="" /> </div>
     </div>
     <div class="row">
         <div class="small-12 medium-12 large-12 columns">Location

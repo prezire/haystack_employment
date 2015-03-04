@@ -1,4 +1,5 @@
-<?php	class CompanyModel extends CI_Model
+<?php	
+	class OrganizationModel extends CI_Model
 	{
 		public function __construct()
 		{
@@ -7,7 +8,7 @@
 		public final function index()
 		{
 			$this->db->select('c.*');
-			$this->db->from('companies c');
+			$this->db->from('organizations c');
 			return $this->db->get();
 		}
 		public final function create()
@@ -15,7 +16,7 @@
 			$i = $this->input;
 			$this->db->insert
 			(
-				'companies', 
+				'organizations', 
 				getPostValuePair()
 			);
 			return $this->read($this->db->insert_id());
@@ -24,7 +25,7 @@
 		{
       return $this->db->get_where
       (
-        'companies', 
+        'organizations', 
         array('id' => $id)
       );
 		}
@@ -35,7 +36,7 @@
 			$this->db->where('id', $id);
 			$this->db->update
       (
-        'companies', 
+        'organizations', 
         getPostValuePair()
       );
 		}

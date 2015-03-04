@@ -8,6 +8,7 @@ class Resume extends CI_Controller
     (
       array
       (
+        'index',
         'create', 
         'updateBySession', 
         'update', 
@@ -20,7 +21,8 @@ class Resume extends CI_Controller
   public final function index()
   {
     $o = $this->resumemodel->index()->result();
-    showView('resumes/index', array('resumes' => $o));
+    $a = array('resumes' => $o);
+    showView('resumes/index', $a);
   }
   //@param  $recipients   Comma-separated string.
   public final function forward($recipients)
@@ -86,51 +88,20 @@ class Resume extends CI_Controller
     )->row()->id;
     redirect(site_url('resume/read/' . $rId));
   }
-  public final function updateBySession()
+	public final function update($id = null)
   {
-    if(!isLoggedIn()) redirect(site_url('auth/login'));
-    //
-    $uId = getLoggedUser()->id;
-    $this->load->model('applicantmodel');
-    $applId = $this->applicantmodel->readByUserId($uId)->row()->id;
-    $a = $this->resumemodel->readByApplicantId($applId);
     if($this->input->post())
     {
-      if($this->form_validation->run('resume/updateBySession'))
-      {
-        $b = $this->resumemodel->update()->row();
-        if($b)
-        {
-          //showJsonView(array('success' => true));
-        }
-        else
-        {
-          //showJsonView(array('success' => false, 'message' => 'Error updating resume.'));
-        }
-      }
-      else
-      {
-        //showJsonView(array('success' => false, 'message' => validation_errors()));
-      }
+        $this->resumemodel->update();
+        showJsonView(array('success' => true));
     }
     else
     {
+      $uId = getLoggedUser()->id;
+      $this->load->model('applicantmodel');
+      $applId = $this->applicantmodel->readByUserId($uId)->row()->id;
+      $a = $this->resumemodel->readByIdAndApplicantId($id, $applId);
       showView('resumes/update', $a);
-    }
-  }
-	public final function update()
-  {
-    if($this->input->post())
-    {
-      if($this->form_validation->run('resume/update'))
-      {
-        $this->resumemodel->update();
-        showJsonView(array('success' => true));
-      }
-      else
-      {
-        showJsonView(array('success' => false, 'message' => validation_errors()));
-      }
     }
   }
 	public final function delete($id)

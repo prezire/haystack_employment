@@ -16,8 +16,11 @@ function Resume()
     this.updateDatePickerIds(li);
     li.find('.from').addClass('datepicker');
     li.find('.to').addClass('datepicker');
-    li.find('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-    li.find('.datepicker').datepicker('option', 'dateFormat', 'yy-mm-dd');
+    //BUG: DatePicker. Remove props first because they
+    //already exist and pop-up doesn't work.
+    $('.datepicker').removeClass('hasDatepicker');
+    $('.datepicker').removeAttr('id');
+    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
   };
   //TODO: @meth updateDatePickerIds Check if this can be removed.
   this.updateDatePickerIds = function(container){
@@ -61,29 +64,50 @@ function Resume()
   };
   this.setListeners = function(){
     var o = this;
-    $('#resume.update .options .forward').click(function(e){
+    $('#resume .details span .btnUpdateResume').click(function(e){
+      var t = $(this);
+      var txt = $('#resume .details span input.name');
+      var name = txt.val();
+      var id = txt.attr('id');
+      var url = t.attr('href');
+      var d = {id: id, name: name};
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: d,
+        success: function(response)
+        {
+          if(response.status == 'success')
+          {
+            //
+          }
+        }
+      });
+      e.preventDefault();
+    });
+    $('#resume .options .forward').click(function(e){
       e.preventDefault();
       $('.options .row.panel.recipients').slideToggle();
     });
-    $('#resume.update li .close').live('click', function(e){
+    $('#resume li .close').live('click', function(e){
       $(this).parent().remove();
       e.preventDefault();
     });
-    $('#resume.update .button.addWorkHistory').click(function(e){
+    $('#resume .button.addWorkHistory').click(function(e){
       o.addItem($('.hidden .workHistoryView'), $('.workHistories ul'));
       e.preventDefault();
     });
-    $('#resume.update .button.addEducation').click(function(e){
+    $('#resume .button.addEducation').click(function(e){
       o.addItem($('.hidden .educationView'), $('.educations ul'));
       e.preventDefault();
     });
-    $('#resume.update .button.addSkills, #resume.update .button.addCertification').click(function(e){
+    $('#resume .button.addSkills, #resume .button.addCertification').click(function(e){
       var ul = $(this).parent().parent().parent().parent().find('form ul');
       o.addTextField(ul);
       e.preventDefault();
     });
     //
-    $('#resume.update section i').click(function(e){
+    $('#resume section i').click(function(e){
       var t = $(this);
       var p = t.parent().parent().parent().find('form');
       p.slideToggle('slow');
@@ -102,38 +126,38 @@ function Resume()
       o.updateDatePickerIds(p.find('ul'));
       e.preventDefault();
     });
-    $('#resume.update .resume button').click(function(e){
+    $('#resume .resume button').click(function(e){
       o.update('.resume', function(response){
         console.log(response);
       });
       e.preventDefault();
     });
-    $('#resume.update .workHistories button').click(function(e){
+    $('#resume .workHistories button').click(function(e){
       o.update('.workHistories', function(response){
         console.log(response);
       });
       e.preventDefault();
     });
-    $('#resume.update .educations button').click(function(e){
+    $('#resume .educations button').click(function(e){
       o.update('.educations', function(response){
         console.log(response);
       });
       e.preventDefault();
     });
-    $('#resume.update .skills button').click(function(e){
+    $('#resume .skills button').click(function(e){
       o.update('.skills', function(response){
         console.log(response);
       });
       e.preventDefault();
     });
-    $('#resume.update .certifications button').click(function(e){
+    $('#resume .certifications button').click(function(e){
       o.update('.certifications', function(response){
         console.log(response);
       });
       e.preventDefault();
     });
-    $('#resume.update .additionalInformations button').click(function(e){
-      o.update('#resume.update .additionalInformations', function(response){
+    $('#resume .additionalInformations button').click(function(e){
+      o.update('#resume .additionalInformations', function(response){
         console.log(response);
       });
       e.preventDefault();

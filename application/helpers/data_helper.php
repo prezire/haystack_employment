@@ -35,7 +35,11 @@
       for session and redirects the user if he's not logged in.
       If the executing method is read, this method does nothing.
   */
-  function validateLoginSession($methodNames, $type = 'include')
+  function validateLoginSession
+  (
+    $methodNames = array('index', 'create', 'read', 'update', 'delete'), 
+    $type = 'include'
+  )
   {
     $CI = get_instance();
     $m = $CI->router->fetch_method();
@@ -127,12 +131,11 @@
     $CI->email->bcc($cc);
     $CI->email->subject($subject);
     $CI->email->message($message);
-    //echo $message; exit;
-    if(!$CI->email->send())
+    /*if(!$CI->email->send())
     {
       show_error($CI->email->print_debugger());
       exit;
-    }
+    }*/
   }
   function upload($fieldName)
   {
@@ -157,6 +160,11 @@
     {
       return null;
     }
+  }
+  function getPositionCategories()
+  {
+    $a = array('Job', 'Internship');
+    return $a;
   }
   function getShiftPatterns()
   {

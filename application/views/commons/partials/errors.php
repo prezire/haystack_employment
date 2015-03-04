@@ -3,7 +3,7 @@
     <?php
       if(validation_errors() || isset($error)){ 
     ?>
-      <div data-alert class="alert-box alert radius">
+      <div data-alert class="alert-box alert">
         <?php 
           echo validation_errors();
           echo isset($error) ? $error : '';

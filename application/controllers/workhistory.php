@@ -62,6 +62,6 @@ class WorkHistory extends CI_Controller
   }
 	public final function delete($id)
   {
-    showJsonView(array('workHistory' => $this->workHistory_model->delete($id)->row()));
+    showJsonView(array('workHistory' => $this->workhistorymodel->delete($id)->row()));
   }
 }

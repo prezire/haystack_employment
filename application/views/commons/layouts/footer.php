@@ -16,7 +16,7 @@
             '#resume .avatar'
           ).imgLiquid();
           //
-          $('.from, .to').datepicker({dateFormat: 'yy-mm-dd'});
+          $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
           //
           var a = new Analytics();
           a.siteUrl = '<?php echo site_url(); ?>';

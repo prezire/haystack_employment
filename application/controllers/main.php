@@ -6,14 +6,14 @@
     public function __construct() {parent::__construct();}
     public final function index() {
       $this->load->model( 'applicantmodel' );
-      $this->load->model( 'internshipmodel' );
+      $this->load->model( 'positionmodel' );
       $appls = $this->applicantmodel->index()->result();
       $applsSummary = $this->applicantmodel->readGroupedSummary()->result();
-      $internsSummary = $this->internshipmodel->readGroupedSummary()->result();
+      $posSummary = $this->positionmodel->readGroupedSummary()->result();
       $groupedSummary = array
       (
         'applicants' => $applsSummary,
-        'internships' => $internsSummary
+        'positions' => $posSummary
       );
       $a = array
       (

@@ -1,4 +1,5 @@
-<?php	class WorkHistoryModel extends CI_Model
+<?php	
+	class WorkHistoryModel extends CI_Model
 	{
 		public function __construct()
 		{
@@ -41,8 +42,8 @@
 
 				$pos = $tmpPos;
 				$companies = $i->post('company');
-				$froms = $i->post('from');
-				$tos = $i->post('to');
+				$froms = $i->post('date_from');
+				$tos = $i->post('date_to');
 				$locs = $i->post('location');
 				$summaries = $i->post('summary');
 				$l = array
@@ -50,8 +51,8 @@
 					'resume_id' => $resumeId, 
 					'position' => $pos[$a],
 					'company' => $companies[$a],
-					'from' => $froms[$a],
-					'to' => $tos[$a],
+					'date_from' => $froms[$a],
+					'date_to' => $tos[$a],
 					'location' => $locs[$a],
 					'summary' => $summaries[$a]
 				);

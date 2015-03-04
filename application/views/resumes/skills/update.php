@@ -9,7 +9,7 @@
       Resume Id: <input type="text" name="resume_id" value="<?php echo set_value('resume_id', $skill->resume_id); ?>" />      
           
       Name: <input type="text" name="name" value="<?php echo set_value('name', $skill->name); ?>" />      
-        <a href="<?php echo site_url('skill/read/'  . $skill->id); ?>" class="button radius small alert">Cancel</a>
-    <button class="button radius small">Update</button>
+        <a href="<?php echo site_url('skill/read/'  . $skill->id); ?>" class="button tiny alert">Cancel</a>
+        <button class="tiny">Update</button>
   </form>
 </div>

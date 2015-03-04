@@ -83,7 +83,10 @@
       <div class="large-10 columns">
         <textarea name="message"><?php echo set_value('message'); ?></textarea>
       </div>
-      <div class="large-2 columns">&nbsp;</div><div class="large-10 columns"><button class="tiny radius">Send</button></div>
+      <div class="large-2 columns">&nbsp;</div><div class="large-10 columns">
+        <button class="tiny">Send
+        </button>
+      </div>
     </form>
 </div>
 

@@ -17,7 +17,7 @@
               $sDisabled = $isPooled ? 'disabled' : '';
           ?>
               <a href="<?php echo site_url('pooledapplicant/create'); ?>" 
-                  class="pool button tiny radius" <?php echo $sDisabled; ?>
+                  class="pool button tiny" <?php echo $sDisabled; ?>
                   applicantId = "<?php echo $applicantId; ?>"
                   employerId = "<?php echo $employerId; ?>">
                 <i class="fa fa-bookmark"></i> Pool
@@ -29,9 +29,9 @@
               echo '&nbsp;';
             }
           ?>
-          <a class="button tiny radius" 
+          <a class="button tiny" 
               href="<?php echo site_url('resume/readByUserId/' . $user->id); ?>">
-            View resume
+            View resumes
           </a>
         </div>
       </div>

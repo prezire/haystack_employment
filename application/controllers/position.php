@@ -17,10 +17,11 @@ class Position extends CI_Controller
     {
       if($this->form_validation->run())
       {
-        $o = $this->positionmodel->create()->row();
-        if($o->id)
+        $o = $this->positionmodel->create();
+        if($o->num_rows() > 0)
         {
-          redirect(site_url('position/read/' . $o->id));
+          $o = $o->row();
+          redirect(site_url('position/update/' . $o->id));
         }
         else
         {
@@ -29,6 +30,7 @@ class Position extends CI_Controller
       }
       else
       {
+        $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
         showView('positions/create');
       }
     }
@@ -39,8 +41,25 @@ class Position extends CI_Controller
   }
 	public final function read($id)
 	{
-		showView('positions/read', array('position' => $this->positionmodel->read($id)->row()));
+		showView
+    (
+      'positions/read', 
+      array('position' => $this->positionmodel->read($id)->row())
+    );
 	}
+  public final function readByIndustry($industry)
+  {
+    $industry = urldecode($industry);
+    $industry = str_replace('haystackescapedslash', '/', $industry);
+    $positions = $this->positionmodel->readByIndustry($industry)->result();
+    $a = array('positions' => $positions);
+    showView('positions/industry_listing', $a);
+  }
+  public final function readMyPosts()
+  {
+    $i = $this->positionmodel->readMyPosts()->result();
+    showView('positions/index', array('positions' => $i));
+  }
 	public final function update($id = null)
   {
     $o = $this->positionmodel->read($id)->row();
@@ -49,15 +68,8 @@ class Position extends CI_Controller
     {
       if($this->form_validation->run())
       {
-        $b = $this->positionmodel->update()->row();
-        if($b)
-        {
-          redirect(site_url('position/read/' . $o->id));
-        }
-        else
-        {
-          show_error('Error updating position.');
-        }
+        $this->positionmodel->update();
+        redirect(site_url('position/update/' . $this->input->post('id')));
       }
       else
       {
@@ -71,6 +83,7 @@ class Position extends CI_Controller
   }
 	public final function delete($id)
   {
-    showJsonView(array('position' => $this->position_model->delete($id)->row()));
+    $this->positionmodel->delete($id);
+    redirect(site_url('position'));
   }
 }

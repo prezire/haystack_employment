@@ -18,13 +18,36 @@
   textarea,
   label{font-size: 12px;}
 
+  .alert-box.alert{margin-bottom: 1px;}
+  
+  .slogan{display: none;}
+
+  a{color: #C3317E;}
+  a:hover{color: #540F33;}
+  
   .content h5{margin: 0;}
-  button, .button
+  button, 
+  .button,
+  button:focus,
+  .button:focus
   {
     padding-top: 9px; 
     margin: 4px 0; 
     font-size: 11px !important;
+    background-color: #C3317E;
+    border-color: #9B2664;
   }
+  /*Vertical align bug fix.*/
+  .button.tiny{position: relative; top: -1px;}
+
+  .button.tiny,
+  button.tiny{margin: 4px 0;}
+
+  body, 
+  header nav ul li a:hover,
+  button:hover, 
+  .button:hover{background-color: #540F33;}
+
   input[type="text"],
   select,
   button,
@@ -34,11 +57,32 @@
 
   input[type="text"],
   input[type="email"],
-  input[type="password"]{margin: 4px 0;}
+  input[type="password"]{margin: 4px 0; font-size: 11px;}
 
+  .tabs dd,
+  .tabs-content{border: 1px solid #DEDFE0;}
+  .tabs dd{border-bottom: 0;}
+
+  .tabs dd a{position: relative;}
+  .tabs dd a img
+  {
+    display: none; 
+    position: absolute; 
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .tabs dd.active a img{display: block;}
+
+  .panel form{margin-bottom: 0;}
+
+  .button.tiny, 
+  button.tiny{padding: 8px;}
   #home .listing.panel,
-  .tabs dd > a{padding: 8px;}
-  .tabs-content > .content{padding: 8px;}
+  .tabs dd > a{padding: 4px 8px;}
+
+  .tabs-content > .content{padding: 16px;}
 
   .tabs dd > a,
   input[type="text"],
@@ -64,30 +108,35 @@
   
   table{width: 100%;}
   
-  /*header nav ul li a{font-size: 12px;}*/
-  
   h5, p{font-size: 13px; margin-bottom: 3px;}
   
   hr{border-color: rgba(43, 50, 57, 0.15); margin: 8px 0;}
   
   table .button{margin: 0;}
   table tbody tr td, table tr td{padding-top: 2px; padding-bottom: 2px;}
+  table thead tr th,
+  table tbody tr td{font-size: 12px;}
+  table.responsive th:last-child{width: 180px;}
 
   .button.radius,
   button.small,
   .button.small{padding: 9px; font-size: 11px;}
   .postfix.button{width: 30px;}
 
-  #search{margin-top: 11px;}
+  #search{margin-top: 11px; text-align: center;}
+  #search form{margin-bottom: 0;}
   #search .fa.fa-search{font-size: 11px;}
   #search button{padding-top: 8px;}
+  #search .keywords, 
+  #search button{display: inline-block; margin-left: -4px;}
+  #search .keywords{width: 90%;}
   
   input[type="file"],
   input[type="text"],
   button,
   #home.index ul{margin: 4px 0;}
 
-  .tabs dd.active a{outline: none;}
+  .tabs dd.active a{outline: none; background-color: #C3317E; color: #fff;}
 
   .alert-box.alert{padding: 8px;}
   .show_menu{margin: 8px 0;}
@@ -96,17 +145,19 @@
 
   header{background-color: #fff;}
 
-  header nav ul li a:hover{color: #fff;}
+  button:hover, 
+  .button:hover,
+  header nav ul li a:hover{color: #fdb90d;}
+
   header nav ul li a{padding: 4px 0;}
   header nav ul{margin-top: 40px;}
-  header .logo{margin-top: 27px;}
-  header .logo img{max-width: 150px !important; height: 45px !important;}
+  header .logo{margin-top: 27px; text-align: center;}
+  header .logo img{height: 75px !important;}
   .row.panel{margin-bottom: 4px; background-color: #fff; padding: 8px;}
   .row.panel .columns{padding-left: 0;}
   /*.row.panel .columns:nth-child(2){margin-top: 11px;}*/
 
-  #search button{margin-left: 4px;}
-
+  
   #user .avatar,
   #resume .avatar{width: 100px; height: 100px;}
   /*/Commons.*/
@@ -115,7 +166,10 @@
   #faq h5{font-weight: bold;}
   /*/FAQ.*/
   
-  /*Home.*/ 
+  /*Home.*/
+  #home.index .row.options .columns{padding: 0;}
+  #home.index .panel{background-color: #fff;}
+  #home.index .quickApply{margin-right: 4px;} 
   #home.index .row.features{clear: left; margin-top: 20px;}
   #home.index .row.features img{width: 100%; height: auto;}
   #home.index .row.features .button{margin-top: 8px;}
@@ -143,12 +197,24 @@
   /*/Applicant.*/
 
   /*Resume.*/
-  #resume.update .options .panel.recipients input[type="text"]{margin: 0;}
-  #resume.update .options .panel.recipients input[type="text"],
-  #resume.update .options .panel.recipients button{display: inline;}
-  #resume.update .options .button{margin-bottom: 4px;}
-  #resume.update .options .panel.recipients{padding: 4px;}
-  #resume.update .options .panel.recipients .columns{padding-left: 0;}
+  #resume .details .columns{padding: 0;}
+  #resume .details label,
+  #resume .details input[type="text"],
+  #resume .details button{display: inline-block;}
+  #resume .details label,
+  #resume .details input[type="text"],
+  #resume .details button,
+  #resume .details .options a{margin: 0;}
+
+  #resume .details input.name{width: 100%; max-width: 300px;}
+  #resume .row.panel,
+  #resume .row.panel button.tiny{margin: 0;}
+  #resume .options .panel.recipients input[type="text"]{margin: 0;}
+  #resume .options .panel.recipients input[type="text"],
+  #resume .options .panel.recipients button{display: inline;}
+  #resume .options .button{margin-bottom: 4px;}
+  #resume .options .panel.recipients{padding: 4px;}
+  #resume .options .panel.recipients .columns{padding-left: 0;}
 
   #resume .hidden{display: none;}
   #resume img{width: 100px;}
@@ -245,24 +311,17 @@
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) { 
     /*Commons.*/
-    header{padding-left: 0;} 
+    header{padding-left: 0; width: 290px;} 
     #map{min-height: 250px;}
-    header .logo{margin-top: 17px; display: inline-block;}
+    header .logo{width: 100%; margin-top: 17px; display: inline-block;}
     header nav ul{margin-left: 0;}
-    header nav ul li{margin-bottom: 3px;}
+    header nav ul li{margin-bottom: 0; text-align: center;}
     #search .columns:nth-child(1){padding: 0;}
     #search .columns:nth-child(2){padding-right: 0;}
-
+    header .footer{width: 100%; text-align: center; bottom: 0;}
     input[type="email"]{margin: 0;}
     .row.panel .columns:nth-child(2){margin-top: 0;}
 
-    #comment h4,
-    #pooledApplicant h4,
-    #applicant h4,
-    #internship.read h4,
-    #internship.industry h4,
-    #home h4,
-    #analytics h4{margin-left: -15px;}
     /*/Commons.*/
 
     /*Home.*/
@@ -300,10 +359,17 @@
 
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) 
-{ 
-  header{padding-left: 20px; border-right: 1px solid rgba(43, 50, 57, 0.15);}
-  header nav ul li a{display: block; padding-left: 8px;}
+{
+  #search .keywords{width: 230px;}
+  
+  h4{margin-left: -16px;}
+  #resume h4{margin-left: 0;}
+
+  #auth.login h4{margin-left: 0;}
+  header{border-right: 1px solid rgba(43, 50, 57, 0.15);}
+  header nav ul li a{display: block; padding-right: 8px;}
   #internship .row.panel .columns:nth-child(2){margin-top: 0;}
+  .main{padding-left: 300px;}
 }
 
 /* min-width 1441px, xlarge screens */

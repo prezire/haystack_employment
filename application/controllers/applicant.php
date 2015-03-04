@@ -1,131 +1,139 @@
-<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
-class Applicant extends CI_Controller 
-{
-	public function __construct()
-	{
-		parent::__construct();
-    validateLoginSession
-    (
-      array('update', 'delete')
-    );
-    $this->load->model('applicantmodel');
-	}
-  public final function index()
+<?php 
+  if(!defined('BASEPATH')) exit('No direct script access allowed');
+  class Applicant extends CI_Controller 
   {
-    $o = $this->applicantmodel->index()->result();
-    showView('applicants/index', array('applicants' => $o));
-  }
-  public final function create()
-  {
-    if($this->input->post())
+  	public function __construct()
+  	{
+  		parent::__construct();
+      validateLoginSession
+      (
+        array('update', 'delete')
+      );
+      $this->load->model('applicantmodel');
+  	}
+    public final function index()
     {
-      if($this->form_validation->run('applicant/create'))
+      $o = $this->applicantmodel->index()->result();
+      showView('applicants/index', array('applicants' => $o));
+    }
+    public final function create()
+    {
+      if($this->input->post())
       {
-        $o = $this->applicantmodel->create()->row();
-        if($o->id)
+        if($this->form_validation->run('applicant/create'))
         {
-          $conf = $this->config->item('email');
-          $a = array
-          (
-            'full_name' => $o->full_name,
-            'site_url' => site_url(),
-            'activation_url' => site_url('auth/enable/1/' . $o->enable_token)
-          );
-          //
-          sendEmailer
-          (
-            'Simplifie Haystack - Verify Account',
-            $conf['admin'],
-            /*'haystackuser@localhost' */$o->email,
-            $this->parser->parse
+          $o = $this->applicantmodel->create();
+          if($o->num_rows() > 0)
+          {
+            $o = $o->row();
+            $conf = $this->config->item('email');
+            $a = array
             (
-              'auth/emailers/account_activation', 
-              $a, 
-              true
-            )
-          );
-          redirect(site_url('auth/registerSuccess'));
+              'full_name' => $o->full_name,
+              'site_url' => site_url(),
+              'activation_url' => site_url('auth/enable/1/' . $o->enable_token)
+            );
+            //
+            sendEmailer
+            (
+              'Simplifie Haystack - Verify Account',
+              $conf['admin'],
+              /*'haystackuser@localhost' */$o->email,
+              $this->parser->parse
+              (
+                'commons/emailers/auth/account_activation', 
+                $a, 
+                true
+              )
+            );
+            redirect(site_url('auth/registerSuccess'));
+          }
+          else
+          {
+            //$this->session->set_flashdata('error', '<p>Error creating applicant account.</p>');
+            //redirect(site_url('auth/register#applicant'));
+          }
         }
         else
         {
-          $this->session->set_flashdata('error', '<p>Error creating applicant account.</p>');
-          redirect(site_url('auth/register#applicant'));
+          $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
+          showView('applicants/create');
         }
       }
       else
       {
-        $this->session->set_flashdata('error', validation_errors());
-        redirect(site_url('auth/register#applicant'));
+        showView('applicants/create');
       }
     }
-    else
-    {
-      showView('applicants/create');
-    }
-  }
-	public final function read($id)
-	{
-    $this->load->model('usermodel');
-    $this->load->model('resumemodel');
-    $appl = $this->applicantmodel->read($id)->row();
-    $user = $this->usermodel->read($appl->user_id)->row();
-    //TODO: Multiple resumes.
-    $resumes = $this->resumemodel->readByApplicantId($appl->id);
-    $a = array
-    (
-      'applicant' => $appl, 
-      'user' => $user,
-      'resumes' => $resumes['resume']
-    );
-    $this->load->model('commentmodel');
-    $a['comments'] = $this->commentmodel->readByUserId($user->id, 'to')->result();
-    if(getRoleName() == 'Employer')
-    {
-      $this->load->model('pooledapplicantmodel');
-      $this->load->model('employermodel');
-      $a['applicantId'] = $id;
-      $a['isPooled'] = $this->pooledapplicantmodel->readByApplicantId($id)->num_rows() > 0;
-      $a['employerId'] = $this->employermodel->readByUserId(getLoggedUser()->id)->row()->id;
-    }
-    showView('applicants/read', $a);
-	}
-	public final function readByUserId($userId)
-	{
-    $this->load->model('usermodel');
-    $this->load->model('commentmodel');
-    $user = $this->usermodel->read($userId)->row();
-    $appl = $this->applicantmodel->readByUserId($userId)->row();
-    $a = array
-    (
-      'applicant' => $appl, 
-      'user' => $user,
-      'comments' => $this->commentmodel->readByUserId($userId)->result()
-    );
-		showView('applicants/read', $a);
-	}
-  public final function readByJobTitle($jobTitle)
-	{
-    $jobTitle = urldecode($jobTitle);
-    $jobTitles = $this->applicantmodel->readByJobTitle($jobTitle)->result();
-    $a = array('jobTitles' => $jobTitles);
-		showView('applicants/job_title_listing', $a);
-	}
-	public final function update($id = null)
-  {
-    $o = $this->applicantmodel->read($id)->row();
-    $a = array('applicant' => $o);
-    if($this->input->post())
-    {
-      if($this->form_validation->run('applicant/update'))
+  	public final function read($id)
+  	{
+      $this->load->model('usermodel');
+      $this->load->model('resumemodel');
+      $appl = $this->applicantmodel->read($id)->row();
+      $user = $this->usermodel->read($appl->user_id)->row();
+      //TODO: Multiple resumes.
+      $resumes = $this->resumemodel->readByApplicantId($appl->id);
+      //print_r($resumes);exit;
+      $a = array
+      (
+        'applicant' => $appl, 
+        'user' => $user,
+        'resumes' => $resumes['resume']
+      );
+      $this->load->model('commentmodel');
+      $a['comments'] = $this->commentmodel->readByUserId($user->id, 'to')->result();
+      if(getRoleName() == 'Employer')
       {
-        $b = $this->applicantmodel->update()->row();
-        if($b)
+        $this->load->model('pooledapplicantmodel');
+        $this->load->model('employermodel');
+        $a['applicantId'] = $id;
+        $a['isPooled'] = $this->pooledapplicantmodel->readByApplicantId($id)->num_rows() > 0;
+        $a['employerId'] = $this->employermodel->readByUserId(getLoggedUser()->id)->row()->id;
+      }
+      showView('applicants/read', $a);
+  	}
+  	public final function readByUserId($userId)
+  	{
+      $this->load->model('usermodel');
+      $this->load->model('commentmodel');
+      $user = $this->usermodel->read($userId)->row();
+      $appl = $this->applicantmodel->readByUserId($userId)->row();
+      $a = array
+      (
+        'applicant' => $appl, 
+        'user' => $user,
+        'comments' => $this->commentmodel->readByUserId($userId)->result()
+      );
+  		showView('applicants/read', $a);
+  	}
+    public final function readByJobTitle($jobTitle)
+  	{
+      $jobTitle = urldecode($jobTitle);
+      $jobTitles = $this->applicantmodel->readByJobTitle($jobTitle)->result();
+      $a = array('jobTitles' => $jobTitles);
+  		showView('applicants/job_title_listing', $a);
+  	}
+  	public final function update($id = null)
+    {
+      $o = $this->applicantmodel->read($id)->row();
+      $a = array('applicant' => $o);
+      if($this->input->post())
+      {
+        if($this->form_validation->run('applicant/update'))
         {
-          redirect(site_url('applicant/read/' . $o->id));
+          $b = $this->applicantmodel->update()->row();
+          if($b)
+          {
+            redirect(site_url('applicant/read/' . $o->id));
+          }
+          else
+          {
+            show_error('Error updating applicant.');
+          }
         }
         else
         {
-          show_error('Error updating applicant.');
+          showView('applicants/update', $a);
         }
       }
       else
@@ -133,13 +141,8 @@ class Applicant extends CI_Controller
         showView('applicants/update', $a);
       }
     }
-    else
+  	public final function delete($id)
     {
-      showView('applicants/update', $a);
+      showJsonView(array('applicant' => $this->applicant_model->delete($id)->row()));
     }
   }
-	public final function delete($id)
-  {
-    showJsonView(array('applicant' => $this->applicant_model->delete($id)->row()));
-  }
-}

@@ -12,6 +12,7 @@
 
 		<nav>
 			<ul>
+        <li><?php echo $this->load->view('commons/partials/search', null, true); ?></li>
         <li><a href="<?php echo site_url('main'); ?>">Home</a></li>
         <?php 
           if(isLoggedIn())
@@ -26,12 +27,11 @@
                 echo '<li><a href="' . site_url('internshipapplication') . '">Applications</a></li>';
               break;
               case 'Employer':
-                echo '<li><a href="' . site_url('internship/readMyPosts') . '">Internships</a></li>';
+                echo '<li><a href="' . site_url('position') . '">Positions</a></li>';
                 echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
                 echo '<li><a href="' . site_url('member') . '">Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
                 echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
-                echo '<li><a href="' . site_url('internshipapplication') . '">Applications</a></li>';
               break;
               case 'Subscriber':
                 echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
@@ -58,7 +58,7 @@
 
 		<div class="footer clearfix">
 			<div class="rights">
-				<p>Copyright &copy; 2015 Simplifie Haystack.</p>
+				<p>Copyright &copy; 2015 <br />Simplifie HayStack.</p>
 			</div><!-- end rights -->
 		</div ><!-- end footer -->
 	</header><!-- end header -->

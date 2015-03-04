@@ -85,20 +85,10 @@ function Haystack()
     });
     //
     $('.delete').click(function(e){
-      if(confirm('Are you sure?'))
+      if(!confirm('Delete item. Are you sure?'))
       {
-        var t = $(this);
-        var url = t.attr('href');
-        $.ajax({url: url, success: function(response){
-          if(response.success)
-          {
-            var p = t.parent().parent().parent();
-            var el = p.children('#' + response.id);
-            el.remove(); 
-          }
-        }});
+        e.preventDefault();
       }
-      e.preventDefault();
     });
     $('#home.index .btnShowListing').click(function(e){
       $('#home.index .expandable').slideToggle();

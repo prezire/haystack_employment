@@ -18,14 +18,12 @@
 
 	<div class="row">
 		<?php echo form_open('auth/forgotPassword'); ?>
-			<div class="small-12 medium-1 large-1 columns">
-				Email:*
-			</div>
-			<div class="small-12 medium-9 large-9 columns">
-				<input type="email" name="email" placeholder="someone@somewhere.com" value="<?php echo set_value('email'); ?>" />
+			<div class="small-12 medium-9 large-10 columns">
+				<input type="email" name="email" placeholder="Email*" value="<?php echo set_value('email'); ?>" />
 			</div>
 			<div class="small-12 medium-2 large-2 columns">
-				<button class="tiny radius">Send Emailer</button>
+				<a href="<?php echo site_url('auth/login'); ?>" class="button tiny alert">Back</a>
+				<button class="tiny">Send Emailer</button>
 			</div>
 		</form>
 	</div>

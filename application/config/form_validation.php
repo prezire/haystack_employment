@@ -92,6 +92,12 @@ $config = array
 			'field' => 'full_name',
 			'label' => 'Full Name',
 			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'current_position_title',
+			'label' => 'Current Position Title',
+			'rules' => 'required|xss_clean|trim'
 		)
 	),
   	'employer/create' => array
@@ -116,8 +122,26 @@ $config = array
 		),
 		array
 		(
-			'field' => 'organization_name',
-			'label' => 'Organization Name',
+			'field' => 'company_name',
+			'label' => 'Company Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_address',
+			'label' => 'Company Address',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_city',
+			'label' => 'Company City',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_country',
+			'label' => 'Company Country',
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
@@ -167,12 +191,6 @@ $config = array
 		),
 		array
 		(
-			'field' => 'address',
-			'label' => 'Address',
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
 			'field' => 'date_from',
 			'label' => 'Date From',
 			'rules' => 'required|xss_clean|trim'
@@ -181,6 +199,30 @@ $config = array
 		(
 			'field' => 'date_to',
 			'label' => 'Date To',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'industry',
+			'label' => 'Industry',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'category',
+			'label' => 'Category',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'shift_pattern',
+			'label' => 'Shift Pattern',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'salary',
+			'label' => 'Salary',
 			'rules' => 'required|xss_clean|trim'
 		),
 		array
@@ -202,12 +244,6 @@ $config = array
 		(
 			'field' => 'name',
 			'label' => 'Name',
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'address',
-			'label' => 'Address',
 			'rules' => 'required|xss_clean|trim'
 		),
 		array
@@ -239,18 +275,18 @@ $config = array
 	(
 		array
 		(
-			'field' => 'headline',
-			'label' => 'Headline',
-			'rules' => ''
+			'field' => 'name',
+			'label' => 'Name',
+			'rules' => 'required|xss_clean|trim|min_length[1]'
 		)
 	),
 	'additionalinformation/update' => array
 	(
 		array
 		(
-			'field' => 'information',
-			'label' => 'Information',
-			'rules' => ''
+			'field' => 'additional_information',
+			'label' => 'Additional Information',
+			'rules' => 'xss_clean|trim'
 		)
 	),
 	'education/update' => array
@@ -323,8 +359,26 @@ $config = array
 	(
 		array
 		(
-			'field' => 'name', 
-			'label' => 'Name', 
+			'field' => 'company_name', 
+			'label' => 'Company Name', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_address', 
+			'label' => 'Company Address', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_city', 
+			'label' => 'Company City', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'company_country', 
+			'label' => 'Company Country', 
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
@@ -352,24 +406,6 @@ $config = array
 		(
 			'field' => 'country', 
 			'label' => 'Country', 
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'zip_code', 
-			'label' => 'Zip Code', 
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'name', 
-			'label' => 'Name', 
-			'rules' => 'required|xss_clean|trim'
-		),
-		array
-		(
-			'field' => 'landline', 
-			'label' => 'Landline', 
 			'rules' => 'required|xss_clean|trim'
 		)
 	)

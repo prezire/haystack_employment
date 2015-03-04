@@ -42,9 +42,10 @@
       $c = $this->config->item('db');
       $s = $this->load->database($c['simplifie'], true);
       $h = $this->load->database($c['haystack'], true);
+    BUG: Not usable on default loaded DB for validations.
   */
   $config['db'] = array
   (
-    'simplifie' => array('mysql://root:@localhost/simplifie'),
-    'haystack' => array('mysql://root:@localhost/haystack_employment')
+    'simplifie' => 'mysql://root:@localhost/simplifie',
+    'haystack' => 'mysql://root:@localhost/haystack_employment'
   );

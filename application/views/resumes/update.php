@@ -10,37 +10,53 @@
 
   <section>
     <div class="row">
-      <div class="small-12 medium-12 large-12 columns"><h6>Resume</h6></div>
       <div class="small-12 medium-12 large-12 columns">
-        <section class="options">
-          <a href="<?php echo site_url('resume/read/' . $resume->resume_id); ?>" class="button tiny radius preview">
-            <i class="fa fa-file-text-o"></i> Preview
-          </a>
-          <a href="#" class="button tiny radius forward">
-            <i class="fa fa-forward"></i> Forward
-          </a>
-          <!--a href="#" class="button tiny radius download">
-            <i class="fa fa-angle-double-down"></i> Download
-          </a-->
-          <div class="row panel recipients radius hide">
-            <div class="small-8 medium-11 large-11 columns">
-              <input type="text" class="recipients" placeholder="Comma-separated emails." /> 
-            </div>
-            <div class="small-4 medium-1 large-1 columns">
-              <button class="tiny radius">Send</button>
-            </div>
-          </div>
-        </section>
+        <h6>Resume</h6>
+        <div class="details">
+          <span>
+            <label>Name*:</label>
+              <input type="text"  
+                    class="name" 
+                    value="<?php echo $resume->name; ?>"
+                    id="<?php echo $resume->resume_id; ?>" />
+              <a href="<?php echo site_url('resume/update'); ?>" class="button tiny btnUpdateResume">
+                Update
+              </a>
+            </span>
+            <span class="options">
+              <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">Back</a>
+              <a href="<?php echo site_url('resume/read/' . $resume->resume_id); ?>" class="button tiny preview">
+                Preview
+              </a>
+              <a href="#" class="button tiny forward">
+                Forward
+              </a>
+              <!--a href="#" class="button tiny download">
+                <i class="fa fa-angle-double-down"></i> Download
+              </a-->
+              <div class="row panel recipients tiny hide">
+                <div class="small-8 medium-11 large-11 columns">
+                  <input type="text" class="recipients" placeholder="Comma-separated emails." /> 
+                </div>
+                <div class="small-4 medium-1 large-1 columns">
+                  <button class="tiny tiny">Send</button>
+                </div>
+              </div>
+            </span>
+        </div>
       </div>
+      
+        
+      
     </div>
     <hr />
     <section class="resume">
       <div class="row">
         <div class="small-11 medium-11 large-11 columns">
           <h5>
-            Basic Profile (Note: Disabled items are directly linked to your 
+            Basic Profile (Note: Disabled items are directly editable from your 
             <a href="<?php echo site_url('user/update/' . getLoggedUser()->id); ?>">
-              profile
+              Profile
             </a>)
           </h5>
         </div>
@@ -105,7 +121,7 @@
             ?>
           </div>
           <div class="small-6 medium-6 large-6 columns">
-            Expected Salary (USD) <input type="text" name="expected_salary" value="<?php echo set_value('expected_salary', $resume->expected_salary); ?>" disabled />
+            Expected Salary (USD) <input type="text" name="expected_salary" value="<?php echo set_value('expected_salary', $resume->expected_salary); ?>" />
           </div>
         </div>
         <div class="row">
@@ -123,7 +139,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><button class="button radius small">Update</button></div>
+          <div class="small-12 medium-12 large-12 columns"><button class="button tiny small">Update</button></div>
         </div>      
       </form>
     </section>
@@ -135,7 +151,7 @@
       </div>
       <?php echo form_open('workhistory/update'); ?>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small radius addWorkHistory right">Add work history</a></div>
+          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small tiny addWorkHistory right">Add work history</a></div>
         </div>
         <input type="hidden" name="resume_id" value="<?php echo set_value('resume_id', $resume->resume_id); ?>" />
         <ul>
@@ -147,7 +163,7 @@
           <?php } ?>
         </ul>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><button class="radius tiny">Update</button></div>
+          <div class="small-12 medium-12 large-12 columns"><button class="tiny">Update</button></div>
         </div>
       </form>
     </section>
@@ -159,7 +175,7 @@
       </div>
       <?php echo form_open('education/update'); ?>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small radius addEducation right">Add education</a></div>
+          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small tiny addEducation right">Add education</a></div>
         </div>
         <input type="hidden" name="resume_id" value="<?php echo set_value('resume_id', $resume->resume_id); ?>" />
         <ul>
@@ -171,7 +187,7 @@
           <?php } ?>
         </ul>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><button class="radius tiny">Update</button></div>
+          <div class="small-12 medium-12 large-12 columns"><button class="tiny">Update</button></div>
         </div>
       </form>
     </section>
@@ -183,7 +199,7 @@
       </div>
       <?php echo form_open('skill/update'); ?>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small radius addSkills right">Add skills</a></div>
+          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small tiny addSkills right">Add skills</a></div>
         </div>
         <input type="hidden" name="resume_id" value="<?php echo set_value('resume_id', $resume->resume_id); ?>" />
         <ul>
@@ -195,7 +211,7 @@
           <?php } ?>
         </ul>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><button class="radius tiny">Update</button></div>
+          <div class="small-12 medium-12 large-12 columns"><button class="tiny">Update</button></div>
         </div>
       </form>
     </section>
@@ -207,7 +223,7 @@
       </div>
       <?php echo form_open('certification/update'); ?>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small radius addCertification right">Add certification</a></div>
+          <div class="small-12 medium-12 large-12 columns"><a href="#" class="button small tiny addCertification right">Add certification</a></div>
         </div>
         <input type="hidden" name="resume_id" value="<?php echo set_value('resume_id', $resume->resume_id); ?>" />
         <ul>
@@ -219,7 +235,7 @@
           <?php } ?>
         </ul>
         <div class="row">
-          <div class="small-12 medium-12 large-12 columns"><button class="radius tiny">Update</button></div>
+          <div class="small-12 medium-12 large-12 columns"><button class="tiny">Update</button></div>
         </div>
       </form>
     </section>
@@ -236,7 +252,7 @@
           array
           (
             'resume' => $resume, 
-            'additional_information' => $resume->additional_information
+            'additional_information' => $additionalInformations
           ), 
           true
         );

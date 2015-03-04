@@ -33,9 +33,7 @@
     public final function read( $id ) {
       showView( 'additional_informations/read', array( 'additionalInformation' => $this->additionalinformationmodel->read( $id )->row() ) );
     }
-    public final function update() {
-      $o = $this->additionalinformationmodel->read( $id )->row();
-      $a = array( 'additionalInformation' => $o );
+    public final function update($id = null) {
       if ( $this->input->post() ) {
         if ( $this->form_validation->run( 'additionalinformation/update' ) ) {
           $this->additionalinformationmodel->update();
@@ -44,6 +42,11 @@
         else {
           showJsonView( array( 'success' => false, 'message' => validation_errors() ) );
         }
+      }
+      else
+      {
+        $o = $this->additionalinformationmodel->read( $id )->row();
+        $a = array( 'additionalInformation' => $o ); 
       }
     }
     public final function delete( $id ) {

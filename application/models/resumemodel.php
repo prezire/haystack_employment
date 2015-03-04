@@ -6,28 +6,37 @@
 		}
 		public final function index()
 		{
+      $this->load->model('applicantmodel');
+      $aId = $this->applicantmodel->readByUserId(getLoggedUser()->id)->row()->id;
 			$this->db->select('r.*');
 			$this->db->from('resumes r');
-      //
+      $this->db->where('applicant_id', $aId);
 			return $this->db->get();
 		}
 		public final function create()
 		{
 			$i = $this->input;
-			$this->db->insert
-			(
-				'resumes', 
-				getPostValuePair()
-			);
-			return $this->read($this->db->insert_id());
+			$this->db->insert('resumes', getPostValuePair());
+			$rId = $this->read($this->db->insert_id())->row()->id;
+      //Create Additional Information.
+      $this->db->insert('additional_informations', array('resume_id' => $rId));
+      return $rId;
 		}
-    public final function createFromProfile()
+    public final function createFromProfile($applicantId)
     {
-      $a = array();
-      $i = $this->input;
-      $fName = $i->post('full_name');
-      $this->db->create('resumes', array('full_name' => $fName));
-      return $this->read($this->db->result_id());
+      //Init create 3 resumes. 
+      for($j = 0; $j < 3; $j++)
+      {
+        $a = array
+        (
+          'applicant_id' => $applicantId,
+          'name' => 'My Resume ' . ($j + 1)
+        );
+        $this->db->insert('resumes', $a);
+        $rId = $this->read($this->db->insert_id())->row()->id;
+        //Create Additional Information.
+        $this->db->insert('additional_informations', array('resume_id' => $rId));
+      }
     }
     public final function readByUserId($userId)
     {
@@ -35,15 +44,15 @@
       $applId = $this->applicantmodel->readByUserId($userId)->row()->id;
       return $this->db->get_where('resumes', array('applicant_id' => $applId));
     }
-    public final function readByApplicantId($applicantId)
+    public final function readByIdAndApplicantId($id, $applicantId)
     {
       $r = $this->db->get_where
       (
         'resumes', 
         array
         (
-          'applicant_id' => 
-          $applicantId
+          'id' => $id,
+          'applicant_id' => $applicantId
         )
       )->row();
       return $this->readDetails($r->id);
@@ -61,9 +70,9 @@
       $this->db->where('r.id', $id);
       $resume = $this->db->get()->row();
       //
-      $this->db->order_by('from', 'ASC');
+      $this->db->order_by('date_from', 'ASC');
       $works = $this->db->get_where('work_histories', array('resume_id' => $id))->result();
-      $this->db->order_by('from', 'ASC');
+      $this->db->order_by('date_from', 'ASC');
       $eds = $this->db->get_where('educations', array('resume_id' => $id))->result();
       //
       $skills = $this->db->get_where('skills', array('resume_id' => $id))->result();
@@ -76,20 +85,27 @@
         'educations' => $eds,
         'skills' => $skills,
         'certifications' => $certs,
-        'additionalInformations' => $infos
+        'additionalInformations' => $infos->information
       );
       return $a;
 		}
 		public final function update()
 		{
       $i = $this->input;
+      $a = getPostValuePair(array('current_position_title', 'expected_salary'));
 			$id = $i->post('id');
 			$this->db->where('id', $id);
-			$this->db->update
+			$this->db->update('resumes', $a);
+      //
+      $applId = $this->read($id)->row()->applicant_id;
+      //Update applicant.
+      $this->db->where('id', $applId);
+      $a = array
       (
-        'resumes', 
-        getPostValuePair()
+        'current_position_title' => $i->post('current_position_title'),
+        'expected_salary' => $i->post('expected_salary')
       );
+      $this->db->update('applicants', $a);
 		}
 		public final function delete($id)
     {
