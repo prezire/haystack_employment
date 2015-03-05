@@ -25,9 +25,12 @@
                 //echo '<li><a href="' . site_url('internship/bookmarks') . '">Bookmarks</a></li>';
                 //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
                 echo '<li><a href="' . site_url('internshipapplication') . '">Applications</a></li>';
+                echo '<li><a href="' . site_url('resume') . '">Resumes</a></li>';
+                echo '<li><a href="' . site_url('employer') . '">Employers</a></li>';
               break;
               case 'Employer':
                 echo '<li><a href="' . site_url('position') . '">Positions</a></li>';
+                echo '<li><a href="' . site_url('applicant') . '">Applicants</a></li>';
                 echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
                 echo '<li><a href="' . site_url('member') . '">Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
@@ -58,7 +61,8 @@
 
 		<div class="footer clearfix">
 			<div class="rights">
-				<p>Copyright &copy; 2015 <br />Simplifie HayStack.</p>
+				<p>Copyright &copy; 2015 <br />
+          <a href="http://www.simplifie.net" target="_blank">Simplifie</a> HayStack.</p>
 			</div><!-- end rights -->
 		</div ><!-- end footer -->
 	</header><!-- end header -->

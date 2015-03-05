@@ -72,21 +72,38 @@ class Resume extends CI_Controller
       showView('resumes/create');
     }
   }
+  public final function request()
+  {
+    if($this->input->post())
+    {
+      $uId = $this->input->post('user_id');
+      if($this->form_validation->run('resume/request'))
+      {
+        $this->resumemodel->request();
+        redirect(site_url('resume/readByUserId/' . $uId));
+      }
+      else
+      {
+        $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
+        $this->readByUserId($uId);
+      }
+    }
+  }
 	public final function read($id)
 	{
     $a = $this->resumemodel->readDetails($id);
 		showView('resumes/read', $a);
 	}
+  //Used when someone is viewing an Applicant's Profile and
+  //requests to view his Public Resume.
   public final function readByUserId($userId)
   {
+    $r = $this->resumemodel->readByUserId($userId);
+    $r['userId'] = $userId;
     $this->load->model('applicantmodel');
     $applId = $this->applicantmodel->readByUserId($userId)->row()->id;
-    $rId = $this->db->get_where
-    (
-      'resumes', 
-      array('applicant_id' => $applId)
-    )->row()->id;
-    redirect(site_url('resume/read/' . $rId));
+    $r['applicantId'] = $applId;
+    showView('resumes/read', $r);
   }
 	public final function update($id = null)
   {

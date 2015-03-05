@@ -3,27 +3,28 @@
   <div class="row intro">
     <div class="small-12 medium-12 large-12 columns">
       <div class="large">Simplifie Haystack</div>
+      <span>
       Simplifie Haystack is a platform bringing students, job seekers, 
-      employers and education institutions together in one centralized location. 
-      Our system specializes in helping students and professionals find the right 
+      employers and education institutions together in <u>one centralized location</u>. 
+      Our system specializes in <u>helping students and professionals</u> find the right 
       positions for their career.
 
       <br /><br />
 
-      Internships are the most effective way for students to gain 
-      work experience before graduation. It's also another way to gain more experience 
-      for professionals who are changing career paths. In fact, studies show that 
-      7 out of 10 internships turn into full-time jobs. Luckily, starting your 
-      positions search is easy. Simply tell us your college major and preferred 
-      location and you can connect with thousands of companies that are hiring now.
+      Select different categories such as internships. Internships are the most 
+      effective way for students to gain work experience before graduation. It's 
+      also another way to gain more experience for professionals who are changing 
+      career paths. In fact, studies show that 7 out of 10 internships turn into 
+      full-time jobs.
 
       <br /><br />
 
-      Whether you’re looking for work experience, want to receive college credits 
-      or just need some extra spending money, you can use Simplifie Haystack to find 
-      paid internships, summer jobs or entry level jobs.
+      Luckily, starting your positions search is easy. Simply tell 
+      us your college major and preferred location and you can connect with 
+      thousands of companies that are hiring now.
 
       <br /><br />
+      </span>
     </div>
   </div>
 
@@ -57,6 +58,9 @@
         ?>
         <div class="content active" id="applicantsSummary">
           <h5>Applicant Position Titles</h5>
+          <a href="<?php echo site_url('applicant'); ?>" class="button tiny">
+            Show All Applicants
+          </a>
           <ul>
             <?php 
               foreach($applsSummary as $a){
@@ -74,6 +78,9 @@
         </div>
         <div class="content" id="positionsSummary">
           <h5>Position Industries</h5>
+          <a href="<?php echo site_url('position'); ?>" class="button tiny">
+            Show All Positions
+          </a>
           <ul>
             <?php 
               foreach($posSummary as $p){

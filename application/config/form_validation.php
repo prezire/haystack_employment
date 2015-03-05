@@ -280,6 +280,15 @@ $config = array
 			'rules' => 'required|xss_clean|trim|min_length[1]'
 		)
 	),
+	'resume/request' => array
+	(
+		array
+		(
+			'field' => 'emails',
+			'label' => 'Emails',
+			'rules' => 'required|xss_clean|trim|min_length[3]|valid_emails'
+		)
+	),
 	'additionalinformation/update' => array
 	(
 		array
@@ -408,5 +417,14 @@ $config = array
 			'label' => 'Country', 
 			'rules' => 'required|xss_clean|trim'
 		)
-	)
+	),
+	'search' => array
+    (
+    	array
+   		(
+        	'field' => 'keywords',
+        	'label' => 'Keywords',
+        	'rules' => 'required|trim|xss_clean'
+    	)
+    )
 );

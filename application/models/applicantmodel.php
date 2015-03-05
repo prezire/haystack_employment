@@ -7,7 +7,7 @@
 		}
 		public final function index()
 		{
-			$this->db->select('a.*, u.*, u.id user_id');
+			$this->db->select('a.*, u.*, a.id applicant_id, u.id user_id');
 			$this->db->from('applicants a');
       $this->db->join('users u', 'a.user_id = u.id');
 			return $this->db->get();

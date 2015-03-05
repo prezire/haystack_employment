@@ -38,11 +38,49 @@
         $this->db->insert('additional_informations', array('resume_id' => $rId));
       }
     }
+    public final function request()
+    {
+      $i = $this->input;
+      $uId = $i->post('user_id');
+      $emails = $i->post('emails');
+      $this->load->model('applicantmodel');
+      $applId = $this->applicantmodel->readByUserId($uId)->row()->id;
+      $a = array('emails' => $emails, 'applicant_id' => $applId);
+      $this->db->insert('resume_requests', $a);
+      return $this->db->insert_id();
+    }
     public final function readByUserId($userId)
     {
       $this->load->model('applicantmodel');
-      $applId = $this->applicantmodel->readByUserId($userId)->row()->id;
-      return $this->db->get_where('resumes', array('applicant_id' => $applId));
+      $o = $this->applicantmodel->readByUserId($userId);
+      if($o->num_rows() > 0)
+      {
+        $applId = $o->row()->id;
+        $a = array('applicant_id' => $applId, 'access_type' => 'Public');
+        $r = $this->db->get_where('resumes', $a);
+        if($r->num_rows() > 0)
+        {
+          $r = $r->row();
+          return $this->readDetails($r->id);
+        }
+        else
+        {
+          return array('resume' => array());
+        }
+      }
+      else
+      {
+        return array('resume' => array());
+      }
+    }
+    public final function readByApplicantId($applicantId)
+    {
+      $r = $this->db->get_where
+      (
+        'resumes', 
+        array('applicant_id' => $applicantId)
+      )->row();
+      return $this->readDetails($r->id);
     }
     public final function readByIdAndApplicantId($id, $applicantId)
     {
@@ -77,7 +115,8 @@
       //
       $skills = $this->db->get_where('skills', array('resume_id' => $id))->result();
       $certs = $this->db->get_where('certifications', array('resume_id' => $id))->result();
-      $infos = $this->db->get_where('additional_informations', array('resume_id' => $id))->row();
+      $infos = $this->db->get_where('additional_informations', array('resume_id' => $id));
+      $sInfos = $infos->num_rows() > 0 ? $infos->row()->information : '';
       $a = array
       (
         'resume' => $resume,
@@ -85,7 +124,7 @@
         'educations' => $eds,
         'skills' => $skills,
         'certifications' => $certs,
-        'additionalInformations' => $infos->information
+        'additionalInformations' => $sInfos
       );
       return $a;
 		}

@@ -62,7 +62,7 @@
     public final function eula() {showView( 'eula' );}
     public final function faq() {showView( 'faq' );}
     //curl -r 'keywords=information' http://localhost/haystack/index.php/main/search
-    public final function search() {
+    /*public final function search() {
       if ( $this->input->post() ) {
         $this->load->model( 'mainmodel' );
         $o = $this->mainmodel->search()->result();
@@ -72,5 +72,5 @@
       else {
         echo 'hello';
       }
-    }
+    }*/
   }

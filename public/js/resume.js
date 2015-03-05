@@ -4,7 +4,7 @@ function Resume()
   //
   this.init = function(){
     this.sCloseUi = '<a href="#" class="close">&times;</a>';
-    $('#resume form').hide();
+    $('#resume.update form').hide();
     this.setListeners();
   };
   this.addItem = function(hiddenContainer, ulContainer){

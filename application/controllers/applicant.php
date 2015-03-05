@@ -71,7 +71,6 @@
       $this->load->model('resumemodel');
       $appl = $this->applicantmodel->read($id)->row();
       $user = $this->usermodel->read($appl->user_id)->row();
-      //TODO: Multiple resumes.
       $resumes = $this->resumemodel->readByApplicantId($appl->id);
       //print_r($resumes);exit;
       $a = array

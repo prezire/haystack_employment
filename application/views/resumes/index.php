@@ -7,7 +7,11 @@
 		the position while highlighting only relevant 
 		Skills, Certifications and Additional Information.
 		No more editing one resume over and over again
-		everytime you apply.
+		everytime you apply. 
+		<br />
+		It's advisable that you only
+		set one resume to Public. The other 2 can either be
+		Private or Unlisted.
 	</p>
 
 	<?php if(count($resumes) < 4){ ?>

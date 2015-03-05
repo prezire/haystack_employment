@@ -2,6 +2,7 @@
 @media only screen 
 {
   /*Commons.*/
+  html,body{line-height: 19px;}
   body, header nav ul li a:hover{background-color: #2A3239;}
 
   body,
@@ -123,7 +124,15 @@
   .button.small{padding: 9px; font-size: 11px;}
   .postfix.button{width: 30px;}
 
-  #search{margin-top: 11px; text-align: center;}
+  #search{margin-top: 11px;}
+  #search .postfix
+  {
+    line-height: 12px;
+    height: 30px;
+    padding: 8px;
+    margin-top: 4px;
+  }
+  #search .advanced{padding: 0;}
   #search form{margin-bottom: 0;}
   #search .fa.fa-search{font-size: 11px;}
   #search button{padding-top: 8px;}
@@ -167,6 +176,15 @@
   /*/FAQ.*/
   
   /*Home.*/
+  #home.index .intro span{font-size: 13px; line-height: 19px;}
+  #home.index .intro u{color: #C3317E;}
+  #home.index .large
+  {
+    font-size: 50px; 
+    text-align: center; 
+    margin: 20px 0;
+    line-height: 40px;
+  }
   #home.index .row.options .columns{padding: 0;}
   #home.index .panel{background-color: #fff;}
   #home.index .quickApply{margin-right: 4px;} 
@@ -253,18 +271,19 @@
   #resume.read .row.panel{padding: 4px 8px;}
   /*/Resume.*/
 
+  /*Search.*/
+  #search.results .panel{padding: 8px; margin-bottom: 4px;}
+  /*/Search.*/
+
   /*Internship.*/
-  #search .listing .row .columns{margin-bottom: 8px;}
-  #internship .listing .row .columns.primary,
-  #search .listing .row .columns.primary{border: none;}
+  #internship .listing .row .columns.primary{margin-bottom: 8px;}
   #internship .listing .row .columns a,
-  #internship .listing .row .columns .calendar,
-  #search .listing .row .columns a,
-  #search .listing .row .columns .calendar
+  #internship .listing .row .columns .calendar
   {
     margin-bottom: 8px;
     display: block;
   }
+  
   .listing .row .columns a
   {
     display: inline !important;
@@ -316,8 +335,8 @@
     header .logo{width: 100%; margin-top: 17px; display: inline-block;}
     header nav ul{margin-left: 0;}
     header nav ul li{margin-bottom: 0; text-align: center;}
-    #search .columns:nth-child(1){padding: 0;}
-    #search .columns:nth-child(2){padding-right: 0;}
+    #search.index .columns:nth-child(1){padding: 0;}
+    #search.index .columns:nth-child(2){padding-right: 0;}
     header .footer{width: 100%; text-align: center; bottom: 0;}
     input[type="email"]{margin: 0;}
     .row.panel .columns:nth-child(2){margin-top: 0;}
@@ -363,7 +382,10 @@
   #search .keywords{width: 230px;}
   
   h4{margin-left: -16px;}
-  #resume h4{margin-left: 0;}
+  #resume h4,
+  #applicant.index h4,
+  #search h4,
+  #position h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}
