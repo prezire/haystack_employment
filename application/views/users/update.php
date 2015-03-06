@@ -107,9 +107,21 @@
         <div class="large-12 columns">
           <?php 
             $r = getRoleName();
-            if($r != 'Employer'){
+            if($r == 'Employer'){
           ?>
-            <a href="<?php echo site_url(strtolower($r) . '/read/' . $id); ?>" class="button small tiny">Preview</a>
+            <a href="<?php echo site_url('company/updateFromEmployerProfile/' . $user->id); ?>" class="button tiny">
+              Update Company
+            </a>  
+          <?php
+            }
+            else if($r == 'Educator')
+            {
+              //
+            }
+            else
+            {
+          ?>
+            <a href="<?php echo site_url(strtolower($r) . '/read/' . $id); ?>" class="button tiny">Preview</a>
           <?php } ?>
           <button class="small tiny">Update</button>
         </div>

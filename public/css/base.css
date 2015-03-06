@@ -276,14 +276,13 @@
   /*/Search.*/
 
   /*Internship.*/
-  #internship .listing .row .columns.primary{margin-bottom: 8px;}
+  /*#internship .listing .row .columns.primary{margin-bottom: 8px;}
   #internship .listing .row .columns a,
   #internship .listing .row .columns .calendar
   {
     margin-bottom: 8px;
     display: block;
   }
-  
   .listing .row .columns a
   {
     display: inline !important;
@@ -292,15 +291,28 @@
   }
   .listing .row .columns a.alert{color: #F04124;}
   .listing .row .columns a:hover{text-decoration: underline;}
-  #internship .button.radius{margin-bottom: 0;}
+  #internship .button.radius{margin-bottom: 0;}*/
   /*/Internship.*/
 
+  /*Position.*/
+  #position.read .name{font-size: 16px; color: #9B2664;}
+  #position.read .columns,
+  #position.update .columns{padding-left: 0;}
+  #position.read .panel{padding: 8px;}
+  #position.read .panel .panel{margin: 0;}
+  #position.read .id,
+  #position.read .address{color: #666;}
+  /*/Position.*/
+
+  /*Employer.*/
+  /*/Employer.*/
+
   /*Internship Applications.*/
-  #internshipApplication.index.employer .applicants.panel
+  /*#internshipApplication.index.employer .applicants.panel
   {
     padding: 4px !important;
     margin-top: 8px;
-  }
+  }*/
   /*/Internship Application.*/
 
   /*Contact.*/
@@ -323,8 +335,12 @@
   #analytics input[type="checkbox"],
   #analytics label{margin: 0;}
   #analytics input[type="checkbox"]{margin-top: 7px;}
-
   /*/Analytics.*/
+
+  /*Company*/
+  #company.update .logo{width: 100px; height: 100px;}
+  #company.update .columns{padding-left: 0;}
+  /*/Company*/
 }
 
 /* min-width 641px, medium screens */
@@ -385,7 +401,9 @@
   #resume h4,
   #applicant.index h4,
   #search h4,
-  #position h4{margin-left: 0;}
+  #position h4,
+  #employer h4,
+  #company h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}

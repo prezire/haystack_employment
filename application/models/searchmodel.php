@@ -89,11 +89,15 @@
         $tmpTitle = str_ireplace($k, '<b>' . $k . '</b>', $tmpTitle);
         $tmpDescr = str_ireplace($k, '<b>' . $k . '</b>', $tmpDescr);
         //
+        $this->load->helper('inflector');
+        $h = $href . '/' . $r['id'];
+        $t = humanize(singular($tableName)) . ': ' . $tmpTitle;
+        $d = character_limiter($tmpDescr, 150);
         $a = array
         (
-          'href' => $href . '/' . $r['id'],
-          'title' => $tmpTitle,
-          'description' => $tmpDescr
+          'href' => $h,
+          'title' => $t,
+          'description' => $d
         );
         array_push($items, $a);
       }

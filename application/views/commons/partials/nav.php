@@ -14,6 +14,7 @@
 			<ul>
         <li><?php echo $this->load->view('commons/partials/search', null, true); ?></li>
         <li><a href="<?php echo site_url('main'); ?>">Home</a></li>
+        <li><a href="<?php echo site_url('applicant'); ?>">Applicants</a></li>
         <?php 
           if(isLoggedIn())
           {
@@ -30,7 +31,6 @@
               break;
               case 'Employer':
                 echo '<li><a href="' . site_url('position') . '">Positions</a></li>';
-                echo '<li><a href="' . site_url('applicant') . '">Applicants</a></li>';
                 echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
                 echo '<li><a href="' . site_url('member') . '">Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';

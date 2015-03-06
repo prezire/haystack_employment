@@ -1,8 +1,8 @@
 <div id="company" class="update row">
-  <h4></h4>
+  <h4>Company</h4>
     <?php 
-    echo validation_errors();
-    echo form_open('company/update'); 
+      echo validation_errors();
+      echo form_open('company/update'); 
     ?>          
       Id: <input type="text" name="id" value="<?php echo set_value('id', $company->id); ?>" />      
           

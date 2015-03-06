@@ -14,7 +14,7 @@
     </a>
     <div>
       <strong>Description:</strong>
-      <?php echo character_limiter($i->description, 150); ?>
+      <?php echo character_limiter(nl2br($i->description), 150); ?>
     </div>
   </div>
   <div class="small-12 medium-12 large-4 columns">

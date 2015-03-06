@@ -7,7 +7,8 @@
       Simplifie Haystack is a platform bringing students, job seekers, 
       employers and education institutions together in <u>one centralized location</u>. 
       Our system specializes in <u>helping students and professionals</u> find the right 
-      positions for their career.
+      positions for their career as well as provide insightful data for 
+      employers and schools.
 
       <br /><br />
 
@@ -21,7 +22,7 @@
 
       Luckily, starting your positions search is easy. Simply tell 
       us your college major and preferred location and you can connect with 
-      thousands of companies that are hiring now.
+      companies that are hiring now.
 
       <br /><br />
       </span>
@@ -99,6 +100,7 @@
         </div>
 
          <div class="content" id="quickRegister">
+          <h5>Select Your Account Type</h5>
           <a href="<?php echo site_url('applicant/create'); ?>" class="button tiny">Applicant</a>
           <a href="<?php echo site_url('employer/create'); ?>" class="button tiny">Employer</a>
           <a href="<?php echo site_url('educator/create'); ?>" class="button tiny">Educator</a>

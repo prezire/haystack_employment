@@ -100,6 +100,15 @@ $config = array
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
+	'pooledApplicant/update' => array
+	(
+		array
+		(
+			'field' => 'notes',
+			'label' => 'Notes',
+			'rules' => 'required|xss_clean|trim'
+		)
+	),
   	'employer/create' => array
 	(
 		array
@@ -401,6 +410,30 @@ $config = array
 		),
 		array
 		(
+			'field' => 'landline', 
+			'label' => 'Landline', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'mobile', 
+			'label' => 'Mobile', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'website', 
+			'label' => 'Website', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'email', 
+			'label' => 'Email', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
 			'field' => 'address', 
 			'label' => 'Address', 
 			'rules' => 'required|xss_clean|trim'
@@ -413,10 +446,22 @@ $config = array
 		),
 		array
 		(
+			'field' => 'state', 
+			'label' => 'State', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
 			'field' => 'country', 
 			'label' => 'Country', 
 			'rules' => 'required|xss_clean|trim'
-		)
+		),
+		array
+		(
+			'field' => 'zip_code', 
+			'label' => 'Zip Code', 
+			'rules' => 'required|xss_clean|trim'
+		),
 	),
 	'search' => array
     (

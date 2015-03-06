@@ -21,11 +21,31 @@ class PositionModel extends CI_Model
 		return $this->read( $this->db->insert_id() );
 	}
 	public final function read( $id ) {
-		return $this->db->get_where
+		//Include employer details.
+		$this->db->select
 		(
-			'positions',
-			array( 'id' => $id )
+			'*, p.id position_id, ' . 
+			'e.id employer_id, ' . 
+			'p.name position_name, ' . 
+			'p.description position_description, ' .
+			'o.name company_name, ' . 
+			'o.address company_address, ' . 
+			'o.city company_city, ' . 
+			'o.state company_state, ' . 
+			'o.country company_country, ' . 
+			'o.zip_code company_zip_code, ' .
+			'o.email company_email, ' . 
+			'o.mobile company_mobile, ' . 
+			'o.landline company_landline, ' . 
+			'o.website company_website'
 		);
+		$this->db->from('positions p');
+		$this->db->join('employers e', 'p.employer_id = e.id');
+		$this->db->join('users u', 'u.id = e.user_id');
+		$this->db->join('employer_companies ec', 'e.id = ec.employer_id');
+		$this->db->join('organizations o', 'ec.organization_id = o.id');
+		$this->db->where('p.id', $id);
+		return $this->db->get();
 	}
 	public final function readByIndustry( $industry ) {
 		return $this->db->get_where

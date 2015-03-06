@@ -7,7 +7,7 @@
 		}
 		public final function index()
 		{
-			$this->db->select('*, p.id pool_id, a.id applicant_id');
+			$this->db->select('*, p.id pool_id, a.id applicant_id, p.notes pooled_applicant_notes');
 			$this->db->from('pooled_applicants p');
 			$this->db->join('applicants a', 'p.applicant_id = a.id');
 			$this->db->join('users u', 'a.user_id = u.id');
@@ -53,13 +53,12 @@
 		public final function update()
 		{
 			$i = $this->input;
+			$d = date('Y-m-d H:i:s');
+			$a = getPostValuePair(array('id'));
+			$a['date_time_created'] = $d;
 			$id = $i->post('id');
 			$this->db->where('id', $id);
-			$this->db->update
-			(
-				'pooled_applicants', 
-				getPostValuePair(array('id'))
-			);
+			$this->db->update('pooled_applicants', $a);
 			return $this->read($id);
 		}
 		public final function delete($id)
