@@ -8,6 +8,9 @@
 	<a href="<?php echo site_url('position/create'); ?>" class="button tiny">
 		New Position
 	</a>
+	<a href="<?php echo site_url('position/archives'); ?>" class="button tiny">
+		Archives
+	</a>
 	<?php } ?>
 	<table class="responsive">
 		<thead>
@@ -19,6 +22,7 @@
 				<th>Working Hours</th>
 				<th>Vacancy</th>
 				<?php if($bPermitted){ ?>
+				<th>Enabled</th>
 				<th>Options</th>
 				<?php } ?>
 			</tr>
@@ -41,7 +45,10 @@
 				<td><?php echo $p->vacancy_count; ?></td>
 				<?php if($bPermitted){ ?>
 				<td>
-					<a href="<?php echo site_url('position/delete/' . $p->id); ?>" class="button tiny alert delete">Delete</a>
+					<?php echo form_checkbox(null, null, $p->enabled, 'class="enabled"'); ?>
+				</td>
+				<td>
+					<a href="<?php echo site_url('position/archive/' . $p->id); ?>" class="button tiny alert delete">Archive</a>
 					<a href="<?php echo site_url('position/update/' . $p->id); ?>" class="button tiny">Update</a>
 				</td>
 				<?php } ?>

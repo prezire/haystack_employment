@@ -4,6 +4,7 @@
     $CI = get_instance();
     $CI->load->view('commons/layouts/header', $data);
     $CI->load->view($view, $data);
+    $CI->load->view('commons/partials/footer');
     $CI->load->view('commons/layouts/footer', $data);
   }
   function showJsonView($data)

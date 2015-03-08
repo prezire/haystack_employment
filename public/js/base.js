@@ -85,7 +85,7 @@ function Haystack()
     });
     //
     $('.delete').click(function(e){
-      if(!confirm('Delete item. Are you sure?'))
+      if(!confirm('Are you sure?'))
       {
         e.preventDefault();
       }

@@ -181,6 +181,78 @@ $config = array
 			'rules' => 'required|xss_clean|trim'
 		)
 	),
+	'faculty/create' => array
+	(
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|is_unique[users.email]|trim|valid_email'
+		),
+		array
+		(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'full_name',
+			'label' => 'Full Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'school_name',
+			'label' => 'School Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'school_address',
+			'label' => 'School Address',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'school_city',
+			'label' => 'School City',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'school_country',
+			'label' => 'School Country',
+			'rules' => 'required|xss_clean|trim'
+		)
+	),
+  	'faculty/update' => array
+	(
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|trim|valid_email'
+		),
+		array
+		(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'full_name',
+			'label' => 'Full Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'organization_name',
+			'label' => 'Organization Name',
+			'rules' => 'required|xss_clean|trim'
+		)
+	),
 	'workhistory/update' => array
 	(
 		array
@@ -406,6 +478,12 @@ $config = array
 		(
 			'field' => 'name', 
 			'label' => 'Name', 
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'description', 
+			'label' => 'Description', 
 			'rules' => 'required|xss_clean|trim'
 		),
 		array

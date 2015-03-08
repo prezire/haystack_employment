@@ -75,7 +75,7 @@
       $this->load->model('employermodel');
       if($this->input->post())
       {
-        $userId = $this->post('user_id');
+        $userId = $this->input->post('user_id');
         if($this->form_validation->run('company/update'))
         {
           $this->companymodel->updateFromEmployerProfile();
@@ -86,6 +86,7 @@
           $emplId = $this->employermodel->readByUserId($userId)->row()->id;
           $o = $this->companymodel->readByEmployerId($emplId)->row();
           $a = array('company' => $o);
+          $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
           showView('companies/update_from_employer_profile', $a);
         }
       }

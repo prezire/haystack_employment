@@ -72,6 +72,18 @@ class Resume extends CI_Controller
       showView('resumes/create');
     }
   }
+  public final function setPublic($id, $state)
+  {
+    $b = $this->resumemodel->setPublic($id, $state);
+    if($b)
+    {
+      showJsonView(array('success' => true));
+    }
+    else
+    {
+      showJsonView(array('success' => false));
+    }
+  }
   public final function request()
   {
     if($this->input->post())
@@ -109,8 +121,8 @@ class Resume extends CI_Controller
   {
     if($this->input->post())
     {
-        $this->resumemodel->update();
-        showJsonView(array('success' => true));
+      $this->resumemodel->update();
+      showJsonView(array('success' => true));
     }
     else
     {

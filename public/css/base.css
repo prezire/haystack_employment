@@ -93,7 +93,7 @@
 
   .slogan{font-size: 11px;}
   .tabs-content > .content.active{width: 100%;}
-  .main{padding-top: 10px; padding-bottom: 30px;}
+  .main{padding-top: 10px;}
   /*BUG:  Solves Foundation JS bug that's related to CSS.*/
   meta.foundation-data-attribute-namespace {font-family: false;}
   form{font-size: 13px;}
@@ -159,7 +159,7 @@
   header nav ul li a:hover{color: #fdb90d;}
 
   header nav ul li a{padding: 4px 0;}
-  header nav ul{margin-top: 40px;}
+  header nav ul{margin-top: 18px;}
   header .logo{margin-top: 27px; text-align: center;}
   header .logo img{height: 75px !important;}
   .row.panel{margin-bottom: 4px; background-color: #fff; padding: 8px;}
@@ -169,6 +169,33 @@
   
   #user .avatar,
   #resume .avatar{width: 100px; height: 100px;}
+
+  div.footer
+  {
+    background-color: #626262;
+    margin-top: 24px; 
+    padding: 16px;
+  }
+  div.footer .columns{padding: 0;}
+  div.footer .nav a{margin-right: 20px;}
+  div.footer a{color: #fff;}
+  div.footer a:hover{color: #FDB90D;}
+  div.footer .social{margin: 0;}
+  div.footer .social.right{float: left !important;}
+  div.footer .social li
+  {
+    text-decoration: none;
+    display: inline-block;
+  }
+  div.footer i.fa
+  {
+    font-size: 12px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    padding-top: 16px;
+  }
+  label{font-weight: bold;}
   /*/Commons.*/
 
   /*FAQ.*/
@@ -176,17 +203,23 @@
   /*/FAQ.*/
   
   /*Home.*/
+  #home.index .intro{z-index: 1;}
+  #home.index .panel.quickRegister{z-index: 2;}
   #home.index .intro span{font-size: 13px; line-height: 19px;}
   #home.index .intro u{color: #C3317E;}
   #home.index .large
   {
+    text-align: center;
     font-size: 50px; 
-    text-align: center; 
-    margin: 20px 0;
+    margin-bottom: 60px;
+    margin-top: 11px;
     line-height: 40px;
   }
   #home.index .row.options .columns{padding: 0;}
+  
   #home.index .panel{background-color: #fff;}
+  #home.index .panel.quickRegister{width: 100%; padding: 8px; text-align: center;}
+
   #home.index .quickApply{margin-right: 4px;} 
   #home.index .row.features{clear: left; margin-top: 20px;}
   #home.index .row.features img{width: 100%; height: auto;}
@@ -224,7 +257,8 @@
   #resume .details button,
   #resume .details .options a{margin: 0;}
 
-  #resume .details input.name{width: 100%; max-width: 300px;}
+  /*#resume .details input.name{width: 100%; max-width: 300px;}*/
+  #resume .row.options{margin: 4px 0;}
   #resume .row.panel,
   #resume .row.panel button.tiny{margin: 0;}
   #resume .options .panel.recipients input[type="text"]{margin: 0;}
@@ -316,14 +350,6 @@
   /*/Internship Application.*/
 
   /*Contact.*/
-  #contact .social{margin: 0;}
-  #contact .social li
-  {
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 8px;
-  }
-  #contact i.fa{font-size: 20px;}
   /*/Contact.*/
 
   /*TOC and EULA.*/
@@ -353,10 +379,9 @@
     header nav ul li{margin-bottom: 0; text-align: center;}
     #search.index .columns:nth-child(1){padding: 0;}
     #search.index .columns:nth-child(2){padding-right: 0;}
-    header .footer{width: 100%; text-align: center; bottom: 0;}
+    header footer{width: 100%; text-align: center; bottom: 0;}
     input[type="email"]{margin: 0;}
     .row.panel .columns:nth-child(2){margin-top: 0;}
-
     /*/Commons.*/
 
     /*Home.*/
@@ -364,6 +389,16 @@
     #home.index .intro .columns{padding: 0;}
     #home.index .row.works{width: auto;}
     #home.index .row.features .columns:first-child{padding-left: 0;}
+    /*#home.index .row.intro > div
+    {
+      background-image: url(../img/index_carousel_1.png);
+      padding: 16px;
+      height: 419px;
+      background-position-x: -150px;
+      color: #fff;
+    }
+    #home.index .row.intro u{color: #fff;}
+    #home.index .row.intro .large{display: none;}*/
     /*/Home.*/
 
     /*Auth.*/
@@ -403,13 +438,29 @@
   #search h4,
   #position h4,
   #employer h4,
-  #company h4{margin-left: 0;}
+  #company h4,
+  #positionApplication h4,
+  #user h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}
   header nav ul li a{display: block; padding-right: 8px;}
   #internship .row.panel .columns:nth-child(2){margin-top: 0;}
-  .main{padding-left: 300px;}
+  .main{padding-left: 300px; padding-bottom: 0px;}
+  div.footer{margin-left: -10px;}
+  div.footer .social.right{float: right !important;}
+  div.footer .nav{padding-top: 12px; padding-left: 8px;}
+
+  /*Home.*/
+  #home.index .large{text-align: left;}
+  #home.index .panel.quickRegister
+  {
+    padding: 8px; 
+    margin-right: 40px;
+    margin-top: -260px;
+  }
+  #home.index .panel.quickRegister{width: auto; text-align: left;}
+  /*/Home.*
 }
 
 /* min-width 1441px, xlarge screens */

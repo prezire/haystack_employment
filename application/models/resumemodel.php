@@ -22,6 +22,13 @@
       $this->db->insert('additional_informations', array('resume_id' => $rId));
       return $rId;
 		}
+    public final function setPublic($id, $state)
+    {
+      $a = array('is_public' => $state);
+      $this->db->where('id', $id);
+      $this->db->update('resumes', $a);
+      return $this->db->affected_rows() > 0;
+    }
     public final function createFromProfile($applicantId)
     {
       //Init create 3 resumes. 
@@ -132,7 +139,7 @@
 		{
       $i = $this->input;
       $a = getPostValuePair(array('current_position_title', 'expected_salary'));
-			$id = $i->post('id');
+      $id = $i->post('id');
 			$this->db->where('id', $id);
 			$this->db->update('resumes', $a);
       //

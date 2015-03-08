@@ -5,7 +5,7 @@
 		      <input type="text" 
 		      		name="keywords"
 		      		class="keywords" 
-		      		placeholder="Keywords...">
+		      		placeholder="Search for positions, industries.">
 		      <button class="tiny">Go</button>
 		    </div>
 		</div>

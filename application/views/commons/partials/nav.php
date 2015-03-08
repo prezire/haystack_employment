@@ -14,7 +14,7 @@
 			<ul>
         <li><?php echo $this->load->view('commons/partials/search', null, true); ?></li>
         <li><a href="<?php echo site_url('main'); ?>">Home</a></li>
-        <li><a href="<?php echo site_url('applicant'); ?>">Applicants</a></li>
+        <li><a href="<?php echo site_url('position'); ?>">Positions</a></li>
         <?php 
           if(isLoggedIn())
           {
@@ -25,30 +25,28 @@
               case 'Applicant':
                 //echo '<li><a href="' . site_url('internship/bookmarks') . '">Bookmarks</a></li>';
                 //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
-                echo '<li><a href="' . site_url('internshipapplication') . '">Applications</a></li>';
-                echo '<li><a href="' . site_url('resume') . '">Resumes</a></li>';
-                echo '<li><a href="' . site_url('employer') . '">Employers</a></li>';
+                echo '<li><a href="' . site_url('positionapplication') . '">My Applications</a></li>';
+                echo '<li><a href="' . site_url('resume') . '">My Resumes</a></li>';
               break;
               case 'Employer':
-                echo '<li><a href="' . site_url('position') . '">Positions</a></li>';
+                echo '<li><a href="' . site_url('position/readMyPosts') . '">My Posted Positions</a></li>';
                 echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
-                echo '<li><a href="' . site_url('member') . '">Members</a></li>';
+                echo '<li><a href="' . site_url('member') . '">Company Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
-                echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
               break;
-              case 'Subscriber':
-                echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
+              case 'Faculty':
+                echo '<li><a href="' . site_url('member') . '">Faculty Members</a></li>';
+                echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
             }
+            echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
           }
           else
           {
             echo '<li><a href="' . site_url('auth/login') . '">Login</a></li>';
           }
         ?>
-        <li><a href="<?php echo site_url('main/about'); ?>">About</a></li>
-				<li><a href="<?php echo site_url('main/faq'); ?>">FAQ</a></li>
-				<!--li><a href="<?php echo site_url('blog'); ?>">Blogs</a></li-->
+       
         <?php 
           if(isLoggedIn())
           {
@@ -59,10 +57,10 @@
 			</ul>
 		</nav><!-- end navigation menu -->
 
-		<div class="footer clearfix">
+		<footer class="footer clearfix">
 			<div class="rights">
 				<p>Copyright &copy; 2015 <br />
           <a href="http://www.simplifie.net" target="_blank">Simplifie</a> HayStack.</p>
 			</div><!-- end rights -->
-		</div ><!-- end footer -->
+		</footer><!-- end footer -->
 	</header><!-- end header -->

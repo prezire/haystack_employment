@@ -29,6 +29,15 @@
     </div>
   </div>
 
+  <?php if(!isLoggedIn()){ ?>
+    <div class="panel quickRegister right">
+      <h5>Quick Register</h5>
+      <a href="<?php echo site_url('applicant/create'); ?>" class="button tiny">Applicant</a>
+      <a href="<?php echo site_url('employer/create'); ?>" class="button tiny">Employer</a>
+      <a href="<?php echo site_url('faculty/create'); ?>" class="button tiny">Faculty</a>
+    </div>
+  <?php } ?>
+
   
   <div class="row expandable">
     <div class="large-12 columns">
@@ -42,12 +51,6 @@
         <dd>
           <a href="#positionsSummary">
             For Applicants
-            <img src="<?php echo base_url('public/img/tab_arrow_down.png'); ?>" />
-          </a>
-        </dd>
-        <dd>
-          <a href="#quickRegister">
-            Quick Register
             <img src="<?php echo base_url('public/img/tab_arrow_down.png'); ?>" />
           </a>
         </dd>
@@ -98,14 +101,6 @@
             ?>
           </ul>
         </div>
-
-         <div class="content" id="quickRegister">
-          <h5>Select Your Account Type</h5>
-          <a href="<?php echo site_url('applicant/create'); ?>" class="button tiny">Applicant</a>
-          <a href="<?php echo site_url('employer/create'); ?>" class="button tiny">Employer</a>
-          <a href="<?php echo site_url('educator/create'); ?>" class="button tiny">Educator</a>
-        </div>
-
       </div>
     </div>
   </div>

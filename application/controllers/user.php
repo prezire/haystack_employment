@@ -49,6 +49,7 @@ class User extends CI_Controller
   {
     $o = $this->usermodel->read($id)->row();
     $id = getLoggedUser()->id;
+
     switch(getRoleName())
     {
       case 'Employer':
@@ -58,6 +59,14 @@ class User extends CI_Controller
       case 'Applicant':
         $this->load->model('applicantmodel');
         $id = $this->applicantmodel->readByUserId($id)->row()->id;
+      break;
+      case 'Faculty':
+        $this->load->model('facultymodel');
+        $id = $this->facultymodel->readByUserId($id)->row()->id;
+      break;
+      case 'School Member':
+      case 'Company Member':
+        //
       break;
     }
     //

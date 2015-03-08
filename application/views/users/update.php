@@ -5,7 +5,7 @@
         <?php 
           if($this->session->flashdata('update') == 'success') { ?>
           <div class="alert-box success tiny">
-            User was updated.
+            Profile was updated.
           </div>
           <script>
             $('#user.update .alert-box.success.radius').delay(5000).fadeOut(function(){
@@ -37,7 +37,7 @@
         <div class="large-6 medium-6 small-4 columns">
           <?php //echo site_url('resume/updateBySession'); ?>
           <a href="<?php echo site_url('resume'); ?>" class="button tiny">
-            View resumes
+            View Resumes
           </a>
         </div>
         <?php } ?>
@@ -88,7 +88,7 @@
       </div>
 
       <div class="row">
-        <div class="small-12 medium-12 large-12 columns">
+        <div class="small-12 medium-12 large-6 columns">
           Country: 
           <?php 
             echo form_dropdown
@@ -98,6 +98,17 @@
               set_value('country', $user->country)
             ); 
           ?>
+        </div>
+        <div class="small-12 medium-12 large-6 columns">
+          Zip Code:
+          <input type="text" name="zip_code" value="<?php echo set_value('zip_code', $user->zip_code); ?>" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-12 large-6 columns">
+          Nationality:
+          <input type="text" name="nationality" value="<?php echo set_value('nationality', $user->nationality); ?>" />
         </div>
       </div>
       
@@ -111,12 +122,16 @@
           ?>
             <a href="<?php echo site_url('company/updateFromEmployerProfile/' . $user->id); ?>" class="button tiny">
               Update Company
-            </a>  
+            </a>
           <?php
             }
-            else if($r == 'Educator')
+            else if($r == 'Faculty')
             {
-              //
+          ?>
+              <a href="<?php echo site_url('school/updateFromFacultyProfile/' . $user->id); ?>" class="button tiny">
+                Update School
+              </a>
+          <?php
             }
             else
             {

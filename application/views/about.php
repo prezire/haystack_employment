@@ -18,16 +18,7 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <ul class="social clearfix">
-        <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="#" target="_blank"><i class="fa fa-rss"></i></a></li>
-      </ul>
-    </div>
-  </div>
+  
 
   <hr />
 

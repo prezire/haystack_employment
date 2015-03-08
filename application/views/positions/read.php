@@ -6,7 +6,7 @@
         <b><?php echo $position->position_name; ?></b>
       </div>
       <span class="id">
-        ID Number: <?php echo $position->position_id; ?>
+        Job ID: <?php echo $position->position_id; ?>
       </span>
     </div>
     <div class="small-12 medium-12 large-12 columns">
@@ -77,6 +77,10 @@
         if($r == 'Administrator' || $r == 'Employer'){
       ?>
       <a href="<?php echo site_url('position/update/' . $position->position_id); ?>" class="button tiny">Update</a>
+      <?php } else if($r == 'Applicant'){ ?>
+      <a href="<?php echo site_url('positionapplication/create/' . $position->position_id); ?>" class="button tiny">
+        Apply
+      </a>
       <?php } ?>
     </div>
   </div>

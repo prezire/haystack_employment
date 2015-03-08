@@ -60,6 +60,11 @@ class Position extends CI_Controller
     $i = $this->positionmodel->readMyPosts()->result();
     showView('positions/index', array('positions' => $i));
   }
+  public final function readByEmployerId($employerId)
+  {
+    $i = $this->positionmodel->readByEmployerId($employerId)->result();
+    showView('positions/index', array('positions' => $i));
+  }
 	public final function update($id = null)
   {
     $o = $this->positionmodel->read($id)->row();
@@ -85,5 +90,9 @@ class Position extends CI_Controller
   {
     $this->positionmodel->delete($id);
     redirect(site_url('position'));
+  }
+  public final function expired($employerId)
+  {
+    showView('positions/expired', array('employerId' => $employerId));
   }
 }

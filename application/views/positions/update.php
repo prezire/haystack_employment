@@ -9,6 +9,9 @@
 
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
+          Job ID: <?php echo set_value('id', $position->position_id); ?>
+        </div>
+        <div class="small-12 medium-12 large-12 columns">
           Name: <input type="text" name="name" value="<?php echo set_value('name', $position->position_name); ?>" />      
         </div>
         <div class="small-12 medium-12 large-12 columns">

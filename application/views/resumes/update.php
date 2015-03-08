@@ -13,18 +13,48 @@
       <div class="small-12 medium-12 large-12 columns">
         <h6>Resume</h6>
         <div class="details">
-          <span>
-            <label>Name*:</label>
+          <div class="row">
+            <div class="large-1 columns">
+              Access Type*:
+            </div>
+            <div class="large-11 columns">
+              <?php 
+                $aAccTypes = array
+                (
+                  'Private' => 'Private', 
+                  'Unlisted' => 'Unlisted'
+                );
+                echo form_dropdown
+                (
+                  'access_type', 
+                  $aAccTypes, 
+                  $resume->access_type,
+                  'class="accessType"'
+                );
+              ?>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-1 columns">
+              Name*:
+            </div>
+            <div class="large-11 columns">
               <input type="text"  
                     class="name" 
                     value="<?php echo $resume->name; ?>"
                     id="<?php echo $resume->resume_id; ?>" />
+            </div>
+          </div>
+            
+          <div class="row options">
+            <div class="large-1 columns"></div>
+            <div class="large-11 columns">
               <a href="<?php echo site_url('resume/update'); ?>" class="button tiny btnUpdateResume">
                 Update
               </a>
-            </span>
-            <span class="options">
-              <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">Back</a>
+              <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">
+                Back
+              </a>
               <a href="<?php echo site_url('resume/read/' . $resume->resume_id); ?>" class="button tiny preview">
                 Preview
               </a>
@@ -32,22 +62,20 @@
                 Forward
               </a>
               <!--a href="#" class="button tiny download">
-                <i class="fa fa-angle-double-down"></i> Download
+                Download
               </a-->
               <div class="row panel recipients tiny hide">
-                <div class="small-8 medium-11 large-11 columns">
+                <div class="small-11 medium-11 large-11 columns">
                   <input type="text" class="recipients" placeholder="Comma-separated emails." /> 
                 </div>
-                <div class="small-4 medium-1 large-1 columns">
+                <div class="small-1 medium-1 large-1 columns">
                   <button class="tiny tiny">Send</button>
                 </div>
               </div>
-            </span>
+            </div>
+          </div>
         </div>
       </div>
-      
-        
-      
     </div>
     <hr />
     <section class="resume">
@@ -64,8 +92,6 @@
       </div>
       <?php echo form_open('resume/update'); ?>
         <input type="hidden" name="id" value="<?php echo set_value('id', $resume->resume_id); ?>" />  
-        
-
         <div class="row">
           <div class="small-8 medium-10 large-10 columns">
             Full Name <input type="text" name="full_name" value="<?php echo set_value('full_name', $resume->full_name); ?>" disabled />      

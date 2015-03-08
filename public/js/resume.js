@@ -64,13 +64,36 @@ function Resume()
   };
   this.setListeners = function(){
     var o = this;
-    $('#resume .details span .btnUpdateResume').click(function(e){
+    $('#resume.index .isPublic').change(function(e){
       var t = $(this);
-      var txt = $('#resume .details span input.name');
+      var id = t.attr('id');
+      var v = t.attr('value');
+      var state = t.is(':checked') ? 1 : 0;
+      var u = t.attr('url');
+      var url = u + '/' + state;
+      $.ajax({
+        url: url,
+        success: function(response){
+          if(response.status == 'success')
+          {
+            //
+          }
+          else
+          {
+            //
+          }
+        },
+      });
+      //e.preventDefault();
+    });
+    $('#resume.update .btnUpdateResume').click(function(e){
+      var t = $(this);
+      var txt = $('#resume .details input.name');
       var name = txt.val();
       var id = txt.attr('id');
       var url = t.attr('href');
-      var d = {id: id, name: name};
+      var accessType = $('#resume.update .accessType').val();
+      var d = {id: id, name: name, access_type: accessType};
       $.ajax({
         url: url,
         type: 'POST',

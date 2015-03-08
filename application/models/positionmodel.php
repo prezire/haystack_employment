@@ -5,9 +5,18 @@ class PositionModel extends CI_Model
 		parent::__construct();
 	}
 	public final function index() {
-		$this->db->select( 'p.*' );
-		$this->db->from( 'positions p' );
-		return $this->db->get();
+		return $this->db->get('positions');
+	}
+	public final function readMyPosts()
+	{
+		$this->load->model('employermodel');
+		$uId = getLoggedUser()->id;
+		$emplId = $this->employermodel->readByUserid($uId)->row()->id;
+		return $this->db->get_where('positions', array('employer_id' => $emplId));
+	}
+	public final function readByEmployerId($employerId)
+	{
+		return $this->db->get_where('positions', array('employer_id' => $employerId));
 	}
 	public final function create() {
 		$i = $this->input;
@@ -45,7 +54,19 @@ class PositionModel extends CI_Model
 		$this->db->join('employer_companies ec', 'e.id = ec.employer_id');
 		$this->db->join('organizations o', 'ec.organization_id = o.id');
 		$this->db->where('p.id', $id);
-		return $this->db->get();
+		$o = $this->db->get();
+		if($o->num_rows() > 0)
+		{
+			//Analytics.
+			//TODO: Include loc address using IP.
+			$a = array
+			(
+				'ip_address' => $this->input->ip_address(),
+				'position_id' => $o->row()->position_id
+			);
+			$this->db->insert('position_impressions', $a);
+		}
+		return $o;
 	}
 	public final function readByIndustry( $industry ) {
 		return $this->db->get_where

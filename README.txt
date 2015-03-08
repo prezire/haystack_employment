@@ -13,3 +13,14 @@ Cheque Payment
 
 PayPal
 	- Proceed To PayPal button
+
+Employer
+* Company Profile
+* My Applicants
+* Positions
+* Company Administrator
+* Analytics
+* My Comments
+*once login, go to Home. 
+* Post a new Job
+* View Applications
