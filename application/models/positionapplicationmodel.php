@@ -59,4 +59,11 @@ class PositionApplicationModel extends CI_Model
 		$this->db->where( 'id', $id );
 		return $this->db->delete( 'position_applications' );
 	}
+	public final function withdraw( $id ) {
+		$a = array('name' => 'Withdrawn');
+		$i = $this->db->get_where('application_status', $a)->row()->id;
+		$this->db->where( 'id', $id );
+		$a = array('application_status_id' => $i);
+		$this->db->update( 'position_applications', $a );
+	}
 }

@@ -18,11 +18,13 @@
       $o = $this->positionapplicationmodel->create($positionId);
       if($o->row()->id > 0)
       {
-        showJsonView(array('status' => 'success'));
+        //showJsonView(array('status' => 'success'));
+        redirect(site_url('position/read/' . $positionId));
       }
       else
       {
-        showJsonView(array('status' => 'failed'));
+        //showJsonView(array('status' => 'failed'));
+        showView('positions/read/', array('position' => $this->read($positionId)->row()));
       }
     }
   	public final function read($id)
@@ -60,6 +62,11 @@
   	public final function delete($id)
     {
       $this->positionapplicationmodel->delete($id);
+      redirect(site_url('positionapplication'));
+    }
+    public final function withdraw($id)
+    {
+      $this->positionapplicationmodel->withdraw($id);
       redirect(site_url('positionapplication'));
     }
   }

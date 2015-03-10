@@ -440,7 +440,8 @@
   #employer h4,
   #company h4,
   #positionApplication h4,
-  #user h4{margin-left: 0;}
+  #user h4,
+  #analytics h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}

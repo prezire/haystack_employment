@@ -1,4 +1,4 @@
-<div class="row panel radius">
+<div class="row panel">
 	<div class="small-12 medium-12 large-12 columns">
 			<h5>Email Report</h5>
   	</div>
@@ -18,13 +18,13 @@
   		<input type="text" name="recipients" class="recipients" placeholder="Recipients. Comma-separated emails" />
   	</div>
   	<div class="small-12 medium-12 large-1 columns">
-    	<button class="radius tiny btnSave">Save</button>
+    	<button class="tiny btnSave">Save</button>
     </div>
 
 
   <div class="small-12 medium-12 large-12 columns">
   	<hr />
   	<h5>Saved Emailers</h5>
-  	<div class="saved panel radius"></div>
+  	<div class="saved panel"></div>
   </div>
 </div>

@@ -101,11 +101,11 @@
                     <div class="row">
                         <div class="small-6 medium-6 large-6 columns">
                           <strong>From:</strong>
-                          <?php echo $w->date_from; ?>
+                          <?php echo toHumanReadableDate($w->date_from); ?>
                         </div>
                         <div class="small-6 medium-6 large-6 columns">
                           <strong>To:</strong>
-                          <?php echo $w->date_to; ?>
+                          <?php echo toHumanReadableDate($w->date_to); ?>
                         </div>
                     </div>
                     <div class="row">

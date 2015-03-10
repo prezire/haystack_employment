@@ -105,13 +105,6 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="small-12 medium-12 large-6 columns">
-          Nationality:
-          <input type="text" name="nationality" value="<?php echo set_value('nationality', $user->nationality); ?>" />
-        </div>
-      </div>
-      
       <!-- TODO: Contact Me form. -->
       
       <div class="row">

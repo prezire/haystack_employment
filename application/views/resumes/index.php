@@ -5,12 +5,15 @@
 		positions you're going to apply.
 		Send the best one with slight variations
 		that highlights only the relevant 
-		Skills, Certifications and Additional Information.
+		Skills, Certifications and Additional Information
+		by Forwarding it as an email.
 		No more editing one resume over and over again
 		everytime you apply. 
 		<br /><br />
 		It's advisable that you only
-		set one resume to Public. The other 2 can either be
+		set one resume to Public, which will be visible
+		to an employer when he looks at your profile. 
+		The other 2 can either be
 		Private or Unlisted.
 	</p>
 	<table class="responsive">
@@ -39,8 +42,8 @@
 						$s = 'class="isPublic" group="isPublic" ' . $url;
 						echo form_checkbox
 						(
-							null, 
-							null, 
+							'isPublic', 
+							$r->id, 
 							$r->is_public, 
 							$s
 						); 

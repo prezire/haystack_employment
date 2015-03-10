@@ -14,7 +14,7 @@
 			<ul>
         <li><?php echo $this->load->view('commons/partials/search', null, true); ?></li>
         <li><a href="<?php echo site_url('main'); ?>">Home</a></li>
-        <li><a href="<?php echo site_url('position'); ?>">Positions</a></li>
+        <li><a href="<?php echo site_url('position'); ?>">Browse Positions</a></li>
         <?php 
           if(isLoggedIn())
           {
@@ -23,19 +23,17 @@
             switch($roleName)
             {
               case 'Applicant':
-                //echo '<li><a href="' . site_url('internship/bookmarks') . '">Bookmarks</a></li>';
-                //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
                 echo '<li><a href="' . site_url('positionapplication') . '">My Applications</a></li>';
                 echo '<li><a href="' . site_url('resume') . '">My Resumes</a></li>';
               break;
               case 'Employer':
                 echo '<li><a href="' . site_url('position/readMyPosts') . '">My Posted Positions</a></li>';
-                echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
-                echo '<li><a href="' . site_url('member') . '">Company Members</a></li>';
+                //echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
+                //echo '<li><a href="' . site_url('member') . '">Company Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
               case 'Faculty':
-                echo '<li><a href="' . site_url('member') . '">Faculty Members</a></li>';
+                //echo '<li><a href="' . site_url('member') . '">Faculty Members</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
             }
@@ -43,6 +41,8 @@
           }
           else
           {
+            //echo '<li><a href="' . site_url('internship/bookmarks') . '">Bookmarks</a></li>';
+            //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
             echo '<li><a href="' . site_url('auth/login') . '">Login</a></li>';
           }
         ?>

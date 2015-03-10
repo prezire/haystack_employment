@@ -152,8 +152,8 @@
         </div>
         <div class="row">
           <div class="small-6 medium-6 large-6 columns">
-            Current Position Title 
-            <?php echo form_dropdown('current_position_title', getJobTitles(), set_value('current_position_title', $resume->current_position_title)); ?>
+            </label>Current Position Title:</label>
+            <input type="text" name="current_position_title" value="<?php echo set_value('current_position_title', $resume->current_position_title); ?>" />
           </div>
           <div class="small-6 medium-6 large-6 columns">
             Qualification <input type="text" name="qualification" value="<?php echo set_value('qualification', $resume->qualification); ?>" />

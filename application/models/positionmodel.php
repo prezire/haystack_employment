@@ -12,7 +12,23 @@ class PositionModel extends CI_Model
 		$this->load->model('employermodel');
 		$uId = getLoggedUser()->id;
 		$emplId = $this->employermodel->readByUserid($uId)->row()->id;
-		return $this->db->get_where('positions', array('employer_id' => $emplId));
+		$positions = $this->db->get_where('positions', array('employer_id' => $emplId))->result();
+		$aPositions = array();
+		foreach($positions as $p)
+		{
+			$this->db->select('*, ast.name status_name, a.id applicant_id');
+			$this->db->from('position_applications pa');
+			$this->db->join('applicants a', 'pa.applicant_id = a.id');
+			$this->db->join('positions p', 'pa.position_id = p.id');
+			$this->db->join('users u', 'a.user_id = u.id');
+			$this->db->join('application_status ast', 'pa.application_status_id = ast.id');
+			//
+			$this->db->where('position_id', $p->id);
+			$appls = $this->db->get()->result();
+			$tmp = array('position' => $p, 'applicants' => $appls);
+			array_push($aPositions, $tmp);
+		}
+		return $aPositions;
 	}
 	public final function readByEmployerId($employerId)
 	{

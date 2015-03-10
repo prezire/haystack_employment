@@ -414,36 +414,58 @@ function Analytics()
 		v += '</div>';
 		return v;
 	};
+	this.generateReport = function(roleName)
+	{
+		var o = {};
+		switch(roleName)
+		{
+			case 'Employer':
+				//
+			break;
+			case 'Faculty':
+				//Fields.
+				$('.fields input').each(function(){
+					var t = $(this);
+					if(t.is(':checked'))
+					{
+						var name = t.attr('name');
+						o[name] = 1;
+					}
+				});
+				var course = $('select.course').val();
+			break;
+		}
+		var params = $.extend({}, o, this.getFilters());
+		var url = this.siteUrl + 
+				'/analytics/generate/' + 
+				roleName;
+		console.log(params, url);
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: params,
+			success: function(response)
+			{
+				if(response.status == 'success')
+				{
+					this.renderGraph(response.data);
+				}
+				else
+				{
+					//TODO: Show error.
+				}
+			}
+		});
+	};
 	this.setListeners = function()
 	{
 		var o = this;
 		var s = '#analytics.index';
-		$(s + ' .btnGenerate').click
-		(
-			function(e)
-			{
-				$.ajax
-				(
-					{
-						url: o.siteUrl + '/analytics/generate',
-						type: 'POST',
-						data: o.getFilters(),
-						success: function(response)
-						{
-							if(response.status == 'success')
-							{
-								o.renderGraph(response.data);
-							}
-							else
-							{
-								//TODO: Show error.
-							}
-						}
-					}
-				);
-				e.preventDefault();
-			}
-		);
+		$(s + ' .btnGenerate').click(function(e){
+			var roleName = $(this).attr('roleName');
+			o.generateReport(roleName);
+			e.preventDefault();
+		});
 		$(s + ' .btnSave').click
 		(
 			function(e)

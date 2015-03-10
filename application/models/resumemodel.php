@@ -24,6 +24,10 @@
 		}
     public final function setPublic($id, $state)
     {
+      //Reset all back to 0 first.
+      /*$a = array('is_public' => false);
+      $this->db->update('resumes', $a);*/
+      //
       $a = array('is_public' => $state);
       $this->db->where('id', $id);
       $this->db->update('resumes', $a);

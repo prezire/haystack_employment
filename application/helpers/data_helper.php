@@ -486,3 +486,16 @@
     );
     return $a;
   }
+  function getApplicationStatuses()
+  {
+    $CI = get_instance();
+    $CI->load->model('applicationstatusmodel');
+    $stats = $CI->applicationstatusmodel->index()->result();
+    $a = array();
+    foreach($stats as $t)
+    {
+      $s = $t->name;
+      $a[$s] = $s;
+    }
+    return $a;
+  }

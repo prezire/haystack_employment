@@ -24,3 +24,8 @@ Employer
 *once login, go to Home. 
 * Post a new Job
 * View Applications
+
+Test emails:
+ * Employer e@e.com
+ * Applicant a@c.com
+ * Faculty f1@f.com

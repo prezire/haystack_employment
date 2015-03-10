@@ -57,8 +57,8 @@ class Position extends CI_Controller
   }
   public final function readMyPosts()
   {
-    $i = $this->positionmodel->readMyPosts()->result();
-    showView('positions/index', array('positions' => $i));
+    $positions = $this->positionmodel->readMyPosts();
+    showView('positions/employer_post_listing', array('positions' => $positions));
   }
   public final function readByEmployerId($employerId)
   {

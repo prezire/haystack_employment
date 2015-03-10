@@ -1,15 +1,18 @@
 <div id="applicant" class="index row">
 	<h4>Applicants</h4>
-	<?php $bIsAdmin = getRoleName() == 'Administrator'; ?>
+	<?php 
+		$r = getRoleName();
+		$bPermitted = $r == 'Administrator' || $r == 'Employer'; 
+	?>
 	<table class="responsive">
 		<thead>
 			<tr>
 				<th>ID</th>
 				<th>Full Name</th>
-				<th>Expected Salary (USD)</th>
+				<th>Applied Position</th>
 				<th>Current Position Title</th>
 				<th>Country</th>
-				<?php if($bIsAdmin){ ?><th>Options</th><?php } ?>
+				<?php if($bPermitted){ ?><th>Options</th><?php } ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,10 +24,14 @@
 						<?php echo $a->full_name; ?>
 					</a>
 				</td>
-				<td><?php echo $a->expected_salary; ?></td>
+				<td>
+					<a href="<?php echo site_url('position/read/' . $a->position_id); ?>">
+						<?php echo $a->position_name; ?>
+					</a>
+				</td>
 				<td><?php echo $a->current_position_title; ?></td>
 				<td><?php echo $a->country; ?></td>
-				<?php if($bIsAdmin){ ?>
+				<?php if($bPermitted){ ?>
 				<td>
 					<a href="<?php echo site_url('applicant/delete/' . $a->id); ?>" class="button tiny alert delete">Delete</a>
 					<a href="<?php echo site_url('applicant/update/' . $a->id); ?>" class="button tiny">Update</a>

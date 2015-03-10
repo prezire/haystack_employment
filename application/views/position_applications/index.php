@@ -22,11 +22,24 @@
 					</a>
 				</td>
 				<td><?php echo $p->employer_name; ?></td>
-				<td><?php echo $p->date_time_applied; ?></td>
-				<td><?php echo $p->application_status_name; ?></td>
+				<td><?php echo toHumanReadableDate($p->date_time_applied); ?></td>
 				<td>
-					<a href="<?php echo site_url('positionapplication/delete/' . $p->position_application_id); ?>" class="button tiny alert delete">
-						Delete
+					<?php 
+						$sAppStatName = $p->application_status_name;
+						echo $sAppStatName;
+					?>
+				</td>
+				<td>
+					<?php 
+						if($sAppStatName == 'Withdrawn')
+						{
+					?>
+					<a href="#" class="button tiny alert" disabled>
+					<?php } else { ?>
+					<a href="<?php echo site_url('positionapplication/withdraw/' . $p->position_application_id); ?>" 
+						class="button tiny alert delete">
+					<?php } ?>
+						<?php echo $sAppStatName == 'Withdrawn' ? $sAppStatName : 'Withdraw'; ?>
 					</a>
 				</td>
 			</tr>
