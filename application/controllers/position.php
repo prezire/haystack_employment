@@ -11,6 +11,11 @@ class Position extends CI_Controller
     $o = $this->positionmodel->index()->result();
     showView('positions/index', array('positions' => $o));
   }
+  public final function archives()
+  {
+    $o = $this->positionmodel->archives()->result();
+    showView('positions/archives', array('positions' => $o));
+  }
   public final function create()
   {
     if($this->input->post())
@@ -21,7 +26,7 @@ class Position extends CI_Controller
         if($o->num_rows() > 0)
         {
           $o = $o->row();
-          redirect(site_url('position/update/' . $o->id));
+          redirect(site_url('position/update/' . $o->position_id));
         }
         else
         {
@@ -39,13 +44,30 @@ class Position extends CI_Controller
       showView('positions/create');
     }
   }
+  private final function hasExpired($position)
+  {
+    $this->load->helper('date');
+    $p = $position;
+    $dateTo = $p->date_to;
+    $now = mdate('%Y-%m-%d');
+    $bWithinDate = $now < $dateTo;
+    $bEnabled = $p->enabled;
+    $bArchived = $p->archived > 0;
+    $bHasVacant = $p->vacancy_count > 0;
+    $b = !$bEnabled || $bArchived || !$bWithinDate || !$bHasVacant;
+    return $b;
+  }
 	public final function read($id)
 	{
-		showView
-    (
-      'positions/read', 
-      array('position' => $this->positionmodel->read($id)->row())
-    );
+    $p = $this->positionmodel->read($id)->row();
+    if($this->hasExpired($p))
+    {
+      redirect(site_url('position/expired/' . $p->employer_id));
+    }
+    else
+    {
+  		showView('positions/read', array('position' => $p));
+    }
 	}
   public final function readByIndustry($industry)
   {
@@ -91,8 +113,14 @@ class Position extends CI_Controller
     $this->positionmodel->delete($id);
     redirect(site_url('position'));
   }
+  public final function archive($id, $state = true)
+  {
+    $this->positionmodel->archive($id, $state);
+    redirect(site_url('position/archives'));
+  }
   public final function expired($employerId)
   {
+
     showView('positions/expired', array('employerId' => $employerId));
   }
 }

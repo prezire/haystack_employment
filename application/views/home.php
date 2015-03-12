@@ -31,7 +31,7 @@
 
   <?php if(!isLoggedIn()){ ?>
     <div class="panel quickRegister right">
-      <h5>Quick Register</h5>
+      <h5>Register</h5>
       <a href="<?php echo site_url('applicant/create'); ?>" class="button tiny">Applicant</a>
       <a href="<?php echo site_url('employer/create'); ?>" class="button tiny">Employer</a>
       <a href="<?php echo site_url('faculty/create'); ?>" class="button tiny">Faculty</a>
@@ -62,9 +62,9 @@
         ?>
         <div class="content active" id="applicantsSummary">
           <h5>Applicant Position Titles</h5>
-          <a href="<?php echo site_url('applicant'); ?>" class="button tiny">
+          <!--a href="<?php echo site_url('applicant'); ?>" class="button tiny">
             Show All Applicants
-          </a>
+          </a-->
           <ul>
             <?php 
               foreach($applsSummary as $a){

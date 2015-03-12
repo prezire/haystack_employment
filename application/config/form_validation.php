@@ -46,6 +46,24 @@ $config = array
 			'rules' => ''
 		)
 	),
+	'member/create' => array
+	(
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|is_unique[users.email]|trim|valid_email'
+		)
+	),
+	'member/update' => array
+	(
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|is_unique[users.email]|trim|valid_email'
+		)
+	),
   	'applicant/create' => array
 	(
 		array

@@ -21,7 +21,7 @@
           'orders' => array('name', 'ASC'),
           'href' => site_url('position/read'),
           'titles' => array('name'), 
-          'descriptions' => array('name', 'description', 'industry', 'category')
+          'descriptions' => array('name', 'industry', 'category', 'description')
         ),
         array
         (

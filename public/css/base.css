@@ -204,7 +204,7 @@
   
   /*Home.*/
   #home.index .intro{z-index: 1;}
-  #home.index .panel.quickRegister{z-index: 2;}
+  #home.index .quickRegister{z-index: 2;}
   #home.index .intro span{font-size: 13px; line-height: 19px;}
   #home.index .intro u{color: #C3317E;}
   #home.index .large
@@ -218,7 +218,7 @@
   #home.index .row.options .columns{padding: 0;}
   
   #home.index .panel{background-color: #fff;}
-  #home.index .panel.quickRegister{width: 100%; padding: 8px; text-align: center;}
+  #home.index .quickRegister{width: 100%; padding: 8px; text-align: center;}
 
   #home.index .quickApply{margin-right: 4px;} 
   #home.index .row.features{clear: left; margin-top: 20px;}
@@ -329,6 +329,9 @@
   /*/Internship.*/
 
   /*Position.*/
+  #position.index .row.panel{margin: 0; padding: 4px;}
+  #position.index textarea,
+  #position.index label{margin-bottom: 0;}
   #position.read .name{font-size: 16px; color: #9B2664;}
   #position.read .columns,
   #position.update .columns{padding-left: 0;}
@@ -453,14 +456,14 @@
   div.footer .nav{padding-top: 12px; padding-left: 8px;}
 
   /*Home.*/
-  #home.index .large{text-align: left;}
-  #home.index .panel.quickRegister
+  #home.index .large{text-align: left; position: relative; top: 16px;}
+  #home.index .quickRegister
   {
     padding: 8px; 
     margin-right: 40px;
     margin-top: -260px;
   }
-  #home.index .panel.quickRegister{width: auto; text-align: left;}
+  #home.index .quickRegister{width: auto; text-align: left;}
   /*/Home.*
 }
 

@@ -19,6 +19,7 @@
 				<th>Name</th>
 				<th>Dates</th>
 				<th>Industry</th>
+				<th>Category</th>
 				<th>Working Hours</th>
 				<th>Vacancy</th>
 				<?php if($bPermitted){ ?>
@@ -46,6 +47,7 @@
 					<?php echo toHumanReadableDate($position->date_to); ?>
 				</td>
 				<td><?php echo $position->industry; ?></td>
+				<td><?php echo $position->category; ?></td>
 				<td><?php echo $position->working_hours; ?></td>
 				<td><?php echo $position->vacancy_count; ?></td>
 				<?php if($bPermitted){ ?>
@@ -67,17 +69,20 @@
 			?>
 					<tr>
 						<td>&nbsp;</td>
-					    <td colspan="7">
+					    <td colspan="8">
 				    		<div class="row panel">
-				    		  <div class="small-4 medium-4 large-4 columns">
+				    		  <div class="small-4 medium-4 large-3 columns">
 				    		  	<a href="<?php echo site_url('applicant/read/' . $appl->applicant_id); ?>">
+				    		  		<label>Full Name</label>
 				    		  		<?php echo $appl->full_name; ?>
 				    		  	</a>
 				    		  </div>
-				    		  <div class="small-4 medium-4 large-4 columns">
+				    		  <div class="small-4 medium-4 large-3 columns">
+				    		  	<label>Current Position Title</label>
 				    		  	<?php echo $appl->current_position_title; ?>
 				    		  </div>
-				    		  <div class="small-4 medium-4 large-4 columns">
+				    		  <div class="small-4 medium-4 large-2 columns">
+				    		  	<label>Application Status</label>
 				    		  	<?php 
 				    		  		echo form_dropdown
 				    		  		(
@@ -86,6 +91,10 @@
 				    		  			$appl->status_name
 				    		  		); 
 				    		  	?>
+				    		  </div>
+				    		  <div class="small-4 medium-4 large-4 columns">
+				    		  	<label>Notes</label>
+				    		  	<textarea></textarea>
 				    		  </div>
 				    		</div>
 						</td>

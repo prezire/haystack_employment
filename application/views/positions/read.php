@@ -69,8 +69,8 @@
 
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      <a href="<?php echo site_url('position'); ?>" class="button tiny alert">
-        Back To Listing
+      <a href="<?php echo site_url('position'); ?>" class="button tiny">
+        Browse Positions
       </a>
       <?php 
         $r = getRoleName();

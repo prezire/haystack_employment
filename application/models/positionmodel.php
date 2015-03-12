@@ -5,7 +5,18 @@ class PositionModel extends CI_Model
 		parent::__construct();
 	}
 	public final function index() {
-		return $this->db->get('positions');
+		$this->db->select('*');
+		$this->db->from('positions');
+		$this->db->where('date_to >= now()');
+		$this->db->where('enabled > 0');
+		$this->db->where('vacancy_count > 0');
+		$this->db->where('archived < 1');
+		return $this->db->get();
+	}
+	public final function archives()
+	{
+		$a = array('archived > ' => 0);
+		return $this->db->get_where('positions', $a);
 	}
 	public final function readMyPosts()
 	{
@@ -107,5 +118,9 @@ class PositionModel extends CI_Model
 	public final function delete( $id ) {
 		$this->db->where( 'id', $id );
 		return $this->db->delete( 'positions' );
+	}
+	public final function archive( $id, $state ) {
+		$this->db->where( 'id', $id );
+		return $this->db->update( 'positions', array('archived' => $state) );
 	}
 }

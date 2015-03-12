@@ -12,16 +12,18 @@ class Member extends CI_Controller
     $o = $this->membermodel->index()->result();
     showView('members/index', array('members' => $o));
   }
-  public final function create()
+  public final function create($parentRoleName)
   {
-    if($this->input->post())
+    $i = $this->input;
+    if($i->post())
     {
-      if($this->form_validation->run())
+      if($this->form_validation->run('member/create'))
       {
-        $o = $this->membermodel->create()->row();
+        $o = $this->membermodel->create();
         if($o->id)
         {
-          redirect(site_url('member/read/' . $o->id));
+          $o = $o->row();
+          redirect(site_url('member'));
         }
         else
         {
