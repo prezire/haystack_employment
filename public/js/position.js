@@ -1,4 +1,4 @@
-function Pool()
+function Position()
 {
 	this.init = function()
 	{

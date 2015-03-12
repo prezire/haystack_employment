@@ -7,11 +7,13 @@ class PositionModel extends CI_Model
 	public final function index() {
 		$this->db->select('*');
 		$this->db->from('positions');
-		$this->db->where('date_to >= now()');
+		$this->db->where('CURDATE() >= date_from');
+		$this->db->where('CURDATE() <= date_to');
 		$this->db->where('enabled > 0');
 		$this->db->where('vacancy_count > 0');
 		$this->db->where('archived < 1');
-		return $this->db->get();
+		$o = $this->db->get();
+		return $o;
 	}
 	public final function archives()
 	{

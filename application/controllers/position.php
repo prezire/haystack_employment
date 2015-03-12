@@ -4,6 +4,7 @@ class Position extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+    validateLoginSession(array('create', 'update', 'delete', 'readMyPosts'));
     $this->load->model('positionmodel');
 	}
   public final function index()
@@ -48,9 +49,10 @@ class Position extends CI_Controller
   {
     $this->load->helper('date');
     $p = $position;
+    $dateFrom = $p->date_from;
     $dateTo = $p->date_to;
     $now = mdate('%Y-%m-%d');
-    $bWithinDate = $now < $dateTo;
+    $bWithinDate = $now >= $dateFrom && $now <= $dateTo;
     $bEnabled = $p->enabled;
     $bArchived = $p->archived > 0;
     $bHasVacant = $p->vacancy_count > 0;

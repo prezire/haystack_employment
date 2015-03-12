@@ -7,7 +7,7 @@
           h.baseUrl = '<?php echo base_url(); ?>';
           h.init();
           //
-          new Pool().init();
+          new Position().init();
           new Resume().init();
           //
           $(

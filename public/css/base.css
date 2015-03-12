@@ -47,7 +47,8 @@
   body, 
   header nav ul li a:hover,
   button:hover, 
-  .button:hover{background-color: #540F33;}
+  .button:hover,
+  .accordion dd.active a:hover{background-color: #540F33 !important;}
 
   input[type="text"],
   select,
@@ -156,7 +157,8 @@
 
   button:hover, 
   .button:hover,
-  header nav ul li a:hover{color: #fdb90d;}
+  header nav ul li a:hover,
+  .accordion dd.active a:hover{color: #fdb90d;}
 
   header nav ul li a{padding: 4px 0;}
   header nav ul{margin-top: 18px;}
@@ -196,6 +198,24 @@
     padding-top: 16px;
   }
   label{font-weight: bold;}
+
+  #editor
+  {
+    overflow:auto;
+    border: 1px solid #CCC;
+    padding: 8px;
+    margin: 4px 0;
+    background-color: #fff;
+  }
+  #editor:focus
+  {
+    background: #FAFAFA;
+    border-color: #999;
+    outline: none;
+    box-shadow: 0 0 5px #999;
+  }
+  #editor b{margin: 0;}
+  #editor ul{line-height: 13px;}
   /*/Commons.*/
 
   /*FAQ.*/
@@ -329,7 +349,16 @@
   /*/Internship.*/
 
   /*Position.*/
-  #position.index .row.panel{margin: 0; padding: 4px;}
+  #position.index .accordion dd > a
+  {
+    padding: 0 8px; 
+    font-size: 12px;
+    color: #fff;
+  }
+  #position.index .accordion dd.active a,
+  #position.index .accordion dd > a{background-color: #C3317E;}
+  #position.index .accordionContainer,
+  #position.index .accordion .content.active{padding: 0;}
   #position.index textarea,
   #position.index label{margin-bottom: 0;}
   #position.read .name{font-size: 16px; color: #9B2664;}

@@ -70,6 +70,12 @@
           $this->db->or_like($fields[$a], $k);
         }
       }
+      //
+      /*$this->db->where('date_to >= now()');
+      $this->db->where('enabled > 0');
+      $this->db->where('vacancy_count > 0');
+      $this->db->where('archived < 1');*/
+      //
       $this->db->order_by($orders[0], $orders[1]);
       $items = array();
       $o = $this->db->get()->result_array();
