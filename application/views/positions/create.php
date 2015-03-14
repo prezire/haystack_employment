@@ -10,10 +10,38 @@
       Description*:
       <?php echo $this->load->view('commons/partials/wysiwyg_controls', null, true); ?>
       <div id='editor' contenteditable>
-        
-        <b>
-        Job Responsibilities:</b><div><ul><ul><li><span style="font-size: 12px; line-height: 19px;">Responsibility 1</span></li><li><span style="font-size: 12px; line-height: 19px;">Responsibility 2</span></li><li><span style="font-size: 12px; line-height: 19px;">Responsibility 3</span></li></ul></ul></div><div><div><b>Requirements:</b></div><div><ul><ul><li><span style="font-size: 12px; line-height: 19px;">Requirement 1</span></li><li><span style="font-size: 12px; line-height: 19px;">Requirement 2</span></li><li><span style="font-size: 12px; line-height: 19px;">Requirement 3</span></li></ul></ul></div><div><b>Perks:</b></div><div><ul><ul><li><span style="font-size: 12px; line-height: 19px;">Perks 1</span></li><li><span style="font-size: 12px; line-height: 19px;">Perks 2</span></li><li><span style="font-size: 12px; line-height: 19px;">Perks 3</span></li></ul></ul></div></div>
-        
+        <b> Job Responsibilities:</b>
+          <div>
+            <ul>
+              <ul>
+                <li><span style="font-size: 12px; line-height: 19px;">Responsibility 1</span></li>
+                <li><span style="font-size: 12px; line-height: 19px;">Responsibility 2</span></li>
+                <li><span style="font-size: 12px; line-height: 19px;">Responsibility 3</span></li>
+              </ul>
+            </ul>
+          </div>
+          <div>
+            <div><b>Requirements:</b></div>
+            <div>
+              <ul>
+                <ul>
+                  <li><span style="font-size: 12px; line-height: 19px;">Requirement 1</span></li>
+                  <li><span style="font-size: 12px; line-height: 19px;">Requirement 2</span></li>
+                  <li><span style="font-size: 12px; line-height: 19px;">Requirement 3</span></li>
+                </ul>
+              </ul>
+            </div>
+            <div><b>Perks:</b></div>
+            <div>
+              <ul>
+                <ul>
+                  <li><span style="font-size: 12px; line-height: 19px;">Perks 1</span></li>
+                  <li><span style="font-size: 12px; line-height: 19px;">Perks 2</span></li>
+                  <li><span style="font-size: 12px; line-height: 19px;">Perks 3</span></li>
+                </ul>
+              </ul>
+            </div>
+          </div>
         <?php echo set_value('description'); ?>
       </div>
       <input type="hidden" name="description" id='output' value="<?php echo set_value('description'); ?>" />

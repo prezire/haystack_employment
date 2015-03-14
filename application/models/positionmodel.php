@@ -4,7 +4,7 @@ class PositionModel extends CI_Model
 	public function __construct() {
 		parent::__construct();
 	}
-	public final function index() {
+	public final function index($limit, $page) {
 		$this->db->select('*');
 		$this->db->from('positions');
 		$this->db->where('CURDATE() >= date_from');
@@ -12,20 +12,46 @@ class PositionModel extends CI_Model
 		$this->db->where('enabled > 0');
 		$this->db->where('vacancy_count > 0');
 		$this->db->where('archived < 1');
+		$this->db->limit($limit, $page);
 		$o = $this->db->get();
 		return $o;
 	}
-	public final function archives()
+	public final function readBrowsablePositionsCount()
+	{
+		$this->db->where('CURDATE() >= date_from');
+		$this->db->where('CURDATE() <= date_to');
+		$this->db->where('enabled > 0');
+		$this->db->where('vacancy_count > 0');
+		$this->db->where('archived < 1');
+		$this->db->from('positions');
+		return $this->db->count_all_results();	
+	}
+	public final function archives($limit, $page)
 	{
 		$a = array('archived > ' => 0);
+		$this->db->limit($limit, $page);
 		return $this->db->get_where('positions', $a);
 	}
-	public final function readMyPosts()
+	public final function readAllPositionsCount()
+	{
+		$this->db->where('archived <', 1);
+		$this->db->from('positions');
+		return $this->db->count_all_results();
+	}
+	public final function readAllArchivesCount()
+	{
+		$this->db->where('archived >', 0);
+		$this->db->from('positions');
+		return $this->db->count_all_results();
+	}
+	public final function readMyPosts($limit, $page)
 	{
 		$this->load->model('employermodel');
 		$uId = getLoggedUser()->id;
 		$emplId = $this->employermodel->readByUserid($uId)->row()->id;
-		$positions = $this->db->get_where('positions', array('employer_id' => $emplId))->result();
+		$a = array('employer_id' => $emplId, 'archived <' => 1);
+		$this->db->limit($limit, $page);
+		$positions = $this->db->get_where('positions', $a)->result();
 		$aPositions = array();
 		foreach($positions as $p)
 		{
@@ -38,6 +64,7 @@ class PositionModel extends CI_Model
 			//
 			$this->db->where('position_id', $p->id);
 			$appls = $this->db->get()->result();
+			//TODO: Loop application_status table along with $appls.
 			$tmp = array('position' => $p, 'applicants' => $appls);
 			array_push($aPositions, $tmp);
 		}
@@ -50,13 +77,15 @@ class PositionModel extends CI_Model
 	public final function create() {
 		$i = $this->input;
 		$a = getPostValuePair();
+
 		$this->load->model( 'employermodel' );
 		$a['employer_id'] = $this->employermodel->readByUserId
 		(
 			getLoggedUser()->id
 		)->row()->id;
 		$this->db->insert( 'positions', $a );
-		return $this->read( $this->db->insert_id() );
+		$o = $this->read( $this->db->insert_id() );
+		return $o;
 	}
 	public final function read( $id ) {
 		//Include employer details.

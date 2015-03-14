@@ -8,7 +8,7 @@
 
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      Simplifie Haystack is an internship and recruitment platform
+      Simplifie Haystack is an employment and recruit management platform
       that provides the best experience.
 
       This service is owned and operated by 
@@ -33,15 +33,17 @@
       <?php
         echo $this->load->view
         (
-        'commons/partials/errors',
-        isset($error) ? array('error' => $error) : null,
-        true
+          'commons/partials/errors',
+          isset($error) ? array('error' => $error) : null,
+          true
         );
       ?>
     </div>
   </div>
 
-  <?php echo $this->load->view('commons/partials/success', null, true); ?>
+  <?php 
+    echo $this->load->view('commons/partials/success', null, true); 
+  ?>
 
   <div class="row">
     <?php echo form_open('main/contact'); ?>

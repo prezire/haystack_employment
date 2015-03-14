@@ -28,12 +28,13 @@
               break;
               case 'Employer':
                 echo '<li><a href="' . site_url('position/readMyPosts') . '">My Posted Positions</a></li>';
-                //echo '<li><a href="' . site_url('pooledapplicant') . '">Pools</a></li>';
                 echo '<li><a href="' . site_url('member/create/Company') . '">Company Members</a></li>';
+                echo '<li><a href="' . site_url('billing') . '">Billing</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
               case 'Faculty':
                 echo '<li><a href="' . site_url('member/create/Faculty') . '">Faculty Members</a></li>';
+                echo '<li><a href="' . site_url('billing') . '">Billing</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
             }

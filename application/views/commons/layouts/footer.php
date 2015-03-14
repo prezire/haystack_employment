@@ -4,6 +4,7 @@
         $(document).ready(function()
         {
           var h = new Haystack();
+          //TODO: Change to site_url().
           h.baseUrl = '<?php echo base_url(); ?>';
           h.init();
           //
@@ -21,6 +22,10 @@
           var a = new Analytics();
           a.siteUrl = '<?php echo site_url(); ?>';
           a.init();
+          //
+          var b = new Billing();
+          b.siteUrl = a.siteUrl;
+          b.init();
         });
     </script>
   </section><!-- end main -->  

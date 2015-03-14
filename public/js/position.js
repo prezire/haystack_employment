@@ -6,49 +6,38 @@ function Position()
 	};
 	this.setListeners = function()
 	{
-		$('#pool .button.add').click(function(e){
+		$('#position.index .accordion a.update').click(function(e){
+			e.preventDefault();
+			var t = $(this);
 			var h = $(this).attr('href');
+			var p = t.parent().parent();
+			var stat = p.find('.applicationStatus').val();
+			var notes = p.find('.notes').val();
+			var o = 
+			{
+				application_status_name: stat,
+				notes: notes
+			};
 			$.ajax
 			(
 				{
 					url: h, 
+					type: 'POST',
+					data: o,
 					success: function(response)
 					{
 						var r = response;
-						if(r.success)
+						if(r.status == 'success')
 						{
-							//TODO: r.data 	Partial view from server.
-							$('#pool .row').append(r.data);
+							//
+						}
+						else
+						{
+							//
 						}
 					}
 				}
 			);
-			e.preventDefault();
-		});
-		$('#pool .button.delete').click(function(e){
-			if(confirm('Are you sure?'))
-			{
-				var h = $(this).attr('href');
-				$.ajax
-				(
-					{
-						url: h, 
-						success: function(response)
-						{
-							var r = response;
-							if(r.success)
-							{
-								$('#pool .row').find('#' + r.id).remove();
-							}
-						}
-					}
-				);
-			}
-			else
-			{
-				//Do nothing.
-			}
-			e.preventDefault();
 		});
 	};
 }

@@ -49,9 +49,12 @@ class Main extends CI_Controller
           $c['admin'],
           $msg
         );
-        //
-        $this->session->set_flashdata( 'status', 'Your message was sent. We\'ll get back to you shortly.' );
-        redirect( site_url( 'main/about' ) );
+        $a = array
+        (
+          'status' => 'success', 
+          'message' => "Your message was sent. We'll get back to you shortly."
+        );
+        showView('about', $a);
       }
       else {
         showView( 'about' );
@@ -61,16 +64,6 @@ class Main extends CI_Controller
   public final function toc() {showView( 'toc' );}
   public final function eula() {showView( 'eula' );}
   public final function faq() {showView( 'faq' );}
-  //curl -r 'keywords=information' http://localhost/haystack/index.php/main/search
-  /*public final function search() {
-      if ( $this->input->post() ) {
-        $this->load->model( 'mainmodel' );
-        $o = $this->mainmodel->search()->result();
-        $a = array( 'results' => $o );
-        showView( 'search_results', $a );
-      }
-      else {
-        echo 'hello';
-      }
-    }*/
+  public final function partners() {showView( 'partners' );}
+  public final function advertise() {showView( 'advertise' );}
 }

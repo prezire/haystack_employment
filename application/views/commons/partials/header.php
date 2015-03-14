@@ -50,5 +50,6 @@
     <script src="<?php echo base_url('public/js/position.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/resume.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/analytics.js'); ?>"></script>
+    <script src="<?php echo base_url('public/js/billing.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/base.js'); ?>"></script>
 </head>

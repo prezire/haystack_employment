@@ -1,6 +1,6 @@
 <div id="position" class="archives row">
 	<h4>Archives</h4>
-	<a href="<?php echo site_url('position'); ?>" class="button tiny alert">
+	<a href="<?php echo site_url('position/readMyPosts'); ?>" class="button tiny alert">
 		Back
 	</a>
 	<?php 
@@ -49,12 +49,15 @@
 				<td><?php echo $p->vacancy_count; ?></td>
 				<?php if($bPermitted){ ?>
 				<td>
-					<a href="<?php echo site_url('position/archive/' . $p->id . '/0'); ?>" class="button tiny">Un-archive</a>
+					<a href="<?php echo site_url('position/archive/' . $p->id . '/0'); ?>" class="button tiny">Restore</a>
 				</td>
 				<?php } ?>
 			</tr>
 			<?php } ?>
 		</tbody>
 	</table>
-	<?php } ?>
+	<?php 
+		}
+		echo $pagination; 
+	?>
 </div>

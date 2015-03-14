@@ -50,16 +50,26 @@
 	        array('applicant_id' => $applicantId)
 	      );
 		}
-		public final function update()
+		public final function update($positionId, $applicantId)
 		{
 			$i = $this->input;
-			$d = date('Y-m-d H:i:s');
-			$a = getPostValuePair(array('id'));
-			$a['date_time_created'] = $d;
-			$id = $i->post('id');
-			$this->db->where('id', $id);
-			$this->db->update('pooled_applicants', $a);
-			return $this->read($id);
+			$a = getPostValuePair();
+			//Check if existing.
+			$o = $this->db->get_where('pooled_applicants', $a);
+			if($o->num_rows() > 0)
+			{
+				$this->db->where('position_id', $positionId);
+				$this->db->where('applicant_id', $applicantId);
+				$this->db->update('pooled_applicants', $a);
+			}
+			else
+			{
+				//Else, create new.
+				$a['position_id'] = $positionId;
+				$a['applicant_id'] = $applicantId;
+				$this->db->insert('pooled_applicants', $a);
+			}
+			return $this->db->affected_rows() > 0;
 		}
 		public final function delete($id)
 	    {

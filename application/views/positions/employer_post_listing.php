@@ -57,6 +57,7 @@
 				<td class="options">
 					<a href="<?php echo site_url('position/archive/' . $position->id); ?>" class="button tiny alert delete">Archive</a>
 					<a href="<?php echo site_url('position/update/' . $position->id); ?>" class="button tiny">Update</a>
+					<a href="<?php echo site_url('position/clonePosition/' . $position->id); ?>" class="button tiny">Clone</a>
 				</td>
 				<?php } ?>
 			</tr>
@@ -68,34 +69,37 @@
 			    	<?php 
 						foreach($appls as $appl)
 						{
+							$panelName = $position->id . '-' . $appl->applicant_id;
 					?>
 			    	<dl class="accordion" data-accordion>
 			    	  <dd>
-			    	    <a href="#panel<?php echo $appl->applicant_id; ?>">
+			    	    <a href="#panel<?php echo $panelName; ?>">
 			    	    	<?php echo $appl->full_name; ?>
+			    	    	(<?php echo $appl->current_position_title; ?>)
 			    	    </a>
-			    	    <div id="panel<?php echo $appl->applicant_id; ?>" class="content">
+			    	    <div id="panel<?php echo $panelName; ?>" class="content">
 			    	      <div class="row">
-				    		  <div class="small-3 medium-3 large-3 columns">
-				    		  	<label>Current Position Title</label>
-				    		  	<?php echo $appl->current_position_title; ?>
-				    		  </div>
-				    		  <div class="small-3 medium-3 large-3 columns">
+				    		  <div class="small-3 medium-3 large-4 columns">
 				    		  	<label>Application Status</label>
 				    		  	<?php 
 				    		  		echo form_dropdown
 				    		  		(
 				    		  			'application_status', 
 				    		  			getApplicationStatuses(), 
-				    		  			$appl->status_name
+				    		  			$appl->status_name,
+				    		  			'class="applicationStatus"'
 				    		  		); 
 				    		  	?>
 				    		  </div>
-				    		  <div class="small-4 medium-4 large-4 columns">
+				    		  <div class="small-4 medium-4 large-6 columns">
 				    		  	<label>Notes</label>
-				    		  	<textarea></textarea>
+				    		  	<textarea class="notes"><?php //echo nl2br();?></textarea>
 				    		  </div>
 				    		  <div class="small-2 medium-2 large-2 columns">
+				    		  	<label>Options</label>
+				    		  	<a href="<?php echo site_url('pooledapplicant/update/' . $position->id . '/' . $appl->applicant_id); ?>" class="button tiny update">
+				    		  		Update
+				    		  	</a>
 				    		  	<a href="<?php echo site_url('applicant/read/' . $appl->applicant_id); ?>" class="button tiny">
 				    		  		View Profile
 				    		  	</a>
@@ -111,4 +115,5 @@
 			<?php } ?>
 		</tbody>
 	</table>
+	<?php echo $pagination; ?>
 </div>

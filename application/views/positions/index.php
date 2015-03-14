@@ -33,7 +33,6 @@
 	<table class="responsive">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Name</th>
 				<th>Dates</th>
 				<th>Industry</th>
@@ -49,7 +48,6 @@
 		<tbody>
 			<?php foreach($positions as $p){ ?>
 			<tr>
-				<td><?php echo $p->id; ?></td>
 				<td>
 					<a href="<?php echo site_url('position/read/' . $p->id); ?>" class="tiny">
 						<?php echo $p->name; ?>
@@ -76,5 +74,8 @@
 			<?php } ?>
 		</tbody>
 	</table>
-	<?php } ?>
+	<?php 
+		}
+		echo $pagination;
+	?>
 </div>

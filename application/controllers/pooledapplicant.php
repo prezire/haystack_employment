@@ -46,30 +46,14 @@
   	{
   		showView('pooled_applicants/read', array('pooledApplicant' => $this->pooledapplicantmodel->read($id)->row()));
   	}
-  	public final function update($id = null)
+  	public final function update($positionId, $applicantId)
     {
-      $o = $this->pooledapplicantmodel->read($id)->row();
-      $a = array('pooledApplicant' => $o);
       if($this->input->post())
       {
-        if($this->form_validation->run('pooledApplicant/update'))
+        $b = $this->pooledapplicantmodel->update($positionId, $applicantId);
+        if($b)
         {
-          $b = $this->pooledapplicantmodel->update();
-          if($b->num_rows() > 0)
-          {
-            showJsonView(array('status' => 'success'));
-          }
-          else
-          {
-            showJsonView
-            (
-              array
-              (
-                'status' => 'failed', 
-                'message' => 'Error updating pooled applicant.'
-              )
-            );
-          }
+          showJsonView(array('status' => 'success'));
         }
         else
         {
@@ -78,21 +62,14 @@
             array
             (
               'status' => 'failed', 
-              'message' => validation_errors()
+              'message' => 'Error updating pooled applicant.'
             )
           );
         }
       }
       else
       {
-        showJsonView
-        (
-          array
-          (
-            'status' => 'failed', 
-            'message' => 'GET method not permitted.'
-          )
-        );
+        redirect(site_url('position/readMyPosts'));
       }
     }
   	public final function delete($id)

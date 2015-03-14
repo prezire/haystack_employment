@@ -4,6 +4,8 @@
 			<a href="<?php echo site_url('main'); ?>">Home</a>
 			<a href="<?php echo site_url('main/about'); ?>">About</a>
 			<a href="<?php echo site_url('main/faq'); ?>">FAQ</a>
+			<a href="<?php echo site_url('main/partners'); ?>">Partners</a>
+			<a href="<?php echo site_url('main/advertise'); ?>">Advertise</a>
 			<!--a href="<?php echo site_url('blog'); ?>">Blogs</a-->
 		</div>
 	    <div class="small-12 large-6 columns">

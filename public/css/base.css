@@ -8,6 +8,9 @@
   body,
   #ui-datepicker-div{font-family: "raleway-regular", arial;}
   b, strong{display: inline-block; margin: 4px 0;}
+
+  .accordion:before, .accordion:after{display: none;}
+  .accordion{margin-bottom: 1px;}
   
   body,
   .content,
@@ -404,7 +407,8 @@
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) { 
     /*Commons.*/
-    header{padding-left: 0; width: 290px;} 
+    header{padding-left: 0;}
+    #menu_icon{position: relative; right: -8px; top: -74px;}
     #map{min-height: 250px;}
     header .logo{width: 100%; margin-top: 17px; display: inline-block;}
     header nav ul{margin-left: 0;}
@@ -463,6 +467,8 @@
 @media only screen and (min-width: 64.063em) 
 {
   #search .keywords{width: 230px;}
+
+  header{width: 290px;}
   
   h4{margin-left: -16px;}
   #resume h4,

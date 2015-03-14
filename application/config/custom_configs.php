@@ -49,3 +49,12 @@
     'simplifie' => 'mysql://root:@localhost/simplifie',
     'haystack' => 'mysql://root:@localhost/haystack_employment'
   );
+  //Prices are in USD.
+  $config['prices'] = array
+  (
+    'Full-Time' => 8,
+    'Part-Time' => 6,
+    'Internship' => 0,
+    //Requires from and to params.
+    'conversionServiceUrl' => 'http://rate-exchange.appspot.com/currency?q=1&'
+  );

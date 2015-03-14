@@ -15,7 +15,16 @@
           Name: <input type="text" name="name" value="<?php echo set_value('name', $position->position_name); ?>" />      
         </div>
         <div class="small-12 medium-12 large-12 columns">
-          Description: <textarea name="description" placeholder="Job Responsibilities, Requirements, Perks."><?php echo set_value('description', $position->position_description); ?></textarea>      
+          Description: 
+          <?php echo $this->load->view('commons/partials/wysiwyg_controls', null, true); ?>
+          <div id='editor' contenteditable>
+            <?php echo set_value('description'); ?>
+          </div>
+          <input type="hidden" name="description" id='output' value='<?php echo set_value("description", html_entity_decode($position->position_description)); ?>' />
+          <script>
+            //KLUDGE:
+            $('#editor').html($('#output').val());
+          </script>
         </div>
         <div class="small-6 medium-6 large-6 columns">
           Date From: <input type="text" name="date_from" class="datepicker" value="<?php echo set_value('date_from', $position->date_from); ?>" />      
@@ -30,13 +39,18 @@
           Working Hours: <input type="text" placeholder="9 AM - 6 PM" name="working_hours" value="<?php echo set_value('working_hours', $position->working_hours); ?>" />      
         </div>
         <div class="small-6 medium-6 large-6 columns">
-          Shift Pattern: <input type="text" name="shift_pattern" value="<?php echo set_value('shift_pattern', $position->shift_pattern); ?>" />      
+          Shift Pattern: 
+          <?php echo form_dropdown('shift_pattern', getShiftPatterns(), set_value('shift_pattern', $position->shift_pattern)); ?>
         </div>
         <div class="small-6 medium-6 large-6 columns">
           Salary (USD): <input type="text" name="salary" value="<?php echo set_value('salary', $position->salary); ?>" />      
         </div>
         <div class="small-12 medium-12 large-6 columns">
           Industry: <?php echo form_dropdown('industry', getIndustries(), set_value('industry', $position->industry)); ?>
+        </div>
+        <div class="small-12 medium-6 large-6 columns">
+          Category*: 
+          <?php echo form_dropdown('category', getPositionCategories(), set_value('category', $position->category)); ?>
         </div>
         <div class="small-12 medium-12 large-12 columns">
           <a href="<?php echo site_url('position/read/' . $position->position_id); ?>" class="button tiny">
