@@ -1,6 +1,6 @@
 <div class="row panel">
 	<div class="small-12 medium-2 large-2 columns">
-  		<select name="filter" class="filter">
+  		<select name="report_type" class="reportType">
   			<option>Views</option>
   			<option>Geographic</option>
   		</select>

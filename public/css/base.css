@@ -393,6 +393,10 @@
   /*/TOC and EULA.*/
 
   /*Analytics.*/
+  #analytics.index .saved.panel{padding: 4px;}
+  #analytics.index .saved.panel .panel{position: relative;}
+  #analytics.index .saved.panel .panel a{position: absolute; right: 0.2rem; top: 0.2rem;}
+  #analytics.index .saved.panel .panel h5{font-weight: bold; color: #C3317E;}
   #analytics input[type="checkbox"],
   #analytics label{margin: 0;}
   #analytics input[type="checkbox"]{margin-top: 7px;}

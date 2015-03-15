@@ -19,9 +19,10 @@
 			}
 		?>
 	</p>
+	<input type="hidden" class="organizationId" value="<?php echo $organizationId; ?>" />
 	<?php 
 		echo $this->load->view('commons/partials/analytics/index_header', null, true);
 		echo $this->load->view('commons/partials/analytics/' . $view, null, true);
-		echo $this->load->view('commons/partials/analytics/index_footer', null, true);
+		echo $this->load->view('commons/partials/analytics/index_footer', array('emailers' => $emailers), true);
 	?>
 </div>

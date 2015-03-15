@@ -10,9 +10,14 @@
   	}
     public final function index()
     {
-      $r = getRoleName();
       $a = array();
-      $a['emailers'] = $this->analyticsmodel->readEmailers();
+      //
+      $uId = getLoggedUser()->id;
+      $this->load->model('organizationmodel');
+      $orgId = $this->organizationmodel->readByUserId($uId)->row()->organization_id;
+      $r = getRoleName();
+      $a['organizationId'] = $orgId;
+      $a['emailers'] = $this->analyticsmodel->readEmailersByRoleName($uId, $r)->result();
       switch($r)
       {
         case 'Employer':
@@ -118,27 +123,26 @@
       if($this->input->post())
       {
         //TODO: Create CRON Job.
-        if($this->getIsValidEmailer())
+        if($this->form_validation->run('analytics/emailer'))
         {
-          $a = array();
+          $data = $this->analyticsmodel->createEmailer()->row();
           showJsonView
           (
             array
             (
-              'status' => 'success', 
-              'data' => $a
+              'status' => 'success',
+              'data' => $data
             )
           );
         }
         else
         {
-          $err = '';
           showJsonView
           (
             array
             (
               'status' => 'failed', 
-              'error' => $err
+              'error' => validation_errors()
             )
           );   
         }
@@ -150,6 +154,6 @@
     }
     public final function deleteEmailer($id)
     {
-      
+      $this->analyticsmodel->deleteEmailer($id); 
     }
   }

@@ -58,9 +58,9 @@
 						<?php 
 							$a = array
 							(
-								'Lite' => 'Lite',
-								'Medium' => 'Medium',
-								'Heavy' => 'Heavy'
+								'lite' => 'Lite',
+								'medium' => 'Medium',
+								'heavy' => 'Heavy'
 							);
 							echo form_dropdown('packageType', $a, null, 'class="packageType"');
 						?>
@@ -81,14 +81,35 @@
 	  	<h5>Packages</h5>
 	  	<?php 
 	  		$s = 'commons/partials/billings/package_type';
-	  		echo $this->parse->parser($s, array('name' => 'Lite'), true);
-	  		echo $this->parse->parser($s, array('name' => 'Medium'), true);
-	  		echo $this->parse->parser($s, array('name' => 'Heavy'), true); 
+	  		$a = array
+	  		(
+	  			'lite' => array
+	  			(
+	  				'name' => 'Lite', 
+	  				'minimumPostings' => 3, 
+	  				'maximumDateDifference' => 90
+	  			),
+	  			'medium' => array
+	  			(
+	  				'name' => 'Medium', 
+	  				'minimumPostings' => 7, 
+	  				'maximumDateDifference' => 60
+	  			),
+	  			'heavy' => array
+	  			(
+	  				'name' => 'Heavy', 
+	  				'minimumPostings' => 15, 
+	  				'maximumDateDifference' => 30
+	  			)
+	  		);
+	  		echo $this->parse->parser($s, $a['lite'], true);
+	  		echo $this->parse->parser($s, $a['medium'], true);
+	  		echo $this->parse->parser($s, $a['heavy'], true); 
 	  	?>
 	  </div>
 	</div>
 	<div class="overallTotal"></div>
-	<a href="#" class="button tiny">
+	<a href="#" class="button tiny checkout">
 		Checkout
 	</a>
 </div>

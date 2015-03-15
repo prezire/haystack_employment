@@ -26,7 +26,7 @@ class OrganizationModel extends CI_Model
 		);
 	}
 	public final function readByUserId( $userId ) {
-		$this->db->select('*');
+		$this->db->select('*, o.id organization_id');
 		$this->db->from('employer_companies ec');
 		$this->db->join('organizations o', 'ec.organization_id = o.id');
 		$this->db->join('employers e', 'ec.employer_id = e.id');

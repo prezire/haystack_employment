@@ -1,4 +1,6 @@
-<div class="package <?php echo strtolower($name); ?>">
+<div class="package <?php echo strtolower($name); ?>" 
+		data-minimumPosting="{minimum}"
+		data-maximumDateDifference="{maximumDateDifference}">
 	<div class="header">
 		<span>{name}</span>
 		<span>

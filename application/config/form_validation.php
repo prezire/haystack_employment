@@ -567,5 +567,32 @@ $config = array
         	'label' => 'Keywords',
         	'rules' => 'required|trim|xss_clean'
     	)
+    ),
+    'analytics/emailer' => array
+    (
+    	array
+		(
+			'field' => 'recipients',
+			'label' => 'Email Recipients',
+			'rules' => 'required|xss_clean|trim|min_length[3]|valid_emails'
+		),
+    	array
+   		(
+        	'field' => 'date_from',
+        	'label' => 'Date From',
+        	'rules' => 'required|trim|xss_clean'
+    	),
+    	array
+   		(
+        	'field' => 'date_to',
+        	'label' => 'Date To',
+        	'rules' => 'required|trim|xss_clean'
+    	),
+    	array
+   		(
+        	'field' => 'title',
+        	'label' => 'Title',
+        	'rules' => 'required|trim|xss_clean|trim|min_length[3]'
+    	)
     )
 );

@@ -47,9 +47,9 @@
     <script src="<?php echo base_url('public/libs/simple_html5_wysiwyg_editor/base.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/socials/fb.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/main.js'); ?>"></script>
+    <script src="<?php echo base_url('public/js/billing.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/position.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/resume.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/analytics.js'); ?>"></script>
-    <script src="<?php echo base_url('public/js/billing.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/base.js'); ?>"></script>
 </head>

@@ -9,15 +9,17 @@ function Analytics()
 	{
 		var s = '#analytics.index';
 		var uId = $(s + ' .userId').val();
-		var filter = $(s + ' .filter').val();
+		var reportType = $(s + ' .reportType').val();
 		var from = $(s + ' .from').val();
 		var to = $(s + ' .to').val();
+		var orgId = $(s + ' .organizationId').val();
 		var o = 
 		{
-			filter: filter, 
+			report_type: reportType, 
 			date_from: from, 
 			date_to: to,
-			user_id: uId
+			user_id: uId,
+			organization_id: orgId
 		};
 		return o;
 	};
@@ -407,12 +409,16 @@ function Analytics()
 			break;
 		}
 	};
-	this.wrap = function(item)
+	/*this.wrap = function(item)
 	{
 		var v = '<div class="small-12 medium-12 large-12 columns">';
 			v += item;
 		v += '</div>';
 		return v;
+	};*/
+	this.toHumanReadableDate = function(date)
+	{
+		return date;
 	};
 	this.generateReport = function(roleName)
 	{
@@ -492,22 +498,27 @@ function Analytics()
 						data: params,
 						success: function(response)
 						{
-							if(response.status == 'success')
+							var r = response;
+							if(r.status == 'success')
 							{
-								var id = 'emailer' + response.data.id;
+								var d = r.data;
 								var sCntr = $(s + ' .saved');
-								var v = '<div id="' + id + '" class="row">';
-									v += o.wrap(freq);
-									v += o.wrap(ttl);
-									v += o.wrap(email);
-									v += o.wrap(dateTime);
-									v += o.wrap('&times;');
+								var v = '<div data-id="' + d.id + '" class="panel row">';
+									v += '<div class="small-12 medium-12 large-12 columns"><h5>' + d.title + '</h5></div>';
+									v += '<div class="small-12 medium-12 large-4 columns">Report Type: ' + d.report_type + '</div>';
+									v += '<div class="small-12 medium-12 large-4 columns">Frequency: ' + d.frequency + '</div>';
+									v += '<div class="small-12 medium-12 large-4 columns">Dates: ' + 
+											o.toHumanReadableDate(d.date_to) + ' - ' + 
+											o.toHumanReadableDate(d.date_from) + 
+										'</div>';
+									v += '<div class="small-12 medium-12 large-12 columns">Recipients: ' + d.recipients + '</div>';
+									v += '<a href="#" class="button tiny delete">&times;</a>';
 								v += '</div>';
 								sCntr.append(v);
 							}
 							else
 							{
-								//TODO: Show error.
+								console.log(response.error);
 							}
 						}
 					}
@@ -515,18 +526,17 @@ function Analytics()
 				e.preventDefault();
 			}
 		);
-		$(s + ' .saved .delete').click
-		(
+		$(s + ' .saved .delete').on('click', 
 			function(e)
 			{
 				if(confirm('Are you sure?'))
 				{
-					var p = $(this).parent().parent();
-					$a.ajax
+					var p = $(this).parent();
+					$.ajax
 					(
 						{
-							url: o.siteUrl + '/analytics/deleteEmailer/' + p.attr('id'),
-							success: function(response)
+							url: o.siteUrl + '/analytics/deleteEmailer/' + p.data('id'),
+							success: function()
 							{
 								p.remove();
 							}

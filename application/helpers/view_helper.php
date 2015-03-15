@@ -16,5 +16,5 @@
   }
   function toHumanReadableDate($date)
   {
-    return date("F d, Y",strtotime($date));
+    return date("F d, Y", strtotime($date));
   }
