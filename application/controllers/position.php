@@ -7,11 +7,12 @@
   		parent::__construct();
       validateLoginSession(array('create', 'update', 'delete', 'readMyPosts'));
       $this->load->model('positionmodel');
+      $this->load->helper('pagination_helper');
   	}
     public final function index($page = 0)
     {
       $i = $this->positionmodel->readBrowsablePositionsCount();
-      $p = $this->getPaginationDetails($i);
+      $p = getPaginationDetails($i);
       $o = $this->positionmodel->index($p['perPage'], $page)->result();
       $a = array('positions' => $o, 'pagination' => $p['links']);
       showView('positions/index', $a);
@@ -19,7 +20,7 @@
     public final function archives($page = 0)
     {
       $i = $this->positionmodel->readAllArchivesCount();
-      $p = $this->getPaginationDetails($i);
+      $p = getPaginationDetails($i);
       $o = $this->positionmodel->archives($p['perPage'], $page)->result();
       $a = array('positions' => $o, 'pagination' => $p['links']);
       showView('positions/archives', $a);
@@ -105,7 +106,7 @@
     public final function readMyPosts($page = 0)
     {
       $i = $this->positionmodel->readAllPositionsCount();
-      $p = $this->getPaginationDetails($i);
+      $p = getPaginationDetails($i);
       $positions = $this->positionmodel->readMyPosts($p['perPage'], $page);
       $a = array
       (

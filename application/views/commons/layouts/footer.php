@@ -26,6 +26,10 @@
           var b = new Billing();
           b.siteUrl = a.siteUrl;
           b.init();
+          //
+          var c = new Comment();
+          c.siteUrl = a.siteUrl;
+          c.init();
         });
     </script>
   </section><!-- end main -->  

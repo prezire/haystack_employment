@@ -84,7 +84,7 @@ class Resume extends CI_Controller
       showJsonView(array('success' => false));
     }
   }
-  public final function request()
+  public final function request($userId = null)
   {
     if($this->input->post())
     {
@@ -100,6 +100,13 @@ class Resume extends CI_Controller
         $this->readByUserId($uId);
       }
     }
+    else
+    {
+      $this->load->model('applicantmodel');
+      $applId = $this->applicantmodel->readByUserId($userId)->row()->id;
+      $a = array('userId' => $userId, 'applicantId' => $applId);
+      showView('resumes/request', $a);
+    }
   }
 	public final function read($id)
 	{
@@ -111,11 +118,21 @@ class Resume extends CI_Controller
   public final function readByUserId($userId)
   {
     $r = $this->resumemodel->readByUserId($userId);
+    //print_r($r);exit;
     $r['userId'] = $userId;
     $this->load->model('applicantmodel');
     $applId = $this->applicantmodel->readByUserId($userId)->row()->id;
     $r['applicantId'] = $applId;
-    showView('resumes/read', $r);
+    //Check if there's a public resume.
+    //print_r($r);exit;
+    if(count($r))
+    {
+      showView('resumes/read', $r);
+    }
+    else
+    {
+      redirect(site_url('resume/request/' . $userId));
+    }
   }
 	public final function update($id = null)
   {

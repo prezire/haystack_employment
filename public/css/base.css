@@ -260,14 +260,16 @@
   /*/Home.*/
   
   /*Applicant.*/
+  #applicant.read .comments .columns,
+  #applicant.read .comment.create .columns{padding: 0;}
+  #applicant.read .comment.create .textarea{margin-bottom: 4px;}
   #applicant.read #user.read .avatar{margin-left: 15px;}
-  #applicant.read .comments .comment
+  #applicant.read .comments .dateTime
   {
-    margin: 4px;
-    padding: 8px;
+    color: #666; 
+    font-size: 13px; 
+    padding-top: 3px;
   }
-  #applicant.read .comments{margin-top: 8px;}
-  #applicant.read .comments .dateTime{color: #666; font-size: 13px; padding-top: 3px;}
   /*/Applicant.*/
 
   /*Resume.*/
@@ -324,8 +326,13 @@
   #resume.read li{font-size: 12px;}
   #resume.read > section.panel.radius{background-color: #fff;}
   #resume.read li .row .columns{padding: 0;}
-  #resume.read .row .row .columns{line-height: 21px;}
+  #resume.read .row .row .columns{line-height: 9px;}
   #resume.read .row.panel{padding: 4px 8px;}
+  #resume.read .certifications li
+  {
+    list-style-type: disc;
+    margin-left: 14px;
+  }
   /*/Resume.*/
 
   /*Search.*/
@@ -406,6 +413,19 @@
   #company.update .logo{width: 100px; height: 100px;}
   #company.update .columns{padding-left: 0;}
   /*/Company*/
+
+  /*Comment.*/
+  #comment .columns{padding: 0;}
+  /*/Comment.*/
+
+  /*Billing.*/
+  #billing .postings,
+  #billing .packages{padding: 0;}
+  #billing .packages .columns{padding: 0; padding-right: 4px;}
+  #billing .packageType,
+  #billing .bidAmount{width: 70px; display: inline-block;}
+  #billing .package{padding: 8px;}
+  /*/Billing.*/
 }
 
 /* min-width 641px, medium screens */
@@ -483,7 +503,9 @@
   #company h4,
   #positionApplication h4,
   #user h4,
-  #analytics h4{margin-left: 0;}
+  #analytics h4,
+  #comment h4,
+  #billing h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}

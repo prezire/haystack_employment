@@ -16,5 +16,8 @@
   }
   function toHumanReadableDate($date)
   {
-    return date("F d, Y", strtotime($date));
+    $s = '';
+    $i = strpos($date, ' ');
+    if($i > 0){$s = substr($date, $i);}
+    return date("F d, Y", strtotime($date)) . $s;
   }

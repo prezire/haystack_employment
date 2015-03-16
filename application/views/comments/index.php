@@ -2,6 +2,13 @@
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
       <h4>Comments</h4>
+      <p>
+        Comments are similar to performance evaluations. 
+        If you're an Employer or Faculty Member, search 
+        for an Applicant and go to his Profile to 
+        Comment about his performance. If you're an 
+        Applicant, you can Delete Comments from this page.
+      </p>
     </div>
   </div>
   <?php
@@ -29,10 +36,15 @@
             <?php } ?>
             <span class="comment"><?php echo $c->comment; ?></span>
           </div>
-          <div class="dateTime"><?php echo $c->date_time; ?></div>
+          <div class="dateTimeUpdated">
+            <?php echo toHumanReadableDate($c->date_time_updated); ?>
+          </div>
         </div>
         <div class="small-12 medium-12 large-1 columns">
-            <a href="#" class="delete close">&times;</a>
+            <a href="<?php echo site_url('comment/delete/' . $c->comment_id); ?>" 
+              class="button tiny right delete">
+              &times;
+            </a>
           </div>
       </div>
   <?php

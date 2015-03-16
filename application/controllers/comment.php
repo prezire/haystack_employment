@@ -72,7 +72,7 @@ class Comment extends CI_Controller
           (
             array
             (
-              'success' => true,
+              'status' => 'success',
               'view' => $this->load->view
               (
                 'commons/partials/comments/listing', 
@@ -84,7 +84,8 @@ class Comment extends CI_Controller
         }
         else
         {
-          show_error('Error creating comment.');
+          showJsonView(array('status' => 'failed'));
+          //show_error('Error creating comment.');
         }
       }
       else
@@ -133,6 +134,6 @@ class Comment extends CI_Controller
   }
 	public final function delete($id)
   {
-    showJsonView(array('comment' => $this->comment_model->delete($id)->row()));
+    $this->commentmodel->delete($id);
   }
 }

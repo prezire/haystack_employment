@@ -7,7 +7,7 @@
   		parent::__construct();
       validateLoginSession
       (
-        array('update', 'delete')
+        array('read', 'readByJobTitle', 'update', 'delete')
       );
       $this->load->model('applicantmodel');
   	}
@@ -72,7 +72,6 @@
       $appl = $this->applicantmodel->read($id)->row();
       $user = $this->usermodel->read($appl->user_id)->row();
       $resumes = $this->resumemodel->readByApplicantId($appl->id);
-      //print_r($resumes);exit;
       $a = array
       (
         'applicant' => $appl, 

@@ -40,7 +40,7 @@
 					<?php 
 						$url = 'url="' . site_url('resume/setPublic/' . $r->id) . '"';
 						$s = 'class="isPublic" group="isPublic" ' . $url;
-						echo form_checkbox
+						echo form_radio
 						(
 							'isPublic', 
 							$r->id, 

@@ -24,9 +24,9 @@
 		}
     public final function setPublic($id, $state)
     {
-      //Reset all back to 0 first.
-      /*$a = array('is_public' => false);
-      $this->db->update('resumes', $a);*/
+      //Using Radio Button, so reset all back to 0 first.
+      $a = array('is_public' => false);
+      $this->db->update('resumes', $a);
       //
       $a = array('is_public' => $state);
       $this->db->where('id', $id);
@@ -67,7 +67,7 @@
       if($o->num_rows() > 0)
       {
         $applId = $o->row()->id;
-        $a = array('applicant_id' => $applId, 'access_type' => 'Public');
+        $a = array('applicant_id' => $applId, 'is_public' => true);
         $r = $this->db->get_where('resumes', $a);
         if($r->num_rows() > 0)
         {

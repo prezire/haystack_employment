@@ -51,19 +51,11 @@
       } ///if getLoggedUser(). 
     ?>
 
-    
-
+      <h5>Comments</h5>
       <div class="row comments">
-      <?php 
+      <?php
         if(isset($comments) && count($comments) > 0)
         {
-      ?>
-        <div class="row">
-          <div class="small-12 medium-12 large-12 columns">
-            <h5>Comments</h5>
-          </div>
-        </div>
-      <?php
           foreach($comments as $c)
           {
             //Prevent showing of unapproved comments to
@@ -82,7 +74,7 @@
       </div>
 
     <?php if(isLoggedIn()){ ?>
-    <div class="row create">
+    <div class="row comment create">
       <?php echo form_open('comment/createForProfile'); ?>
         <div class="large-12 columns">
             <input type="hidden" 

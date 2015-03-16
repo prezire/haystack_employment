@@ -11,6 +11,7 @@
 			$this->db->join('users u1', 'c.from_user_id = u1.id');
 			$this->db->join('users u2', 'c.to_user_id = u2.id');
 			$this->db->where('to_user_id', getLoggedUser()->id);
+			$this->db->order_by('c.date_time_updated', 'DESC');
 			return $this->db->get();
 		}
 		public final function create()
@@ -42,7 +43,13 @@
 	}
     public final function readByUserId($userId, $type = 'to')
     {
-		$this->db->select('c.*, c.id comment_id, u1.id commenter_id, u1.full_name commenter_full_name, u2.full_name commented_full_name');
+		$this->db->select
+		(
+			'c.*, c.id comment_id, ' . 
+			'u1.id commenter_id, ' . 
+			'u1.full_name commenter_full_name, ' . 
+			'u2.full_name commented_full_name'
+		);
 		$this->db->from('comments c');
 		$this->db->join('users u1', 'c.from_user_id = u1.id');
 		$this->db->join('users u2', 'c.to_user_id = u2.id');
@@ -54,7 +61,7 @@
 		{
 			$this->db->where('from_user_id', $userId);	
 		}
-		$this->db->order_by('c.date_time', 'ASC');
+		$this->db->order_by('c.date_time_updated', 'DESC');
 		return $this->db->get();
     }
 	public final function read($id)
@@ -84,7 +91,7 @@
 	}
 	public final function delete($id)
     {
-      $this->db->where('comment.id', $id);
-      return $this->db->delete();
+      $this->db->where('id', $id);
+      return $this->db->delete('comments');
     }
 }

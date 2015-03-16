@@ -51,8 +51,9 @@
         <?php 
           if(isLoggedIn())
           {
-            echo '<li><a href="' . site_url('user/update/' . getLoggedUser()->id) . '">Profile</a></li>';
-            echo '<li><a href="' . site_url('auth/logout') . '">Logout</a></li>'; 
+            $u = getLoggedUser();
+            echo '<li><a href="' . site_url('user/update/' . $u->id) . '">Profile</a></li>';
+            echo '<li><a href="' . site_url('auth/logout') . '">Logout (' . $u->full_name . ')</a></li>'; 
           }
           ?>
 			</ul>

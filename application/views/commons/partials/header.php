@@ -48,6 +48,7 @@
     <script src="<?php echo base_url('public/js/socials/fb.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/main.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/billing.js'); ?>"></script>
+    <script src="<?php echo base_url('public/js/comment.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/position.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/resume.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/analytics.js'); ?>"></script>

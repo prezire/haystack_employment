@@ -11,27 +11,9 @@
           <img src="<?php echo $img; ?>" />
         </div>
         <div class="small-6 medium-2 large-2 columns">
-          <?php 
-            if(getRoleName() == 'Employer')
-            {
-              $sDisabled = $isPooled ? 'disabled' : '';
-          ?>
-              <a href="<?php echo site_url('pooledapplicant/create'); ?>" 
-                  class="pool button tiny" <?php echo $sDisabled; ?>
-                  applicantId = "<?php echo $applicantId; ?>"
-                  employerId = "<?php echo $employerId; ?>">
-                <i class="fa fa-bookmark"></i> Pool
-              </a>
-          <?php
-            }
-            else
-            {
-              echo '&nbsp;';
-            }
-          ?>
           <a class="button tiny" 
               href="<?php echo site_url('resume/readByUserId/' . $user->id); ?>">
-            View resumes
+            View Resume
           </a>
         </div>
       </div>
