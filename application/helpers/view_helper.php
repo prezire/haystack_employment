@@ -21,3 +21,11 @@
     if($i > 0){$s = substr($date, $i);}
     return date("F d, Y", strtotime($date)) . $s;
   }
+  function getDateTime()
+  {
+    $CI = get_instance();
+    $CI->load->helper('date');
+    $d = '%Y-%m-%d %h:%i %a';
+    $t = time();
+    return mdate($d, $t);
+  }

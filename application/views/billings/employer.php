@@ -30,8 +30,8 @@
 						This page acts as a shopping cart. Please pay
 						the specified amount in order for your Posted Postiions
 						to be shown.
-						You may select a Package Type if you have 
-						multiple Postings to reduce your cost.
+						You may select a Package Type for 
+						multiple Postings for discounts.
 					</p>
 				  </div>
 				</div>
@@ -120,12 +120,18 @@
 			  		?>
 				</div>
 			</div>
-			<div class="overallTotal">
+			<div class="row">
+			  <div class="small-12 medium-12 large-11 columns">
+			  	<div class="overallTotal">
 				<strong>Overall Total (USD):</strong>
-				<span></span>
+					<span></span>
+				</div>
+			  </div>
+			  <div class="small-12 medium-12 large-1 columns">
+			  	<a href="#" class="button tiny checkout">
+					Checkout
+				</a>
+			  </div>
 			</div>
-			<a href="#" class="button tiny checkout">
-				Checkout
-			</a>
 	<?php } ?> 
 </div>

@@ -107,7 +107,6 @@ function Billing()
 			var amount  = t.val();
 		});
 		$(s + ' .vip').click(function(e){
-			e.preventDefault();
 			var t = $(this);
 			var selected = t.is(':selected');
 		});

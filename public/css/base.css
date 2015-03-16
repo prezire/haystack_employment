@@ -425,6 +425,8 @@
   #billing .packageType,
   #billing .bidAmount{width: 70px; display: inline-block;}
   #billing .package{padding: 8px;}
+  #billing .package .panel{margin-bottom: 0; padding: 1px;}
+  #billing .package label{margin-left: 0;}
   /*/Billing.*/
 }
 

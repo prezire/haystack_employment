@@ -5,12 +5,22 @@
 		<div class="header">
 			<div>
 				<strong>{name}</strong>
-				(Minimum of {minimumPostings} postings, 
-				up to {maximumDateDifference} days)
+				<br />
+				Place a minimum of {minimumPostings} postings, 
+				up to {maximumDateDifference} days each.
 			</div>
 			<span>
-				<input type="checkbox" id="vip{name}" class="vip" />
-				<label for="vip">VIP</label>
+				<?php 
+					$s = 'vip' . $name;
+					$data = array
+					(
+					    'name' => $s,
+					    'id' => $s,
+					    'class' => 'vip'
+				    );
+					echo form_checkbox($data); 
+				?>
+				<label for="vip{name}">VIP</label>
 			</span>
 			<span>
 				<span>
@@ -19,7 +29,10 @@
 				<input type="text" class="bidAmount" value="0" />
 			</span>
 		</div>
-		<div class="items"></div>
-		<div class="subTotal"></div>
+		<div class="panel items">test</div>
+		<div class="subTotal">
+			<strong>Sub Total (USD):</strong>
+			<span></span>
+		</div>
 	</div>
 </div>
