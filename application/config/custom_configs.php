@@ -55,6 +55,14 @@
     'Full-Time' => 8,
     'Part-Time' => 6,
     'Internship' => 0,
-    //Requires from and to params.
+    'packages' => array
+    (
+      //All prices under these packages will be reduced automtically
+      //multiplied by the number of required days.
+      'Lite' => 7,
+      'Medium' => 6,
+      'Heavy' => 5
+    ),
+    //Requires from and to params using country codes.
     'conversionServiceUrl' => 'http://rate-exchange.appspot.com/currency?q=1&'
   );

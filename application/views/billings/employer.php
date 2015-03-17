@@ -36,7 +36,7 @@
 				  </div>
 				</div>
 				<div class="postings small-12 medium-12 large-12 columns">
-					<table class="responsive">
+					<table class="responsive" cellspacing="0">
 						<thead>
 							<tr>
 								<th>Transaction ID</th>

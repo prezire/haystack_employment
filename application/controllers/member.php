@@ -1,33 +1,53 @@
-<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
-class Member extends CI_Controller 
-{
-	public function __construct()
-	{
-		parent::__construct();
-    validateLoginSession();
-    $this->load->model('membermodel');
-	}
-  public final function index()
+<?php 
+  if(!defined('BASEPATH')) exit('No direct script access allowed');
+  class Member extends CI_Controller 
   {
-    $o = $this->membermodel->index()->result();
-    showView('members/index', array('members' => $o));
-  }
-  public final function create($parentRoleName)
-  {
-    $i = $this->input;
-    if($i->post())
+  	public function __construct()
+  	{
+  		parent::__construct();
+      validateLoginSession();
+      $this->load->model('membermodel');
+  	}
+    protected function index(){/*Do nothing.*/}
+    public final function create()
     {
-      if($this->form_validation->run('member/create'))
+      $i = $this->input;
+      if($i->post())
       {
-        $o = $this->membermodel->create();
-        if($o->id)
+        if($this->form_validation->run('member/create'))
         {
-          $o = $o->row();
-          redirect(site_url('member'));
+          $o = $this->membermodel->create();
+          if($o->num_rows() > 0)
+          {
+            $o = $o->row();
+            //No need to verify thru email.
+            $r = getRoleName();
+            if($r == 'Employer')
+            {
+              redirect(site_url('companymember'));
+            }
+            else
+            {
+              redirect(site_url('facultymember'));
+            }
+          }
+          else
+          {
+            showView
+            (
+              'members/create', 
+              array
+              (
+                'status' => 'failed', 
+                'message' => 'Error creating member.'
+              )
+            );
+          }
         }
         else
         {
-          show_error('Error creating member.');
+          $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
+          showView('members/create');
         }
       }
       else
@@ -35,31 +55,31 @@ class Member extends CI_Controller
         showView('members/create');
       }
     }
-    else
+  	/*public final function read($id)
+  	{
+  		showView('members/read', array('member' => $this->membermodel->read($id)->row()));
+  	}*/
+  	public final function update($id = null)
     {
-      showView('members/create');
-    }
-  }
-	public final function read($id)
-	{
-		showView('members/read', array('member' => $this->membermodel->read($id)->row()));
-	}
-	public final function update($id = null)
-  {
-    $o = $this->membermodel->read($id)->row();
-    $a = array('member' => $o);
-    if($this->input->post())
-    {
-      if($this->form_validation->run())
+      $o = $this->membermodel->read($id)->row();
+      $a = array('member' => $o);
+      if($this->input->post())
       {
-        $b = $this->membermodel->update()->row();
-        if($b)
+        if($this->form_validation->run())
         {
-          redirect(site_url('member/read/' . $o->id));
+          $b = $this->membermodel->update()->row();
+          if($b)
+          {
+            redirect(site_url('member/read/' . $o->id));
+          }
+          else
+          {
+            show_error('Error updating member.');
+          }
         }
         else
         {
-          show_error('Error updating member.');
+          showView('members/update', $a);
         }
       }
       else
@@ -67,13 +87,17 @@ class Member extends CI_Controller
         showView('members/update', $a);
       }
     }
-    else
+  	public final function delete($id)
     {
-      showView('members/update', $a);
+      $this->membermodel->delete($id);
+      $r = getRoleName();
+      if($r == 'Employer')
+      {
+        redirect(site_url('companymember'));
+      }
+      else
+      {
+        redirect(site_url('facultymember'));
+      }
     }
   }
-	public final function delete($id)
-  {
-    showJsonView(array('member' => $this->member_model->delete($id)->row()));
-  }
-}

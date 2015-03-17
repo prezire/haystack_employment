@@ -59,6 +59,17 @@
         showView('internship_applications/update', $a);
       }
     }
+    public final function updateStatusAndNotes($positionId, $applicantId)
+    {
+      if($this->input->post())
+      {
+        $this->positionapplicationmodel->updateStatusAndNotes($positionId, $applicantId);
+      }
+      else
+      {
+        show_error('Request type is not allowed.');
+      }
+    }
   	public final function delete($id)
     {
       $this->positionapplicationmodel->delete($id);

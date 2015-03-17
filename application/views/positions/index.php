@@ -30,7 +30,7 @@
 		else
 		{ 
 	?>
-	<table class="responsive">
+	<table class="responsive" cellspacing="0">
 		<thead>
 			<tr>
 				<th>Name</th>

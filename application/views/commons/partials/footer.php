@@ -6,7 +6,7 @@
 			<a href="<?php echo site_url('main/faq'); ?>">FAQ</a>
 			<a href="<?php echo site_url('main/partners'); ?>">Partners</a>
 			<a href="<?php echo site_url('main/advertise'); ?>">Advertise</a>
-			<!--a href="<?php echo site_url('blog'); ?>">Blogs</a-->
+			<a href="<?php echo site_url('blog'); ?>">Blogs</a>
 		</div>
 	    <div class="small-12 large-6 columns">
 	      <ul class="right social">

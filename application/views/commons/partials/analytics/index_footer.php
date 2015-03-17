@@ -3,28 +3,34 @@
 			<h5>Email Report</h5>
   	</div>
 		<div class="small-12 medium-12 large-3 columns">
+      Frequency:
   		<select name="frequency" class="frequency">
-  			<option>Daily</option>
+  			<option>Off</option>
+        <option>Daily</option>
   			<option>Weekly</option>
   			<option>Monthly</option>
+        <option>Quarterly</option>
   		</select>
   	</div>
 
   	<div class="small-12 medium-12 large-4 columns">
-  		<input type="text" name="title" class="title" placeholder="Title" />
+  		Title:
+      <input type="text" name="title" class="title" placeholder="Title" />
   	</div>
 
   	<div class="small-12 medium-12 large-4 columns">
+      Recipients:
   		<input type="text" name="recipients" class="recipients" placeholder="Recipients. Comma-separated emails" />
   	</div>
   	<div class="small-12 medium-12 large-1 columns">
-    	<button class="tiny btnSave">Save</button>
+    	<br />
+      <button class="tiny btnSave">Save</button>
     </div>
 
 
   <div class="small-12 medium-12 large-12 columns">
   	<hr />
-  	<h5>Saved Emailer Reports</h5>
+  	<h5>Saved Email Reports</h5>
   	<div class="saved panel">
       <?php foreach ($emailers as $e) { ?>
           <div data-id="<?php echo $e->id; ?>" class="panel row">

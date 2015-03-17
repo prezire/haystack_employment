@@ -9,4 +9,8 @@
 		{
 			return $this->db->get('application_status');
 		}
+		public final function readByName($name)
+		{
+			return $this->db->get_where('application_status', array('name' => $name));
+		}
 	}

@@ -12,7 +12,7 @@
 		Archives
 	</a>
 	<?php } ?>
-	<table class="responsive">
+	<table class="responsive" cellspacing="0">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -82,22 +82,26 @@
 				    		  <div class="small-3 medium-3 large-4 columns">
 				    		  	<label>Application Status</label>
 				    		  	<?php 
+				    		  		$sDisabled = 
+				    		  			$appl->status_name == 'Withdrawn' ? 
+		    		  					' disabled' : 
+		    		  					'';
 				    		  		echo form_dropdown
 				    		  		(
 				    		  			'application_status', 
 				    		  			getApplicationStatuses(), 
 				    		  			$appl->status_name,
-				    		  			'class="applicationStatus"'
+				    		  			'class="applicationStatus"' . $sDisabled
 				    		  		); 
 				    		  	?>
 				    		  </div>
 				    		  <div class="small-4 medium-4 large-6 columns">
 				    		  	<label>Notes</label>
-				    		  	<textarea class="notes"><?php //echo nl2br();?></textarea>
+				    		  	<textarea class="notes"><?php echo nl2br($appl->position_application_notes);?></textarea>
 				    		  </div>
 				    		  <div class="small-2 medium-2 large-2 columns">
 				    		  	<label>Options</label>
-				    		  	<a href="<?php echo site_url('pooledapplicant/update/' . $position->id . '/' . $appl->applicant_id); ?>" class="button tiny update">
+				    		  	<a href="<?php echo site_url('positionapplication/updateStatusAndNotes/' . $position->id . '/' . $appl->applicant_id); ?>" class="button tiny update">
 				    		  		Update
 				    		  	</a>
 				    		  	<a href="<?php echo site_url('applicant/read/' . $appl->applicant_id); ?>" class="button tiny">

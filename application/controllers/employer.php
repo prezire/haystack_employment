@@ -48,8 +48,15 @@ class Employer extends CI_Controller
         }
         else
         {
-          //$this->session->set_flashdata('error', '<p>Error creating employer account.</p>');
-          //redirect(site_url('auth/register#employer'));        
+          showView
+          (
+            'employers/create', 
+            array
+            (
+              'status' => 'failed', 
+              'message' => 'Error creating member.'
+            )
+          );       
         }
       } 
       else 
@@ -64,9 +71,9 @@ class Employer extends CI_Controller
     }
   }
 	public final function read($id)
-	{
-		showView('employers/read', array('employer' => $this->employermodel->read($id)->row()));
-	}
+  {
+    showView('employers/read', array('employer' => $this->employermodel->read($id)->row()));
+  }
 	public final function update($id = null)
   {
     $o = $this->employermodel->read($id)->row();

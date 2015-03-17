@@ -25,7 +25,7 @@
 			$this->db->insert( 'users', $a );
 			$uId = $this->db->insert_id();
 			$this->db->insert( 'faculties', array( 'user_id' => $uId ) );
-			$emplId = $this->db->insert_id();
+			$facId = $this->db->insert_id();
 			$this->load->model( 'usermodel' );
 			//Org.
 			$aOrg = array
@@ -38,8 +38,9 @@
 			);
 			$this->db->insert( 'organizations', $aOrg );
 			$orgId = $this->db->insert_id();
-			//School faculties.
-			$aFacultySch = array( 'faculty_id' => $emplId, 'organization_id' => $orgId );
+			//Faculty schools.
+			$aFacultySch = array( 'faculty_id' => $facId, 'organization_id' => $orgId );
+			//print_r($aFacultySch);exit;
 			$this->db->insert( 'faculty_schools', $aFacultySch );
 			return $this->usermodel->read( $uId );
 		}

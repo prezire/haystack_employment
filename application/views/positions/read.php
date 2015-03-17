@@ -1,13 +1,17 @@
 <div id="position" class="read row">
   <h4>Position</h4>
   <div class="panel row">
-    <div class="small-12 medium-12 large-12 columns">
+    <div class="small-12 medium-12 large-6 columns">
       <div class="name">
         <b><?php echo $position->position_name; ?></b>
       </div>
       <span class="id">
         Job ID: <?php echo $position->position_id; ?>
       </span>
+    </div>
+    <div class="small-12 medium-12 large-6 columns">
+      <b>Category:</b>
+      <?php echo $position->category; ?>
     </div>
     <div class="small-12 medium-12 large-12 columns">
       <b>Job Description:</b>

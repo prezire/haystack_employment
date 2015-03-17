@@ -55,6 +55,17 @@ class PositionApplicationModel extends CI_Model
 			getPostValuePair()
 		);
 	}
+	public final function updateStatusAndNotes($positionId, $applicantId)
+    {
+    	$i = $this->input;
+    	$this->load->model('applicationstatusmodel');
+    	$applStatId = $this->applicationstatusmodel->readByName($i->post('application_status_name'))->row()->id;
+    	$a = getPostValuePair(array('application_status_name'));
+    	$a['application_status_id'] = $applStatId;
+    	$this->db->where('position_id', $positionId)
+    		->where('applicant_id', $applicantId)
+    		->update('position_applications', $a);
+    }
 	public final function delete( $id ) {
 		$this->db->where( 'id', $id );
 		return $this->db->delete( 'position_applications' );

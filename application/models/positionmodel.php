@@ -52,16 +52,15 @@
 			$positions = $this->db->get_where( 'positions', $a )->result();
 			$aPositions = array();
 			foreach ( $positions as $p ) {
-				$this->db->select( '*, ast.name status_name, a.id applicant_id' );
-				$this->db->from( 'position_applications pa' );
-				$this->db->join( 'applicants a', 'pa.applicant_id = a.id' );
-				$this->db->join( 'positions p', 'pa.position_id = p.id' );
-				$this->db->join( 'users u', 'a.user_id = u.id' );
-				$this->db->join( 'application_status ast', 'pa.application_status_id = ast.id' );
-				//
-				$this->db->where( 'position_id', $p->id );
+				$this->db->select( '*, ast.name status_name, a.id applicant_id, pa.notes position_application_notes' )
+				->from( 'position_applications pa' )
+				->join( 'applicants a', 'pa.applicant_id = a.id' )
+				->join( 'positions p', 'pa.position_id = p.id' )
+				->join( 'users u', 'a.user_id = u.id' )
+				->join( 'application_status ast', 'pa.application_status_id = ast.id' )
+				->where( 'pa.position_id', $p->id );
+				//TODO: Remove Pooled Applicants flow.
 				$appls = $this->db->get()->result();
-				//TODO: Loop application_status table along with $appls.
 				$tmp = array( 'position' => $p, 'applicants' => $appls );
 				array_push( $aPositions, $tmp );
 			}

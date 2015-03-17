@@ -11,6 +11,10 @@
 
   .accordion:before, .accordion:after{display: none;}
   .accordion{margin-bottom: 1px;}
+
+  table tr.even, 
+  table tr.alt, 
+  table tr:nth-of-type(even){background-color: #FFECF6;}
   
   body,
   .content,
@@ -119,8 +123,12 @@
   
   table .button{margin: 0;}
   table tbody tr td, table tr td{padding-top: 2px; padding-bottom: 2px;}
+  
   table thead tr th,
-  table tbody tr td{font-size: 12px;}
+  table tbody tr td{font-size: 12px;border-right: solid 1px #ECEAEA;}
+  table thead tr th:last-child, 
+  table tbody tr td:last-child{border-right: 0;}
+
   table.responsive th:last-child{width: 180px;}
 
   .button.radius,
@@ -414,6 +422,10 @@
   #company.update .columns{padding-left: 0;}
   /*/Company*/
 
+  /*Member.*/
+  #member.index .columns{padding: 0;}
+  /*/Member.*/
+
   /*Comment.*/
   #comment .columns{padding: 0;}
   /*/Comment.*/
@@ -428,6 +440,12 @@
   #billing .package .panel{margin-bottom: 0; padding: 1px;}
   #billing .package label{margin-left: 0;}
   /*/Billing.*/
+
+  /*Blog.*/
+  #blog .columns{padding: 0;}
+  #blog.read .header{margin-bottom: 8px;}
+  #blog.read .back.button{margin-top: 8px;}
+  /*/Blog.*/
 }
 
 /* min-width 641px, medium screens */
@@ -507,7 +525,9 @@
   #user h4,
   #analytics h4,
   #comment h4,
-  #billing h4{margin-left: 0;}
+  #billing h4,
+  #member h4,
+  #blog h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}
