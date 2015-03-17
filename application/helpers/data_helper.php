@@ -417,3 +417,13 @@
     );
     return $a;
   }
+  function getBlogPublishStates()
+  {
+    $a = array
+    (
+      'Draft' => 'Draft',
+      'Review' => 'Review',
+      'Published' => 'Published'
+    );
+    return $a;
+  }

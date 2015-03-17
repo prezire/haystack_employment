@@ -3,7 +3,7 @@
     <h4><?php echo $blog->name; ?></h4>
     by: <?php echo $blog->author; ?>
     <br />
-    <i><?php echo toHumanReadableDate($blog->publish_state); ?></i>
+    <i><?php echo toHumanReadableDate($blog->date_time_created); ?></i>
   </div>
       
    <div class="row">

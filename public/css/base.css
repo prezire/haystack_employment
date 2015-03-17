@@ -12,6 +12,8 @@
   .accordion:before, .accordion:after{display: none;}
   .accordion{margin-bottom: 1px;}
 
+  textarea{min-height: 115px;}
+
   table tr.even, 
   table tr.alt, 
   table tr:nth-of-type(even){background-color: #FFECF6;}
@@ -442,7 +444,8 @@
   /*/Billing.*/
 
   /*Blog.*/
-  #blog .columns{padding: 0;}
+  #blog.index .columns,
+  #blog.read .columns{padding: 0;}
   #blog.read .header{margin-bottom: 8px;}
   #blog.read .back.button{margin-top: 8px;}
   /*/Blog.*/

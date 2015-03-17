@@ -25,20 +25,22 @@
               case 'Applicant':
                 echo '<li><a href="' . site_url('positionapplication') . '">My Applications</a></li>';
                 echo '<li><a href="' . site_url('resume') . '">My Resumes</a></li>';
+                echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
               break;
               case 'Employer':
                 echo '<li><a href="' . site_url('position/readMyPosts') . '">My Posted Positions</a></li>';
                 echo '<li><a href="' . site_url('companymember') . '">Company Members</a></li>';
+                echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
                 echo '<li><a href="' . site_url('billing') . '">Billing</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
               case 'Faculty':
                 echo '<li><a href="' . site_url('facultymember') . '">Faculty Members</a></li>';
+                echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
                 echo '<li><a href="' . site_url('billing') . '">Billing</a></li>';
                 echo '<li><a href="' . site_url('analytics') . '">Analytics</a></li>';
               break;
             }
-            echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
           }
           else
           {

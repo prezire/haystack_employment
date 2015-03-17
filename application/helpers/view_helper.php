@@ -25,7 +25,7 @@
   {
     $CI = get_instance();
     $CI->load->helper('date');
-    $d = '%Y-%m-%d %h:%i %a';
+    $d = '%Y-%m-%d %H:%i:%s';
     $t = time();
     return mdate($d, $t);
   }

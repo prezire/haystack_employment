@@ -3,7 +3,7 @@
         <h4>Blogs</h4>
     </div>
     <?php
-        if(getRoleName() == 'Admin')
+        if(getRoleName() == 'Administrator')
         { 
     ?>
         <a href="<?php echo site_url('blog/create'); ?>" class="button tiny">
@@ -13,7 +13,7 @@
           <thead>
             <tr>
                 <th>Name</th>
-                <th>Slug</th>
+                <th>Author</th>
                 <th>Publish State</th>
                 <th>Tags</th>
                 <th>Options</th>
@@ -22,13 +22,21 @@
           <tbody>
             <?php foreach($blogs as $b){ ?>      
             <tr>
-              <td><?php echo $b->name; ?></td>
-              <td><?php echo $b->slug; ?></td>
+              <td>
+                <a href="<?php echo site_url('blog/read/' . $b->id); ?>">
+                  <?php echo $b->name; ?>
+                </a>
+              </td>
+              <td><?php echo $b->author; ?></td>
               <td><?php echo $b->publish_state; ?></td>
               <td><?php echo $b->tags; ?></td>
               <td>
-                <a href="<?php echo site_url('blog/update/' . $b->id); ?>" class="button radius small">Update</a>
-                <a href="<?php echo site_url('blog/delete/' . $b->id); ?>" class="button radius small alert">Delete</a>
+                <a href="<?php echo site_url('blog/delete/' . $b->id); ?>" class="button tiny alert">
+                  Delete
+                </a>
+                <a href="<?php echo site_url('blog/update/' . $b->id); ?>" class="button tiny">
+                  Update
+                </a>
               </td>
             </tr>
             <?php } ?>      
