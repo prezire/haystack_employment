@@ -4,7 +4,7 @@
         <img src="<?php echo base_url('public/img/logo.png'); ?>" />
       </a>
       <div class="slogan">
-        Gain work experience through Internship.
+        Enhance your career.
       </div>
 		</span>
 
@@ -23,6 +23,7 @@
             switch($roleName)
             {
               case 'Applicant':
+                //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
                 echo '<li><a href="' . site_url('positionapplication') . '">My Applications</a></li>';
                 echo '<li><a href="' . site_url('resume') . '">My Resumes</a></li>';
                 echo '<li><a href="' . site_url('comment') . '">Comments</a></li>';
@@ -45,7 +46,6 @@
           else
           {
             //echo '<li><a href="' . site_url('internship/bookmarks') . '">Bookmarks</a></li>';
-            //echo '<li><a href="' . site_url('internship/alert') . '">Alerts</a></li>';
             echo '<li><a href="' . site_url('auth/login') . '">Login</a></li>';
           }
         ?>
@@ -64,7 +64,8 @@
 		<footer class="footer clearfix">
 			<div class="rights">
 				<p>Copyright &copy; 2015 <br />
-          <a href="http://www.simplifie.net" target="_blank">Simplifie</a> HayStack.</p>
+          <a href="http://www.simplifie.net" target="_blank">Simplifie</a>
+          <a href="<?php echo site_url(); ?>">Haystack</a>.</p>
 			</div><!-- end rights -->
 		</footer><!-- end footer -->
 	</header><!-- end header -->

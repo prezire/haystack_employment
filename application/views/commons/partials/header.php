@@ -45,7 +45,7 @@
     
     <script src="<?php echo base_url('public/libs/zurb-responsive-tables-0d34bc6/responsive-tables.js'); ?>"></script>
     <script src="<?php echo base_url('public/libs/simple_html5_wysiwyg_editor/base.js'); ?>"></script>
-    <script src="<?php echo base_url('public/js/socials/fb.js'); ?>"></script>
+    <!--script src="<?php echo base_url('public/js/socials/fb.js'); ?>"></script-->
     <script src="<?php echo base_url('public/js/main.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/billing.js'); ?>"></script>
     <script src="<?php echo base_url('public/js/comment.js'); ?>"></script>

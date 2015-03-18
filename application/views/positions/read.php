@@ -88,5 +88,14 @@
       <?php } ?>
     </div>
   </div>
-
+  <script>
+    $(document).ready(function(){
+      new Position().trackDwells
+      (
+        true,
+        '<?php echo site_url(); ?>', 
+        <?php echo $position->position_id; ?>
+      );
+    });
+  </script>
 </div>

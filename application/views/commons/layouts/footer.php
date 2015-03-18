@@ -8,7 +8,6 @@
           h.baseUrl = '<?php echo base_url(); ?>';
           h.init();
           //
-          new Position().init();
           new Resume().init();
           //
           $(
@@ -30,6 +29,10 @@
           var c = new Comment();
           c.siteUrl = a.siteUrl;
           c.init();
+          //
+          var p = new Position();
+          p.siteUrl = a.siteUrl;
+          p.init();
         });
     </script>
   </section><!-- end main -->  

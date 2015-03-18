@@ -170,7 +170,7 @@
 			$a = array
 			(
 				'position_id' => $id,
-				'date_time_clicked' => getDateTime(),
+				'date_time_created' => getDateTime(),
 				'ip_address' => $this->input->ip_address(),
 				'seconds' => $seconds
 			);

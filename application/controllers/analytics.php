@@ -6,19 +6,23 @@ class Analytics extends CI_Controller
     parent::__construct();
     validateLoginSession();
     $this->load->model( 'analyticsmodel' );
+    $this->load->helper('analytics_helper');
   }
   public final function index() {
     $a = array();
     //
     $uId = getLoggedUser()->id;
     $this->load->model( 'organizationmodel' );
-    $orgId = $this->organizationmodel->readByUserId( $uId )->row()->organization_id;
     $r = getRoleName();
-    $a['organizationId'] = $orgId;
     $a['emailers'] = $this->analyticsmodel->readEmailersByRoleName( $uId, $r )->result();
     switch ( $r ) {
     case 'Employer':
       $this->load->model( 'positionmodel' );
+      $this->load->model( 'employermodel' );
+      $emplId = $this->employermodel->readByUserId( $uId )->row()->id;
+      $orgId = $this->organizationmodel->readByEmployerId( $emplId )->row()->organization_id;
+      $a['organizationId'] = $orgId;
+      //
       $a['view'] = 'employer';
       $pos = $this->positionmodel->index()->result();
       $aPos = array();
@@ -30,9 +34,12 @@ class Analytics extends CI_Controller
       $a['positions'] = $aPos;
       break;
     case 'Faculty':
-      $a['view'] = 'faculty';
       $this->load->model( 'resumemodel' );
-      //
+      $this->load->model( 'facultymodel' );
+      $facId = $this->facultymodel->readByUserId( $uId )->row()->id;
+      $orgId = $this->organizationmodel->readByFacultyId( $facId )->row()->organization_id;
+      $a['organizationId'] = $orgId;
+      $a['view'] = 'faculty';
       break;
     }
     showView( 'analytics/index', $a );
@@ -43,37 +50,47 @@ class Analytics extends CI_Controller
   public final function generate() {
     $i = $this->input;
     if ( $i->post() ) {
+      $this->load->model( 'applicantmodel' );
       $this->load->model( 'employermodel' );
       $this->load->model( 'applicantmodel' );
       $this->load->model( 'facultymodel' );
-      $this->load->model( 'analyticsmodel' );
       //
       $uId = $i->post( 'user_id' );
-      $filter = $i->post( 'filter' );
+      $field = $i->post('field');
+      $series = $i->post( 'series' );
       $from = $i->post( 'from' );
       $to = $i->post( 'to' );
-      $bUnique = $i->post( 'is_unique' ) == 'on';
-      //Check what type of user.
+      $metric = $i->post('metric');
+      //Check what type of user. Useful for saved reports wherein
+      //no user is needed for the login session.
       $bIsEmpl = $this->employermodel->readByUserId( $uId )->num_rows() > 0;
       $bIsFaculty = $this->facultymodel->readByUserId( $uId )->num_rows() > 0;
+      //
+      $bGeographic = $series == 'Geographic';
       //
       $chartType = '';
       $data = array();
       if ( $bIsEmpl ) {
         $chartType = 'Line';
-        //TODO: Incl Effectiveness.
-        switch ( $filter ) {
-        case 'Views':
-          $this->analyticsmodel->readInternshipImpressions();
+        switch($field)
+        {
+          case 'Delivery':
+            $data = $this->analyticsmodel->readDelivery($metric, $bGeographic);
           break;
-        case 'Geographic':
-          $this->analyticsmodel->readInternshipImpressions( true );
+          case 'Unique':
+            $data = $this->analyticsmodel->readUnique($metric, $bGeographic);
+          break;
+          case 'Engagement':
+            $data = $this->analyticsmodel->readEngagement($metric, $bGeographic);
+          break;
+          case 'Frequency Performance':
+            $data = $this->analyticsmodel->readFrequencyPerformance($metric, $bGeographic);
           break;
         }
       }
       else if ( $bIsFaculty ) {
           //TODO: Get all courses under this org.
-          switch ( $filter ) {
+          switch ( $series ) {
           case 'Effectiveness By All Courses':
             $chartType = 'Column';
             $this->analyticsmodel->readAllCourseEffectivity();
@@ -151,6 +168,6 @@ class Analytics extends CI_Controller
       $dateFrom,
       $dateTo
     );
-    showJsonView(array($metric => $i));
+    showJsonView( array( $metric => $i ) );
   }
 }

@@ -45,9 +45,31 @@
 					"Total Conversions to Frequency" out of 
 					"Total Impressions to Frequency
   */
-  function getAnalyticsReportTypes($userType)
+  function getAnalyticsFields($roleName)
   {
-    switch($userType)
+  	switch($roleName)
+  	{
+  		case 'Employer':
+  			$a = array
+  			(
+  				'Delivery' => 'Delivery',
+  				'Unique' => 'Unique',
+  				'Engagement' => 'Engagement',
+  				'Performance Frequency' => 'Performance Frequency'
+  			);
+  		break;
+  		case 'Faculty':
+  			$a = array('Empoyability');
+  		break;
+  		case 'Applicant':
+  			//
+  		break;
+  	}
+  	return $a;
+  }
+  function getAnalyticsFieldMetrices($roleName, $fieldName)
+  {
+    switch($roleName)
     {
       case 'Employer':
         $a = array
@@ -56,28 +78,30 @@
 		      (
 		      	'Clicks', 
 		      	'Impressions', 
-		      	'Click-Through Rate', 
-		      	'Dwell', 
-		      	'Average Dwell Rate'
+		      	'Click-Through Rates', 
+		      	'Dwells', 
+		      	'Average Dwell Rates',
+		      	'Conversions',
+		      	'Conversion Rates'
 		      ),
 	      'Unique' => array
 		      (
 		      	'Clicks', 
 		      	'Dwelling Applicants', 
-		      	'Average Frequency'
+		      	'Average Frequencies'
 		      ),
 	      'Engagement' => array
 		   		(
-		    		'Data By Day'
+		    		'Engagement Data By Days'
 				),
 	      'Frequency Performance' => array
 		      (
-		      	'Dwell', 
-		      	'Click-Through Rate', 
+		      	'Dwells', 
+		      	'Click-Through Rates', 
 		      	'Impressions', 
-		      	'Unique Frequency Level', 
-		      	'Total Impressions Frequency', 
-		      	'Conversion Rate Frequency'
+		      	'Unique Frequency Levels', 
+		      	'Total Impressions Frequencies', 
+		      	'Conversion Rate Frequencies'
 		      )
 	    );
       break;
@@ -91,5 +115,10 @@
         //
       break;
     }
-    return $a;
+    return $a[$fieldName];
+  }
+  //Y-Axis.
+  function getAnalyticsSeries()
+  {
+  	return array('Person', 'Geographic');
   }

@@ -50,7 +50,9 @@
       <div class="row">
     <?php
           foreach($blogs as $b)
-          { 
+          {
+            if($b->publish_state == 'Published')
+            {
     ?>
         <div class="large-4 columns">
           <strong>
@@ -60,7 +62,10 @@
           </strong>
           - <i>by <?php echo $b->author; ?></i>
         </div>
-    <?php } ?>
+    <?php
+          } 
+        } 
+    ?>
       </div>
     <?php } ?>
 </div>

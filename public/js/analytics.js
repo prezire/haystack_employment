@@ -9,24 +9,30 @@ function Analytics()
 	{
 		var s = '#analytics.index';
 		var uId = $(s + ' .userId').val();
-		var reportType = $(s + ' .reportType').val();
+		var field = $(s + ' .field').val();
+		var metric = $(s + ' .metric').val();
+		var series = $(s + ' .series').val();
 		var from = $(s + ' .from').val();
 		var to = $(s + ' .to').val();
+		//Orgs are the most common among users.
 		var orgId = $(s + ' .organizationId').val();
 		var o = 
-		{
-			report_type: reportType, 
-			date_from: from, 
+		{ 
 			date_to: to,
+			date_from: from,
 			user_id: uId,
+			metric: metric,
+			field: field, 
+			series: series,
 			organization_id: orgId
 		};
 		return o;
 	};
 	this.renderGraph = function(data)
 	{
+		var graphType = 'Line';
+		//
 		var s = '#analytics.index';
-		var graphType = $(s + ' .graphType').val();
 		var gCntr = $(s + ' .graph');
 		gCntr.height(400);
 		switch(graphType)
@@ -221,7 +227,7 @@ function Analytics()
 			break;
 			case 'Stack':
 				/*
-					columnStacked.htmPl
+					columnStacked.html
 					var chart;
 		            var chartData = [
 		                {
@@ -409,13 +415,6 @@ function Analytics()
 			break;
 		}
 	};
-	/*this.wrap = function(item)
-	{
-		var v = '<div class="small-12 medium-12 large-12 columns">';
-			v += item;
-		v += '</div>';
-		return v;
-	};*/
 	this.toHumanReadableDate = function(date)
 	{
 		return date;

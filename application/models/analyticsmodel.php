@@ -51,9 +51,225 @@ class AnalyticsModel extends CI_Model
 			 - from Date. Required. Default is today - 1.
 			 - to Date. Required. Default is today.
 		*/
-	public final function generate( $options ) {
-		$o = $options;
-
+	public final function generate( $options ) {$o = $options;}
+	//
+	private final function readPositionsClicks()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsImpressions()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsCtrs()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsDwells()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsDwellRates()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsConversions()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsConversionRates()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	//
+	private final function readPositionsUniqueClicks()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsUniqueDwellingApplicants()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsUniqueDwellingFrequencies()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	//
+	private final function readPositionsEngagementDataByDays()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	//
+	private final function readPositionsFrequencyPerformanceDwells()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsFrequencyPerformanceCtrs()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsFrequencyPerformanceImpressions()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsFrequencyPerformanceUniqueFrequencyLevels()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsFrequencyPerformanceTotalImpressionsFrequencies()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	private final function readPositionsFrequencyPerformanceConversionRatesFrequencies()
+	{
+		return $this->db->select('')
+				->from('')
+				->join('', '')
+				->where('', '')
+				->get();
+	}
+	//
+	public final function readDelivery($metric, $isGeographic = false)
+	{
+		switch($metric)
+        {
+          case 'Clicks':
+            $data = $this->readPositionsClicks($bGeographic);
+          break;
+          case 'Impressions':
+            $data = $this->readPositionsImpressions($bGeographic);
+          break;
+          case 'Click-Through Rates':
+            $data = $this->readPositionsCtrs($bGeographic);
+          break;
+          case 'Dwells':
+            $data = $this->readPositionsDwells($bGeographic);
+          break;
+          case 'Average Dwell Rates':
+            $data = $this->readPositionsDwellRates($bGeographic);
+          break;
+          case 'Conversions':
+            $data = $this->readPositionsConversions($bGeographic);
+          break;
+          case 'Conversion Rates':
+            $data = $this->readPositionsConversionRates($bGeographic);
+          break;
+        }
+        return $data;
+	}
+	public final function readUnique($metric, $isGeographic = false)
+	{
+		switch($metric)
+		{
+			case 'Unique Clicks':
+	            $data = $this->readPositionsUniqueClicks($bGeographic);
+			break;
+			case 'Unique Dwelling Applicants':
+				$data = $this->readPositionsUniqueDwellingApplicants($bGeographic);
+			break;
+			case 'Unique Dwelling Frequencies':
+				$data = $this->readPositionsUniqueDwellingFrequencies($bGeographic);
+			break;
+		}
+		return $data;
+	}
+	public final function readEngagement($metric, $isGeographic = false)
+	{
+		switch($metric)
+		{
+			case 'Engagement Data By Days':
+				$data = $this->readPositionsEngagementDataByDays($bGeographic);
+			break;
+		}
+		return $data;
+	}
+	public final function readFrequencyPerformance($metric, $isGeographic = false)
+	{
+		switch($metric)
+        {
+          case 'Frequency Performance Dwells':
+            $data = $this->readPositionsFrequencyPerformanceDwells($bGeographic);
+          break;
+          case 'Frequency Performance Click-Through Rates':
+            $data = $this->readPositionsFrequencyPerformanceCtrs($bGeographic);
+          break;
+          case 'Frequency Performance Impressions':
+            $data = $this->readPositionsFrequencyPerformanceImpressions($bGeographic);
+          break;
+          case 'Frequency Performance Unique Frequency Levels':
+            $data = $this->readPositionsFrequencyPerformanceUniqueFrequencyLevels($bGeographic);
+          break;
+          case 'Frequency Performance Total Impressions':
+            $data = $this->readPositionsFrequencyPerformanceTotalImpressionsFrequencies($bGeographic);
+          break;
+          case 'Frequency Performance Conversion Rate':
+            $data = $this->readPositionsFrequencyPerformanceConversionRatesFrequencies($bGeographic);
+          break;
+        }
 	}
 	//Employer Metrices. Refer to analytics_helper
 	//for definitions.

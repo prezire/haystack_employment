@@ -49,7 +49,9 @@
 			<?php foreach($positions as $p){ ?>
 			<tr>
 				<td>
-					<a href="<?php echo site_url('position/read/' . $p->id); ?>" class="tiny">
+					<a data-id="<?php echo $p->id; ?>" 
+						href="<?php echo site_url('position/read/' . $p->id); ?>" 
+						class="position tiny">
 						<?php echo $p->name; ?>
 					</a>
 				</td>
@@ -78,4 +80,9 @@
 		}
 		echo $pagination;
 	?>
+	<script>
+		$(document).ready(function(){
+			new Position().trackClicks('<?php echo site_url(); ?>');
+		});
+	</script>
 </div>
