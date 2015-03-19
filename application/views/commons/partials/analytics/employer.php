@@ -1,6 +1,6 @@
 <div class="row panel">
   <div class="small-12 medium-2 large-2 columns">
-    Field (Count or Value):
+    Field:
     <?php 
       echo form_dropdown
       (
@@ -24,7 +24,7 @@
       ?>
   </div>
 	<div class="small-12 medium-2 large-2 columns">
-    Series (Y-Axis):
+    Series:
     <?php 
       echo form_dropdown
       (
@@ -33,15 +33,14 @@
         null,
         'class="series"'
       );
-      //TODO: Data Level dropdown: 
-      //Single Post or All Posts. 
     ?>
   </div>
    <div class="small-12 medium-10 large-6 columns">
     <br />
-  	<button class="tiny btnGenerate">
+  	<button data-role-name="<?php echo getRoleName(); ?>" 
+            class="tiny btnGenerate">
       Generate Report
     </button>
   </div>
-  <div class="small-12 medium-12 large-12 columns graph panel"></div>
+  <div class="small-12 medium-12 large-12 columns graph panel" id="chartdiv"></div>
 </div>

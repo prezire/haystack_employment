@@ -76,32 +76,32 @@
 	    (
 	      'Delivery' => array
 		      (
-		      	'Clicks', 
-		      	'Impressions', 
-		      	'Click-Through Rates', 
-		      	'Dwells', 
-		      	'Average Dwell Rates',
-		      	'Conversions',
-		      	'Conversion Rates'
+		      	'Clicks' => 'Clicks', 
+		      	'Impressions' => 'Impressions', 
+		      	'Click-Through Rates' => 'Click-Through Rates', 
+		      	'Dwells' => 'Dwells', 
+		      	'Average Dwell Rates' => 'Average Dwell Rates',
+		      	'Conversions' => 'Conversions',
+		      	'Conversion Rates' => 'Conversion Rates'
 		      ),
 	      'Unique' => array
 		      (
-		      	'Clicks', 
-		      	'Dwelling Applicants', 
-		      	'Average Frequencies'
+		      	'Clicks' => 'Clicks', 
+		      	'Dwelling Applicants' => 'Dwelling Applicants', 
+		      	'Average Frequencies' => 'Average Frequencies'
 		      ),
 	      'Engagement' => array
 		   		(
-		    		'Engagement Data By Days'
+		    		'Data By Days' => 'Data By Days'
 				),
 	      'Frequency Performance' => array
 		      (
-		      	'Dwells', 
-		      	'Click-Through Rates', 
-		      	'Impressions', 
-		      	'Unique Frequency Levels', 
-		      	'Total Impressions Frequencies', 
-		      	'Conversion Rate Frequencies'
+		      	'Dwells' => 'Dwells', 
+		      	'Click-Through Rates' => 'Click-Through Rates', 
+		      	'Impressions' => 'Impressions', 
+		      	'Unique Frequency Levels' => 'Unique Frequency Levels', 
+		      	'Total Impressions Frequencies' => 'Total Impressions Frequencies', 
+		      	'Conversion Rate Frequencies' => 'Conversion Rate Frequencies'
 		      )
 	    );
       break;
@@ -120,5 +120,5 @@
   //Y-Axis.
   function getAnalyticsSeries()
   {
-  	return array('Person', 'Geographic');
+  	return array('Person' => 'Person', 'Geographic' => 'Geographic');
   }

@@ -28,15 +28,19 @@ function Analytics()
 		};
 		return o;
 	};
-	this.renderGraph = function(data)
+	this.renderGraph = function(graphType, data)
 	{
-		var graphType = 'Line';
-		//
+		var imagesPath = '../public/libs/amcharts_3.13.0.free/images/';
 		var s = '#analytics.index';
 		var gCntr = $(s + ' .graph');
 		gCntr.height(400);
 		switch(graphType)
 		{
+			case 'Line With Different Bullet Sizes':
+				//All in one graph.
+				//Use this graph perhaps for Engagement Data By Days. 
+				//lineWithDifferentBulletSizes.html
+			break;
 			case 'Column':
 				/*
 					columnRotatedSeries.html
@@ -154,60 +158,31 @@ function Analytics()
 				*/
 			break;
 			case 'Line':
-				/*
-					_JSON_lineWithFilledValueRanges.html
+					//_JSON_lineWithFilledValueRanges.html.
+					var maximum = data.parameters.maximum;
+					var half = maximum / 2;
 					var chart = AmCharts.makeChart("chartdiv", {
 		                "type": "serial",
 		                "theme": "dark",
 		                "dataDateFormat": "YYYY-MM-DD",
-		                "pathToImages": "../amcharts/images/",
-		                "dataProvider": [{
-		                    "date": "2013-11-30",
-		                    "value": 104
-		                }, {
-		                    "date": "2013-12-01",
-		                    "value": 108
-		                }, {
-		                    "date": "2013-12-02",
-		                    "value": 103
-		                }, {
-		                    "date": "2013-12-03",
-		                    "value": 105
-		                }, {
-		                    "date": "2013-12-04",
-		                    "value": 136
-		                }, {
-		                    "date": "2013-12-05",
-		                    "value": 138
-		                }, {
-		                    "date": "2013-12-06",
-		                    "value": 113
-		                }, {
-		                    "date": "2013-12-07",
-		                    "value": 131
-		                }, {
-		                    "date": "2013-12-08",
-		                    "value": 114
-		                }, {
-		                    "date": "2013-12-09",
-		                    "value": 124
-		                }],
+		                "pathToImages": imagesPath,
+		                "dataProvider": data.provider,
 		                "valueAxes": [{
-		                    "maximum": 140,
-		                    "minimum": 100,
+		                    "maximum": maximum,
+		                    "minimum": 0,
 		                    "axisAlpha": 0,
 		                    "guides": [{
 		                        "fillAlpha": 0.1,
 		                        "fillColor": "#CC0000",
 		                        "lineAlpha": 0,
-		                        "toValue": 120,
+		                        "toValue": half,
 		                        "value": 0
 		                    }, {
 		                        "fillAlpha": 0.1,
 		                        "fillColor": "#0000cc",
 		                        "lineAlpha": 0,
-		                        "toValue": 200,
-		                        "value": 120
+		                        "toValue": maximum,
+		                        "value": half
 		                    }]
 		                }],
 		                "graphs": [{
@@ -223,7 +198,71 @@ function Analytics()
 		                    "parseDates": true
 		                }
 		            });
-				*/
+				
+			break;
+			case 'Area Stack':
+				/*_JSON_areaStacked.html*/
+					var chartData = data /*[{
+			               "year": 2000,
+			                   "cars": 1587,
+			                   "motorcycles": 650,
+			                   "bicycles": 121
+			           }, {
+			               	   "year": 1995,
+			                   "cars": 1567,
+			                   "motorcycles": 683,
+			                   "bicycles": 146
+			           }]*/;
+
+			           AmCharts.makeChart("chartdiv", {
+			               type: "serial",
+			               pathToImages: imagesPath,
+			               dataProvider: chartData,
+			               marginTop: 10,
+			               categoryField: "date",
+			               categoryAxis: {
+			                   gridAlpha: 0.07,
+			                   axisColor: "#DADADA",
+			                   startOnAxis: true
+			               },
+			               valueAxes: [{
+			                   stackType: "regular",
+			                   gridAlpha: 0.07,
+			                   title: "Clicks"
+			               }],
+			               //TODO: Loop to specific obj indices for the items below.
+			               graphs: [{
+			                   type: "line",
+			                   title: "General Manager",
+			                   hidden: true,
+			                   valueField: "General Manager",
+			                   lineAlpha: 0,
+			                   fillAlphas: 0.6,
+			                   balloonText: "<span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>"
+			               }, {
+			                   type: "line",
+			                   title: "Test Position",
+			                   valueField: "Test Position",
+			                   lineAlpha: 0,
+			                   fillAlphas: 0.6,
+			                   balloonText: "<span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>"
+			               }],
+			               legend: {
+			                   position: "bottom",
+			                   valueText: "[[value]]",
+			                   valueWidth: 100,
+			                   valueAlign: "left",
+			                   equalWidths: false,
+			                   periodValueText: "total: [[value.sum]]"
+			               },
+			               chartCursor: {
+			                   cursorAlpha: 0
+			               },
+			               chartScrollbar: {
+			                   color: "FFFFFF"
+			               }
+
+			           });
 			break;
 			case 'Stack':
 				/*
@@ -419,9 +458,11 @@ function Analytics()
 	{
 		return date;
 	};
-	this.generateReport = function(roleName)
+	this.generateReport = function()
 	{
+		var ref = this;
 		var o = {};
+		var roleName = $('.btnGenerate').data('role-name');
 		switch(roleName)
 		{
 			case 'Employer':
@@ -442,9 +483,7 @@ function Analytics()
 		}
 		var params = $.extend({}, o, this.getFilters());
 		var url = this.siteUrl + 
-				'/analytics/generate/' + 
-				roleName;
-		console.log(params, url);
+				'/analytics/generate/';
 		$.ajax({
 			url: url,
 			type: 'POST',
@@ -453,7 +492,7 @@ function Analytics()
 			{
 				if(response.status == 'success')
 				{
-					this.renderGraph(response.data);
+					ref.renderGraph(response.graphType, response.data);
 				}
 				else
 				{
@@ -467,8 +506,8 @@ function Analytics()
 		var o = this;
 		var s = '#analytics.index';
 		$(s + ' .btnGenerate').click(function(e){
-			var roleName = $(this).attr('roleName');
-			o.generateReport(roleName);
+			o.generateReport();
+			//o.renderGraph('Line', null);
 			e.preventDefault();
 		});
 		$(s + ' .btnSave').click

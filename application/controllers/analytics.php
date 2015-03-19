@@ -68,10 +68,10 @@ class Analytics extends CI_Controller
       //
       $bGeographic = $series == 'Geographic';
       //
-      $chartType = '';
+      $graphType = '';
       $data = array();
       if ( $bIsEmpl ) {
-        $chartType = 'Line';
+        $graphType = 'Line';
         switch($field)
         {
           case 'Delivery':
@@ -92,14 +92,14 @@ class Analytics extends CI_Controller
           //TODO: Get all courses under this org.
           switch ( $series ) {
           case 'Effectiveness By All Courses':
-            $chartType = 'Column';
+            $graphType = 'Column';
             $this->analyticsmodel->readAllCourseEffectivity();
             //TODO: Loop.
             //TODO: Displ both Hired and Not Hired data.
             //TODO: Choose color for each loop.
             break;
           case 'Effectiveness By Specific Course':
-            $chartType = 'Stack';
+            $graphType = 'Stack';
             $this->analyticsmodel->readSpecificCourseEffectivity();
             //TODO: Loop.
             //TODO: Displ both Hired and Not Hired data.
@@ -110,7 +110,7 @@ class Analytics extends CI_Controller
       $a = array
       (
         'status' => 'success',
-        'chartType' => $chartType,
+        'graphType' => $graphType,
         'data' => $data
       );
       showJsonView( $a );
@@ -155,7 +155,7 @@ class Analytics extends CI_Controller
     $this->analyticsmodel->deleteEmailer( $id );
   }
   //curl http://localhost/haystack_employment/index.php/analytics/readDelivery/7/impressions/2015-03-08%2016:56:00/2015-03-12%2016:24:34
-  public final function readDelivery(
+  /*public final function readDelivery(
     $employerId,
     $metric,
     $dateFrom,
@@ -169,5 +169,5 @@ class Analytics extends CI_Controller
       $dateTo
     );
     showJsonView( array( $metric => $i ) );
-  }
+  }*/
 }

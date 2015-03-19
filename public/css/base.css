@@ -410,6 +410,7 @@
   /*/TOC and EULA.*/
 
   /*Analytics.*/
+  #analytics.index .graph.panel{padding: 0; background-color: #3F3F4F;}
   #analytics.index .saved.panel{padding: 4px;}
   #analytics.index .saved.panel .panel{position: relative;}
   #analytics.index .saved.panel .panel a{position: absolute; right: 0.2rem; top: 0.2rem;}
