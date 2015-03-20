@@ -1,29 +1,30 @@
 <div id="resume" class="read row">
   <section class="panel radius">
     <div class="row">
-      <div class="small-12 medium-12 large-12 columns">
-        <h6>Resume</h6><br />
+      <div class="small-6 medium-10 large-10 columns">
+        <h3>
+          Resume of <?php echo $resume->full_name; ?>
+        </h3>
       </div>
+      <div class="small-6 medium-2 large-2 columns">
+        <div class="avatar right">
+          <?php 
+            $img = $resume->image_path;
+            $img = strlen($img) < 1 ? 
+                  base_url('public/img/avatar.jpg') : 
+                  base_url('public/uploads/' . $img);
+          ?>
+          <img class="right" src="<?php echo $img; ?>" />
+        </div>
+      </div>
+    </div>
       
     <section class="resume">
-        
         <div class="row">
           <div class="small-8 medium-10 large-10 columns">
-            <strong>Full Name:</strong> <?php echo $resume->full_name; ?><br />      
-            
             <strong>Headline:</strong>
+            <br />
             <?php echo $resume->headline; ?>
-          </div>
-          <div class="small-4 medium-2 large-2 columns">
-            <div class="avatar">
-              <?php 
-                $img = $resume->image_path;
-                $img = strlen($img) < 1 ? 
-                      base_url('public/img/avatar.jpg') : 
-                      base_url('public/uploads/' . $img);
-              ?>
-              <img class="right" src="<?php echo $img; ?>" />
-            </div>
           </div>
         </div>
         
@@ -211,11 +212,7 @@
         <ul>
           <?php foreach($skills as $s){ ?>
             <li>
-              <div class="row panel radius">
-                <div class="small-12 medium-12 large-12 columns">
-                  <?php echo $s->name; ?>
-                </div>
-              </div>
+              <?php echo $s->name; ?>
             </li>
           <?php } ?>
         </ul>

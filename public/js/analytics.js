@@ -33,7 +33,7 @@ function Analytics()
 		var imagesPath = '../public/libs/amcharts_3.13.0.free/images/';
 		var s = '#analytics.index';
 		var gCntr = $(s + ' .graph');
-		gCntr.height(400);
+		gCntr.css({minHeight: 400});
 		switch(graphType)
 		{
 			case 'Line With Different Bullet Sizes':

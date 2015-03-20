@@ -53,6 +53,20 @@
 			*/
 		public final function generate( $options ) {$o = $options;}
 		//
+		private final function getDataProviderAndParams($queryResult)
+		{
+			$maximum = 0;
+			foreach ($queryResult as $o) {
+				$i = $o->value;
+				if($i > $maximum) $maximum = $i;
+			}
+			$a = array
+			(
+				'provider' => $queryResult,
+				'parameters' => array('maximum' => $maximum)
+			);
+			return $a;
+		}
 		private final function readPositionsClicks($isGeographic)
 		{
 			$i = $this->input;
@@ -62,6 +76,7 @@
 			$r = $this->db->select('DATE(pc.date_time_clicked) date, COUNT(pc.id) value')
 					->from('position_clicks pc')
 					->join('positions p', 'pc.position_id = p.id')
+					//TODO: Change employer comparison to organization.
 					->join('employers e', 'p.employer_id = e.id')
 					->join('users u', 'e.user_id = u.id')
 					->where('DATE(pc.date_time_clicked) >=', $f)
@@ -69,16 +84,7 @@
 					->group_by('DATE(pc.date_time_clicked)')
 					->order_by('DATE(pc.date_time_clicked)', 'ASC')
 					->get()->result();
-			$maximum = 0;
-			foreach ($r as $o) {
-				$i = $o->value;
-				if($i > $maximum) $maximum = $i;
-			}
-			$a = array
-			(
-				'provider' => $r,
-				'parameters' => array('maximum' => $maximum)
-			);
+			$a = $this->getDataProviderAndParams($r);
 			/*
 				//For Unique Clicks...
 				//Format for Area Stack graph.
@@ -109,25 +115,29 @@
 					->group_by('DATE(pi.date_time_viewed)')
 					->order_by('DATE(pi.date_time_viewed)', 'ASC')
 					->get()->result();
-			$maximum = 0;
-			foreach ($r as $o) {
-				$i = $o->value;
-				if($i > $maximum) $maximum = $i;
-			}
-			$a = array
-			(
-				'provider' => $r,
-				'parameters' => array('maximum' => $maximum)
-			);
+			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
 		private final function readPositionsCtrs()
 		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
+			/*
+				
+				SELECT (((SELECT sum(id) FROM position_clicks WHERE position_id = p.id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = p.id)) * 100) average, p.id, p.name
+				FROM position_clicks pc
+				INNER JOIN position_impressions pi ON pc.position_id = pi.position_id
+				RIGHT JOIN positions p ON pc.position_id = p.id
+				GROUP BY p.id
+				ORDER BY average DESC
+			*/
+			//KLUDGE: Not sure if output is correct.
+			$r = $this->db->select('DATE(pc.date_time_clicked) date, (((SELECT sum(id) FROM position_clicks WHERE position_id = pi.position_id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = pc.position_id)) * 100) value')
+				->from('position_clicks pc')
+				->join('position_impressions pi', 'pc.position_id = pi.position_id')
+				->group_by('DATE(pc.date_time_clicked)')
+				->order_by('DATE(pc.date_time_clicked)', 'ASC')
+				->get()->result();
+			$a = $this->getDataProviderAndParams($r);
+			return $a;
 		}
 		private final function readPositionsDwells()
 		{
@@ -144,19 +154,10 @@
 					->group_by('DATE(pd.date_time_created)')
 					->order_by('DATE(pd.date_time_created)', 'ASC')
 					->get()->result();
-			$maximum = 0;
-			foreach ($r as $o) {
-				$i = $o->value;
-				if($i > $maximum) $maximum = $i;
-			}
-			$a = array
-			(
-				'provider' => $r,
-				'parameters' => array('maximum' => $maximum)
-			);
+			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
-		private final function readPositionsDwellRates()
+		private final function readPositionsAvgDwellRates()
 		{
 			return $this->db->select('')
 					->from('')
@@ -166,19 +167,47 @@
 		}
 		private final function readPositionsConversions()
 		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
+			$i = $this->input;
+			$f = $i->post('date_from');
+			$t = $i->post('date_to');
+			$r = $this->db->select
+					(
+						'DATE(pa.date_time_applied) date, ' . 
+						'SUM(pa.id) value'
+					)
+					->from('position_applications pa')
+					->join('positions p', 'pa.position_id = p.id')
+					->join('employers e', 'p.employer_id = e.id')
+					->join('users u', 'e.user_id = u.id')
+					->where('DATE(pa.date_time_applied) >=', $f)
+					->or_where('DATE(pa.date_time_applied) <=', $t)
+					->group_by('DATE(pa.date_time_applied)')
+					->order_by('DATE(pa.date_time_applied)', 'ASC')
+					->get()->result();
+			$a = $this->getDataProviderAndParams($r);
+			return $a;
 		}
 		private final function readPositionsConversionRates()
 		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
+			$i = $this->input;
+			$f = $i->post('date_from');
+			$t = $i->post('date_to');
+			$r = $this->db->select
+					(
+						'DATE(pa.date_time_applied) date, ' . 
+						'COUNT(pa.id) value'
+					)
+					->from('position_applications pa')
+					->join('positions p', 'pa.position_id = p.id')
+					->join('employers e', 'p.employer_id = e.id')
+					->join('users u', 'e.user_id = u.id')
+					->where('DATE(pa.date_time_applied) >=', $f)
+					->or_where('DATE(pa.date_time_applied) <=', $t)
+					->group_by('DATE(pa.date_time_applied)')
+					->order_by('DATE(pa.date_time_applied)', 'ASC')
+					->get()->result();
+			$a = $this->getDataProviderAndParams($r);
+			return $a;
 		}
 		//
 		private final function readPositionsUniqueClicks()
@@ -281,7 +310,7 @@
 	            $data = $this->readPositionsDwells($isGeographic);
 	          break;
 	          case 'Average Dwell Rates':
-	            $data = $this->readPositionsDwellRates($isGeographic);
+	            $data = $this->readPositionsAvgDwellRates($isGeographic);
 	          break;
 	          case 'Conversions':
 	            $data = $this->readPositionsConversions($isGeographic);

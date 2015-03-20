@@ -97,7 +97,7 @@
         $a = array
         (
           'image_path' => $avatar['file_name'],
-          'image_filename' => $avatar['orig_name']
+          'image_original_filename' => $avatar['orig_name']
         );
         $this->db->where('id', $userId);
         $this->db->update('users', $a);

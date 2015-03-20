@@ -86,6 +86,24 @@
       </p>
 
       <hr />
+
+      <h5>Analytics</h5>
+      <p>
+        Report Types and Metrices:
+        <ul>
+          <li>
+            Delivery
+            <ul>
+              <li></li>
+            </ul>
+          </li>
+          <li>Unique</li>
+          <li>Engagement</li>
+          <li>Performance Frequency</li>
+        </ul>
+      </p>
+
+      <hr />
       
       <h5>What's the answer to the chicken and egg problem?</h5>
       <p>

@@ -14,6 +14,8 @@
 
   textarea{min-height: 115px;}
 
+  .alert-box.success{padding: 8px;}
+
   table tr.even, 
   table tr.alt, 
   table tr:nth-of-type(even){background-color: #FFECF6;}
@@ -338,9 +340,10 @@
   #resume.read li .row .columns{padding: 0;}
   #resume.read .row .row .columns{line-height: 9px;}
   #resume.read .row.panel{padding: 4px 8px;}
+  #resume.read .skills li,
   #resume.read .certifications li
   {
-    list-style-type: disc;
+    list-style-type: square;
     margin-left: 14px;
   }
   /*/Resume.*/
@@ -551,7 +554,11 @@
     margin-top: -260px;
   }
   #home.index .quickRegister{width: auto; text-align: left;}
-  /*/Home.*
+  /*/Home.*/
+
+  /*Resume.*/
+  #resume.read h3{margin-top: 28px;}
+  /*/Resume.*/
 }
 
 /* min-width 1441px, xlarge screens */
