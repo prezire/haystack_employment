@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2015 at 05:37 PM
+-- Generation Time: Mar 20, 2015 at 08:19 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `haystack_employment`
+-- Database: `haystack`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `additional_informations` (
 
 INSERT INTO `additional_informations` (`id`, `resume_id`, `information`) VALUES
 (1, 6, 'test\r\n\r\nsf sf\r\nsf\r\nsf\r\ns\r\ndf \r\ns\r\ndfa\r\nsdf\r\nasdf'),
-(2, 8, ''),
+(2, 8, 'Likes: Biking, jog, drawing, games.'),
 (3, 9, ''),
 (4, 10, 'adsfsaf'),
 (5, 11, 'sdfdsfdsfsdf'),
@@ -99,7 +99,7 @@ INSERT INTO `applicants` (`id`, `user_id`, `current_position_title`, `expected_s
 (6, 15, '', 0, '', ''),
 (7, 16, 'Acupuncturist', 2, '', ''),
 (8, 17, 'Dev', 0, '', ''),
-(9, 18, 'Something', 1000, '', ''),
+(9, 18, '0', 0, '', ''),
 (10, 21, 'Project Manager', 3000, '', '');
 
 -- --------------------------------------------------------
@@ -162,18 +162,18 @@ CREATE TABLE IF NOT EXISTS `blogs` (
   `slug` varchar(255) NOT NULL,
   `publish_state` enum('Draft','Review','Published') NOT NULL,
   `tags` varchar(255) NOT NULL,
-  `date_created` datetime NOT NULL,
+  `date_time_created` datetime NOT NULL,
   `dated_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `blogs`
 --
 
-INSERT INTO `blogs` (`id`, `name`, `author`, `content`, `slug`, `publish_state`, `tags`, `date_created`, `dated_updated`) VALUES
-(1, 'Internship Basics', 'Simplifie Inc.', 'An internship isn''t just any temporary job. It can be a bridge to your life''s work or an experiment in a career that interests you. Maybe you''ve heard a lot about them from parents, counselors or a co-worker who used one to transition from another field. You might be wondering, "What''s in it for me?"\r\n\r\nIf you''ve got questions about whether interning is the right way to achieve your career goals, this is the place to start. We''ll begin with the basic definition and move to answering many of the most common questions people have about taking on the role of the intern.', 'internship-basics', '', 'internship basics', '2015-03-18 00:00:00', '2015-03-17 16:20:39');
+INSERT INTO `blogs` (`id`, `name`, `author`, `content`, `slug`, `publish_state`, `tags`, `date_time_created`, `dated_updated`) VALUES
+(1, 'Internship Basics', 'Simplifie Inc.', 'An internship isn''t just any temporary job. It can be a bridge to your life''s work or an experiment in a career that interests you. Maybe you''ve heard a lot about them from parents, counselors or a co-worker who used one to transition from another field. You might be wondering, "What''s in it for me?"\r\n\r\nIf you''ve got questions about whether interning is the right way to achieve your career goals, this is the place to start. We''ll begin with the basic definition and move to answering many of the most common questions people have about taking on the role of the intern.', 'internship-basics', 'Published', 'internship basics', '2015-03-18 00:00:00', '2015-03-17 16:20:39');
 
 -- --------------------------------------------------------
 
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `certifications` (
   `resume_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `certifications`
@@ -196,7 +196,8 @@ INSERT INTO `certifications` (`id`, `resume_id`, `name`) VALUES
 (2, 6, 'c1'),
 (3, 6, 'c2'),
 (4, 10, 'sdf'),
-(5, 10, 'sdf');
+(5, 10, 'sdf'),
+(6, 8, 'IT Seminar');
 
 -- --------------------------------------------------------
 
@@ -243,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `educations` (
   `date_from` date NOT NULL,
   `date_to` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `educations`
@@ -252,7 +253,8 @@ CREATE TABLE IF NOT EXISTS `educations` (
 INSERT INTO `educations` (`id`, `resume_id`, `degree`, `field_of_study`, `school`, `country`, `city`, `date_from`, `date_to`) VALUES
 (3, 6, 'deg', 'f', 's', 'Azerbaijan', 'c', '2015-03-19', '2015-03-31'),
 (4, 6, 'd1', 'f1', 's1', 'Antarctica', 'c1', '2015-03-18', '2015-03-24'),
-(5, 9, 'asdf', 'sfd', 'sdf', 'Azerbaijan', 'sf', '2015-03-25', '2015-03-10');
+(5, 9, 'asdf', 'sfd', 'sdf', 'Azerbaijan', 'sf', '2015-03-25', '2015-03-10'),
+(6, 8, 'Bachelor', 'IT', 'USJ-R', 'Philippines', '', '2000-10-01', '2004-10-01');
 
 -- --------------------------------------------------------
 
@@ -578,7 +580,22 @@ CREATE TABLE IF NOT EXISTS `position_clicks` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `position_clicks`
+--
+
+INSERT INTO `position_clicks` (`id`, `position_id`, `user_id`, `ip_address`, `address`, `date_time_clicked`) VALUES
+(1, 3, 13, '::1', '', '2015-03-10 09:32:36'),
+(2, 3, NULL, '::1', '', '2015-03-18 09:33:48'),
+(3, 5, 13, '::1', '', '2015-03-19 04:13:34'),
+(4, 5, 13, '::1', '', '2015-03-19 04:14:05'),
+(5, 5, 13, '::1', '', '2015-03-19 04:14:09'),
+(6, 5, 13, '::1', '', '2015-03-19 04:14:12'),
+(7, 7, 13, '::1', '', '2015-03-19 04:14:15'),
+(8, 3, 13, '::1', '', '2015-03-19 05:58:16'),
+(9, 3, NULL, '::1', '', '2015-03-20 06:12:44');
 
 -- --------------------------------------------------------
 
@@ -597,7 +614,29 @@ CREATE TABLE IF NOT EXISTS `position_dwells` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `position_dwells`
+--
+
+INSERT INTO `position_dwells` (`id`, `user_id`, `position_id`, `ip_address`, `address`, `seconds`, `date_time_created`) VALUES
+(1, NULL, 3, '::1', '', 11, '2015-03-18 08:40:07'),
+(2, NULL, 3, '::1', '', 15, '2015-03-18 08:43:36'),
+(3, 13, 3, '::1', '', 4, '2015-03-18 08:43:49'),
+(4, 13, 3, '::1', '', 14, '2015-03-18 08:44:08'),
+(5, 13, 3, '::1', '', 13, '2015-03-18 09:30:57'),
+(6, 13, 3, '::1', '', 28, '2015-03-18 09:31:40'),
+(7, NULL, 3, '::1', '', 1632, '2015-03-18 10:01:10'),
+(8, NULL, 3, '::1', '', 4, '2015-03-18 10:01:15'),
+(9, 13, 5, '::1', '', 2, '2015-03-19 04:13:37'),
+(10, 13, 5, '::1', '', 0, '2015-03-19 04:14:02'),
+(11, 13, 5, '::1', '', 1, '2015-03-19 04:14:07'),
+(12, 13, 5, '::1', '', 0, '2015-03-19 04:14:10'),
+(13, 13, 5, '::1', '', 0, '2015-03-19 04:14:13'),
+(14, 13, 7, '::1', '', 18, '2015-03-19 04:14:35'),
+(15, 13, 3, '::1', '', 4, '2015-03-19 05:58:22'),
+(16, NULL, 3, '::1', '', 2005, '2015-03-20 07:38:20');
 
 -- --------------------------------------------------------
 
@@ -615,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `position_impressions` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=208 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=311 ;
 
 --
 -- Dumping data for table `position_impressions`
@@ -828,7 +867,110 @@ INSERT INTO `position_impressions` (`id`, `user_id`, `ip_address`, `position_id`
 (204, 13, '::1', 2, '', '2015-03-17 13:09:11'),
 (205, 13, '::1', 2, '', '2015-03-17 13:09:38'),
 (206, 13, '::1', 2, '', '2015-03-17 13:09:46'),
-(207, 13, '::1', 2, '', '2015-03-17 13:09:53');
+(207, 13, '::1', 2, '', '2015-03-17 13:09:53'),
+(208, NULL, '::1', 3, '', '2015-03-18 06:08:00'),
+(209, NULL, '::1', 3, '', '2015-03-18 06:08:25'),
+(210, NULL, '::1', 3, '', '2015-03-18 06:09:49'),
+(211, NULL, '::1', 3, '', '2015-03-18 06:10:16'),
+(212, NULL, '::1', 3, '', '2015-03-18 06:11:44'),
+(213, NULL, '::1', 3, '', '2015-03-18 06:12:26'),
+(214, NULL, '::1', 3, '', '2015-03-18 06:12:50'),
+(215, NULL, '::1', 3, '', '2015-03-18 06:12:51'),
+(216, NULL, '::1', 3, '', '2015-03-18 06:13:41'),
+(217, NULL, '::1', 3, '', '2015-03-18 06:19:54'),
+(218, NULL, '::1', 3, '', '2015-03-18 06:20:03'),
+(219, NULL, '::1', 3, '', '2015-03-18 06:20:31'),
+(220, NULL, '::1', 3, '', '2015-03-18 06:20:36'),
+(221, NULL, '::1', 3, '', '2015-03-18 06:20:48'),
+(222, NULL, '::1', 3, '', '2015-03-18 06:22:41'),
+(223, NULL, '::1', 3, '', '2015-03-18 06:22:43'),
+(224, NULL, '::1', 3, '', '2015-03-18 06:23:04'),
+(225, NULL, '::1', 3, '', '2015-03-18 06:23:07'),
+(226, NULL, '::1', 3, '', '2015-03-18 06:23:08'),
+(227, NULL, '::1', 3, '', '2015-03-18 06:23:13'),
+(228, NULL, '::1', 3, '', '2015-03-18 06:23:14'),
+(229, NULL, '::1', 3, '', '2015-03-18 06:24:23'),
+(230, NULL, '::1', 3, '', '2015-03-18 06:24:40'),
+(231, NULL, '::1', 3, '', '2015-03-18 06:55:57'),
+(232, NULL, '::1', 3, '', '2015-03-18 06:56:15'),
+(233, NULL, '::1', 3, '', '2015-03-18 06:56:35'),
+(234, NULL, '::1', 3, '', '2015-03-18 06:57:03'),
+(235, NULL, '::1', 3, '', '2015-03-18 06:58:21'),
+(236, NULL, '::1', 3, '', '2015-03-18 06:58:56'),
+(237, NULL, '::1', 3, '', '2015-03-18 06:59:14'),
+(238, NULL, '::1', 3, '', '2015-03-18 06:59:45'),
+(239, NULL, '::1', 3, '', '2015-03-18 07:00:06'),
+(240, NULL, '::1', 3, '', '2015-03-18 07:00:07'),
+(241, NULL, '::1', 3, '', '2015-03-18 07:00:43'),
+(242, NULL, '::1', 3, '', '2015-03-18 07:01:45'),
+(243, NULL, '::1', 3, '', '2015-03-18 07:02:30'),
+(244, NULL, '::1', 3, '', '2015-03-18 07:02:43'),
+(245, NULL, '::1', 3, '', '2015-03-18 07:02:56'),
+(246, NULL, '::1', 3, '', '2015-03-18 07:03:19'),
+(247, NULL, '::1', 3, '', '2015-03-18 07:03:46'),
+(248, NULL, '::1', 3, '', '2015-03-18 07:03:51'),
+(249, NULL, '::1', 3, '', '2015-03-18 07:04:36'),
+(250, NULL, '::1', 3, '', '2015-03-18 07:05:04'),
+(251, NULL, '::1', 3, '', '2015-03-18 07:06:23'),
+(252, NULL, '::1', 3, '', '2015-03-18 07:06:39'),
+(253, NULL, '::1', 3, '', '2015-03-18 07:07:00'),
+(254, NULL, '::1', 3, '', '2015-03-18 07:07:51'),
+(255, NULL, '::1', 3, '', '2015-03-18 07:08:48'),
+(256, NULL, '::1', 3, '', '2015-03-18 07:09:51'),
+(257, NULL, '::1', 3, '', '2015-03-18 07:11:01'),
+(258, NULL, '::1', 3, '', '2015-03-18 07:12:45'),
+(259, NULL, '::1', 3, '', '2015-03-18 07:13:10'),
+(260, NULL, '::1', 3, '', '2015-03-18 07:13:14'),
+(261, NULL, '::1', 3, '', '2015-03-18 07:14:29'),
+(262, NULL, '::1', 3, '', '2015-03-18 07:14:35'),
+(263, NULL, '::1', 3, '', '2015-03-18 07:15:25'),
+(264, NULL, '::1', 3, '', '2015-03-18 07:15:58'),
+(265, NULL, '::1', 3, '', '2015-03-18 07:16:27'),
+(266, NULL, '::1', 3, '', '2015-03-18 07:17:03'),
+(267, NULL, '::1', 3, '', '2015-03-18 07:17:20'),
+(268, NULL, '::1', 3, '', '2015-03-18 07:18:14'),
+(269, NULL, '::1', 3, '', '2015-03-18 07:20:52'),
+(270, NULL, '::1', 3, '', '2015-03-18 07:21:45'),
+(271, NULL, '::1', 3, '', '2015-03-18 07:21:54'),
+(272, NULL, '::1', 3, '', '2015-03-18 07:22:22'),
+(273, NULL, '::1', 3, '', '2015-03-18 07:22:50'),
+(274, NULL, '::1', 3, '', '2015-03-18 07:23:30'),
+(275, NULL, '::1', 3, '', '2015-03-18 07:23:55'),
+(276, NULL, '::1', 3, '', '2015-03-18 07:24:35'),
+(277, NULL, '::1', 3, '', '2015-03-18 07:25:20'),
+(278, NULL, '::1', 3, '', '2015-03-18 07:25:45'),
+(279, NULL, '::1', 3, '', '2015-03-18 07:26:21'),
+(280, NULL, '::1', 3, '', '2015-03-18 07:26:29'),
+(281, NULL, '::1', 3, '', '2015-03-18 07:27:05'),
+(282, NULL, '::1', 3, '', '2015-03-18 07:27:39'),
+(283, NULL, '::1', 3, '', '2015-03-18 07:27:56'),
+(284, NULL, '::1', 3, '', '2015-03-18 07:27:58'),
+(285, NULL, '::1', 3, '', '2015-03-18 07:28:57'),
+(286, NULL, '::1', 3, '', '2015-03-18 07:30:01'),
+(287, NULL, '::1', 3, '', '2015-03-18 07:30:47'),
+(288, NULL, '::1', 3, '', '2015-03-18 07:33:27'),
+(289, NULL, '::1', 3, '', '2015-03-18 07:33:59'),
+(290, NULL, '::1', 3, '', '2015-03-18 07:34:03'),
+(291, NULL, '::1', 3, '', '2015-03-18 07:35:20'),
+(292, NULL, '::1', 3, '', '2015-03-18 07:39:54'),
+(293, NULL, '::1', 3, '', '2015-03-18 07:41:23'),
+(294, NULL, '::1', 3, '', '2015-03-18 07:41:30'),
+(295, NULL, '::1', 3, '', '2015-03-18 07:42:43'),
+(296, NULL, '::1', 3, '', '2015-03-18 07:43:20'),
+(297, 13, '::1', 3, '', '2015-03-18 07:43:43'),
+(298, 13, '::1', 3, '', '2015-03-18 07:43:52'),
+(299, 13, '::1', 3, '', '2015-03-18 08:30:40'),
+(300, 13, '::1', 3, '', '2015-03-18 08:31:11'),
+(301, NULL, '::1', 3, '', '2015-03-18 08:33:48'),
+(302, NULL, '::1', 3, '', '2015-03-18 09:01:10'),
+(303, 13, '::1', 5, '', '2015-03-19 03:13:34'),
+(304, 13, '::1', 5, '', '2015-03-19 03:14:00'),
+(305, 13, '::1', 5, '', '2015-03-19 03:14:05'),
+(306, 13, '::1', 5, '', '2015-03-19 03:14:09'),
+(307, 13, '::1', 5, '', '2015-03-19 03:14:12'),
+(308, 13, '::1', 7, '', '2015-03-19 03:14:15'),
+(309, 13, '::1', 3, '', '2015-03-19 04:58:16'),
+(310, NULL, '::1', 3, '', '2015-03-20 05:12:44');
 
 -- --------------------------------------------------------
 
@@ -860,9 +1002,9 @@ INSERT INTO `resumes` (`id`, `applicant_id`, `name`, `headline`, `availability`,
 (5, 6, '', '', '', '', '', '', 'Private', 0),
 (6, 7, 'Developer Test', 'test 2', 'Immediately', '', '', 'sss', '', 0),
 (7, 8, 'My Resume 1', '', '', '', '', '', 'Private', 0),
-(8, 9, 'My Resume 1x', 'For developer applications.', 'Immediately', '', 'test', 'test', 'Unlisted', 0),
+(8, 9, 'Developer', 'For developer applications.', 'Immediately', '', 'test', 'test', 'Unlisted', 1),
 (9, 9, 'My Resume 2', '', '', '', '', '', 'Private', 0),
-(10, 9, 'My Resume 3', 'For management.', '2 weeks', '', 'fasdf', 'sf', 'Private', 1),
+(10, 9, 'My Resume 3', 'For management.', '2 weeks', '', 'fasdf', 'sf', 'Private', 0),
 (11, 10, 'Project Manager', 'Project Manager', 'Immediately', '', 'Computer Science', 'test', 'Private', 0),
 (12, 10, 'My Resume 2', '', '', '', '', '', 'Private', 0),
 (13, 10, 'My Resume 3', '', '', '', '', '', 'Private', 0);
@@ -920,6 +1062,20 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `saved_searches`
+--
+
+CREATE TABLE IF NOT EXISTS `saved_searches` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `keywords` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `skills`
 --
 
@@ -928,7 +1084,7 @@ CREATE TABLE IF NOT EXISTS `skills` (
   `resume_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `skills`
@@ -936,7 +1092,11 @@ CREATE TABLE IF NOT EXISTS `skills` (
 
 INSERT INTO `skills` (`id`, `resume_id`, `name`) VALUES
 (2, 6, 'some skill'),
-(3, 6, 'sk2');
+(3, 6, 'sk2'),
+(4, 8, 'CI'),
+(5, 8, 'AS3'),
+(6, 8, 'jQuery'),
+(7, 8, 'CSS3');
 
 -- --------------------------------------------------------
 
@@ -966,6 +1126,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nationality` varchar(30) NOT NULL,
   `alternate_email` varchar(50) NOT NULL,
   `image_path` varchar(255) NOT NULL,
+  `image_original_filename` varchar(255) NOT NULL,
   `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`,`enable_token`,`password_reset_token`,`alternate_email`,`image_path`),
@@ -976,51 +1137,51 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `notes`, `title`, `full_name`, `email`, `website`, `password`, `enabled`, `enable_token`, `password_reset_token`, `landline`, `mobile`, `address`, `city`, `state`, `zip_code`, `country`, `nationality`, `alternate_email`, `image_path`, `date_registered`) VALUES
-(13, 2, '', 'Mr.', 'Some Employer', 'e@e.com', '', '1', 1, '528d80d64843abdbf3a9dbed0ccb84836009738d', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '2015-03-04 06:15:56'),
-(14, 4, '', 'Mr.', 'sdf', 'appl1@a.com', '', '1', 0, 'd293a6c0f52917fdbf7c0fec7446980b7dd43669', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-04 08:49:51'),
-(15, 4, '', 'Mr.', 'adslfk', 'fklsj@jlfkd.com', '', '1', 0, '5fa65367e7b0bb2dd08c3fc086f48ec5bb9459ed', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-04 08:52:56'),
-(16, 4, '', 'Mr.', 'Test User 1', 'a@a.com', '', '1', 1, 'ace203f684b8cb8a4bf201412528073b66848aa1', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '2015-03-04 08:54:16'),
-(17, 4, '', 'Mr.', 'sdfklj', 'a@b.com', '', '1', 0, '983708f3c2b4973d4500210ce1b7d3a21fa4cb23', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-04 18:10:44'),
-(18, 4, '', 'Mr.', 'Test User 2', 'a@c.com', '', '1', 1, '40d41b1fce37c6f5ac185e71dff0479c043942ba', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '2015-03-04 18:11:26'),
-(19, 2, '', 'Mr.', 'sdf', 'f@f.com', '', '1', 0, 'b70017c23cc7181de46ba88e1cad48705a502628', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-08 17:20:31'),
-(20, 5, '', 'Ms.', 'Faculty User', 'f1@f.com', '', '1', 1, '8870cd3dfbe6724f843867f80757bf7b55a67295', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '2015-03-08 17:20:58'),
-(21, 4, '', 'Mr.', 'Shiela Marie', 'spalang@gmail.com', '', 'test', 1, 'ec2326e1533fc1976033ce8f5d92112d9f45bd77', '', '', '', '', '', '', 6014, 'All Countries', 'Filipino', '', '', '2015-03-09 11:41:36'),
-(24, 2, '', 'Mr.', 'test employee', 't1@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:41:15'),
-(25, 2, '', 'Mr.', 'asdf', 't2@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:44:08'),
-(26, 2, '', 'Mr.', 'asdf', 't3@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:51:16'),
-(27, 2, '', 'Mr.', 'sdf', 't4@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:53:52'),
-(28, 2, '', 'Mr.', 'sfd', 't5@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:54:19'),
-(29, 2, '', 'Mr.', 'sdf', 't6@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:55:26'),
-(30, 2, '', 'Mr.', 'fs', 't7@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:55:57'),
-(31, 2, '', 'Mr.', 'fs', 't8@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:56:20'),
-(32, 2, '', 'Mr.', 'fsf', 't9@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:56:55'),
-(33, 2, '', 'Mr.', 'sdf', 't10@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:57:21'),
-(34, 2, '', 'Mr.', 'sfd', 't11@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:57:37'),
-(35, 2, '', 'Mr.', 'asdf', 't12@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:59:16'),
-(36, 2, '', 'Mr.', 'asf', 't13@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 10:59:45'),
-(37, 2, '', 'Mr.', 'asdf', 't14@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 11:00:11'),
-(38, 2, '', 'Mr.', 'sf', 't15@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 11:01:36'),
-(39, 2, '', 'Mr.', 'sf', 't16@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 11:02:04'),
-(40, 2, '', 'Mr.', 'fs', 't17@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 11:04:04'),
-(41, 5, '', 'Mr.', 'fasdf', 'f2@f.com', '', '1', 1, '389ef4315b054b71dc6dad16a20fef7576906629', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:28:48'),
-(42, 5, '', 'Mr.', 'asdf', 'asdflk@jflsdkf.com', '', '1', 0, '0c6c4c479fd4d0231430ebf66a886d1a2d54bd86', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:33:39'),
-(43, 5, '', 'Mr.', 'asdf', 'sdlkfj@fslkdf.com', '', 'sdf', 0, 'ced22db2cbd8c3208f4f5374450aec7b9733dbbf', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:40:20'),
-(44, 5, '', 'Mr.', 'adsfasdf', 'sdfs@fsdlfk.com', '', '1', 0, 'fba31b5012c4b286ac1a04bf0fd102d5d86865c7', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:40:47'),
-(45, 5, '', 'Mr.', 'adsfasdf', 'sdfs@fsdlfk1.com', '', '1', 0, 'fd509dc76a4bbc723dbd61d28b723e206e480e0b', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:41:06'),
-(46, 5, '', 'Mr.', 'asdf', 'sdfsdf@jflkd.com', '', '1', 0, '5ef24722f25c3facb1723483cd72aeb86d8a4606', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:42:25'),
-(47, 2, '', 'Mr.', 'asdf', 'sdf@fsjldkfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:50:36'),
-(48, 5, '', 'Mr.', 'xxx', 'fsdf@fjskfjlkdsfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:53:07'),
-(49, 5, '', 'Mr.', 'fsf', 'ksjsf@fjlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 15:54:38'),
-(50, 5, '', 'Mr.', 'fsklfjsklxxxxxxxx', 'skdfjslkfjsfks@jlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:03:34'),
-(51, 2, '', 'Mr.', 'adsf', 'sdfsskjdfhsjfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:08:46'),
-(52, 2, '', 'Mr.', 'sfsf', 'sdfsskjdfhs1jfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:09:10'),
-(53, 2, '', 'Mr.', 'adsf', 'ff2@fsdfjl.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:11:01'),
-(54, 2, '', 'Mr.', '', 'ff23@fsdfjl.com', '', '', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:11:11'),
-(55, 2, '', 'Mr.', 'sfsf', 'ffffff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:11:50'),
-(56, 2, '', 'Mr.', 'sfsf', 'ffff3ff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:12:05'),
-(57, 5, '', 'Mr.', 'asdf', 'fskdfjslfkjslfjslkfj@jfslkfjsd.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:13:37'),
-(58, 5, '', 'Mr.', 'sdfasdf', 'fjskldfjslkfjslkfjslkfjsldfjskldfj@jflskdjf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '2015-03-17 16:13:54');
+INSERT INTO `users` (`id`, `role_id`, `notes`, `title`, `full_name`, `email`, `website`, `password`, `enabled`, `enable_token`, `password_reset_token`, `landline`, `mobile`, `address`, `city`, `state`, `zip_code`, `country`, `nationality`, `alternate_email`, `image_path`, `image_original_filename`, `date_registered`) VALUES
+(13, 2, '', 'Mr.', 'Some Employer', 'e@e.com', '', '1', 1, '528d80d64843abdbf3a9dbed0ccb84836009738d', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '', '2015-03-04 06:15:56'),
+(14, 4, '', 'Mr.', 'sdf', 'appl1@a.com', '', '1', 0, 'd293a6c0f52917fdbf7c0fec7446980b7dd43669', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-04 08:49:51'),
+(15, 4, '', 'Mr.', 'adslfk', 'fklsj@jlfkd.com', '', '1', 0, '5fa65367e7b0bb2dd08c3fc086f48ec5bb9459ed', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-04 08:52:56'),
+(16, 1, '', 'Mr.', 'Test User 1', 'a@a.com', '', '1', 1, 'ace203f684b8cb8a4bf201412528073b66848aa1', '', '', '', '', '', '', 0, 'All Countries', '', '', '7138c67e3d950c9a261bd1590938e7b1.jpg', 'work6.jpg', '2015-03-04 08:54:16'),
+(17, 4, '', 'Mr.', 'sdfklj', 'a@b.com', '', '1', 0, '983708f3c2b4973d4500210ce1b7d3a21fa4cb23', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-04 18:10:44'),
+(18, 4, '', 'Mr.', 'Test User 2', 'a@c.com', '', '1', 1, '40d41b1fce37c6f5ac185e71dff0479c043942ba', '', '', '', '', '', '', 0, 'All Countries', '', '', '0bef0d657988f2bc06a22f629952c89b.jpg', 'work6.jpg', '2015-03-04 18:11:26'),
+(19, 2, '', 'Mr.', 'sdf', 'f@f.com', '', '1', 0, 'b70017c23cc7181de46ba88e1cad48705a502628', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-08 17:20:31'),
+(20, 5, '', 'Ms.', 'Faculty User', 'f1@f.com', '', '1', 1, '8870cd3dfbe6724f843867f80757bf7b55a67295', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '', '2015-03-08 17:20:58'),
+(21, 4, '', 'Mr.', 'Shiela Marie', 'spalang@gmail.com', '', 'test', 1, 'ec2326e1533fc1976033ce8f5d92112d9f45bd77', '', '', '', '', '', '', 6014, 'All Countries', 'Filipino', '', '', '', '2015-03-09 11:41:36'),
+(24, 2, '', 'Mr.', 'test employee', 't1@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:41:15'),
+(25, 2, '', 'Mr.', 'asdf', 't2@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:44:08'),
+(26, 2, '', 'Mr.', 'asdf', 't3@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:51:16'),
+(27, 2, '', 'Mr.', 'sdf', 't4@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:53:52'),
+(28, 2, '', 'Mr.', 'sfd', 't5@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:54:19'),
+(29, 2, '', 'Mr.', 'sdf', 't6@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:55:26'),
+(30, 2, '', 'Mr.', 'fs', 't7@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:55:57'),
+(31, 2, '', 'Mr.', 'fs', 't8@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:56:20'),
+(32, 2, '', 'Mr.', 'fsf', 't9@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:56:55'),
+(33, 2, '', 'Mr.', 'sdf', 't10@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:57:21'),
+(34, 2, '', 'Mr.', 'sfd', 't11@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:57:37'),
+(35, 2, '', 'Mr.', 'asdf', 't12@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:59:16'),
+(36, 2, '', 'Mr.', 'asf', 't13@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 10:59:45'),
+(37, 2, '', 'Mr.', 'asdf', 't14@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 11:00:11'),
+(38, 2, '', 'Mr.', 'sf', 't15@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 11:01:36'),
+(39, 2, '', 'Mr.', 'sf', 't16@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 11:02:04'),
+(40, 2, '', 'Mr.', 'fs', 't17@t.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 11:04:04'),
+(41, 5, '', 'Mr.', 'fasdf', 'f2@f.com', '', '1', 1, '389ef4315b054b71dc6dad16a20fef7576906629', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:28:48'),
+(42, 5, '', 'Mr.', 'asdf', 'asdflk@jflsdkf.com', '', '1', 0, '0c6c4c479fd4d0231430ebf66a886d1a2d54bd86', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:33:39'),
+(43, 5, '', 'Mr.', 'asdf', 'sdlkfj@fslkdf.com', '', 'sdf', 0, 'ced22db2cbd8c3208f4f5374450aec7b9733dbbf', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:40:20'),
+(44, 5, '', 'Mr.', 'adsfasdf', 'sdfs@fsdlfk.com', '', '1', 0, 'fba31b5012c4b286ac1a04bf0fd102d5d86865c7', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:40:47'),
+(45, 5, '', 'Mr.', 'adsfasdf', 'sdfs@fsdlfk1.com', '', '1', 0, 'fd509dc76a4bbc723dbd61d28b723e206e480e0b', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:41:06'),
+(46, 5, '', 'Mr.', 'asdf', 'sdfsdf@jflkd.com', '', '1', 0, '5ef24722f25c3facb1723483cd72aeb86d8a4606', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:42:25'),
+(47, 2, '', 'Mr.', 'asdf', 'sdf@fsjldkfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:50:36'),
+(48, 5, '', 'Mr.', 'xxx', 'fsdf@fjskfjlkdsfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:53:07'),
+(49, 5, '', 'Mr.', 'fsf', 'ksjsf@fjlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:54:38'),
+(50, 5, '', 'Mr.', 'fsklfjsklxxxxxxxx', 'skdfjslkfjsfks@jlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:03:34'),
+(51, 2, '', 'Mr.', 'adsf', 'sdfsskjdfhsjfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:08:46'),
+(52, 2, '', 'Mr.', 'sfsf', 'sdfsskjdfhs1jfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:09:10'),
+(53, 2, '', 'Mr.', 'adsf', 'ff2@fsdfjl.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:01'),
+(54, 2, '', 'Mr.', '', 'ff23@fsdfjl.com', '', '', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:11'),
+(55, 2, '', 'Mr.', 'sfsf', 'ffffff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:50'),
+(56, 2, '', 'Mr.', 'sfsf', 'ffff3ff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:12:05'),
+(57, 5, '', 'Mr.', 'asdf', 'fskdfjslfkjslfjslkfj@jfslkfjsd.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:13:37'),
+(58, 5, '', 'Mr.', 'sdfasdf', 'fjskldfjslkfjslkfjslkfjsldfjskldfj@jflskdjf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:13:54');
 
 -- --------------------------------------------------------
 
@@ -1168,6 +1329,12 @@ ALTER TABLE `resumes`
 --
 ALTER TABLE `resume_requests`
   ADD CONSTRAINT `resume_requests_ibfk_1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `saved_searches`
+--
+ALTER TABLE `saved_searches`
+  ADD CONSTRAINT `saved_searches_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

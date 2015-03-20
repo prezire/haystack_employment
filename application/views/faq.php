@@ -69,14 +69,14 @@
       <hr />
       
       <h5>Can I filter my resume to specific employers?</h5>
-      <p>Yes, you can.</p>
+      <p>Yes, you can. Refer to Resume Privacy Settings</p>
 
       <hr />
       
       <h5>How many resumes can I create?</h5>
       <p>
         You can only create 1 resume. 
-        There are 3 different privacy settings to choose from:
+        There are 3 different Resume Privacy Settings to choose from:
         <ul>
           <li><b>Private</b> - Default. Only you can view the resume</li>
           <li><b>Unlisted</b> - The resume is public but the URL is not present in your 
@@ -88,20 +88,77 @@
       <hr />
 
       <h5>Analytics</h5>
-      <p>
-        Report Types and Metrices:
+        Report Types and Metrices
+        <br />
+        <b>Employer</b>
         <ul>
           <li>
-            Delivery
+            <b>Delivery</b><br />
+            Detect over/under delivery
             <ul>
-              <li></li>
+              <li>Clicks - Views the entire details from the Position listing</li>
+              <li>Impressions = Seen from the Position listing</li>
+              <li>Click-Through Rates = Percent of Total Clicks out of Served Impressions</li>
+              <li>Dwells = The number of seconds an Applicant is looking at the
+                entire details of the Posted Position</li>
+              <li>Average Dwell Rates = The average time all Applicants spent
+               engaging with the Posted Position</li>
+              <li>Conversions = Position Applications</li>
+              <li>Conversion Rates = Percent of Position Applications out of served Impressions</li>
             </ul>
           </li>
-          <li>Unique</li>
-          <li>Engagement</li>
-          <li>Performance Frequency</li>
+          <li>
+            <b>Unique</b><br />
+            - Displays data about unique Applicants and their interactivity 
+          with your Posted Positions<br />
+            - Use this report to analyze audience behavior across 
+          various interactions
+            <ul>
+                <li>Clicks</li>
+                <li>Dwelling Applicants</li>
+                <li>Average Frequencies = The average number of times an Applicant was 
+                exposed to the Posted Positions</li>
+            </ul>
+          </li>
+          <li>
+            <b>Engagement</b>
+            <ul>
+              <li>
+                Data By Days = Use this graph to see which days performed best 
+                for all metrices
+              </li>
+            </ul>
+          </li>
+          <li>
+            <b>Performance Frequency</b><br />
+            - Displays data for Position performance based on exposure to the Position<br />
+            - Frequency – The number of times an Applicant was exposed to the Posted Position
+            <ul>
+                <li>Dwells</li>
+                <li>Click-Through Rates</li>
+                <li>Impressions = The number of Applicants who saw a Posting 
+                at least the number of times indicated by the Frequency,
+                or the total number of Impressions served for an 
+                indicated Frequency</li>
+                <li>Unique Frequency Levels = The number of Unique Applicants 
+                who reached the indicated Frequency of viewed Impressions</li>
+                <li>Total Impressions Frequencies = The sum of Impressions 
+                viewed up to the indicated Frequency for all Applicants</li>
+                <li>Total Conversions to Frequencies = The sum of conversions 
+                recorded up to the indicated Frequency for all Applicants</li>
+                <li>Conversion Rate Frequencies = The percent of 
+                "Total Conversions to Frequency" out of 
+                "Total Impressions to Frequency</li>
+            </ul>
+          </li>
         </ul>
-      </p>
+        <b>
+          Faculty
+        </b>
+        <br />
+        <b>
+          Applicant
+        </b>
 
       <hr />
       

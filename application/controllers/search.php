@@ -17,11 +17,11 @@
         array
         (
           'name' => 'positions',
-          'fields' => array('name', 'description', 'industry', 'category'),
+          'fields' => array('name', 'industry', 'category'),
           'orders' => array('name', 'ASC'),
           'href' => site_url('position/read'),
           'titles' => array('name'), 
-          'descriptions' => array('name', 'industry', 'category', 'description')
+          'descriptions' => array('name', 'industry', 'category')
         ),
         array
         (

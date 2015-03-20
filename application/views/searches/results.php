@@ -7,7 +7,7 @@
 	<a href="<?php echo site_url('search'); ?>" class="button tiny">
 		Search again
 	</a>
-	<div class="row">
+	<div>
 		<?php 
 			$bEmpty = true;
 			$ctr = 0;
@@ -18,12 +18,12 @@
 				foreach($items as $i)
 				{
 		?>
-					<div class="result panel small-12 medium-12 large-12 columns">
+					<div class="result panel x small-12 medium-12 large-12 columns">
 						<a href="<?php echo $i['href']; ?>">
 							<?php echo $i['title']; ?>
 						</a>
 						<div class="description">
-							<?php echo $i['description']; ?>
+							<?php echo nl2br($i['description']); ?>
 						</div>
 					</div>
 		<?php 

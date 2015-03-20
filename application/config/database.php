@@ -51,7 +51,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
-$db['default']['database'] = 'haystack_employment';
+$db['default']['database'] = 'haystack';
 $db['default']['dbdriver'] = 'mysql';
 /*
 	$db['default']['hostname'] = '50.62.209.86:3306';

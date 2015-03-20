@@ -61,6 +61,8 @@
   .button:hover,
   .accordion dd.active a:hover{background-color: #540F33 !important;}
 
+  li{list-style-type: square;}
+
   input[type="text"],
   select,
   button,
@@ -341,11 +343,7 @@
   #resume.read .row .row .columns{line-height: 9px;}
   #resume.read .row.panel{padding: 4px 8px;}
   #resume.read .skills li,
-  #resume.read .certifications li
-  {
-    list-style-type: square;
-    margin-left: 14px;
-  }
+  #resume.read .certifications li{margin-left: 14px;}
   /*/Resume.*/
 
   /*Search.*/
