@@ -81,12 +81,13 @@ class User extends CI_Controller
         $o = $this->usermodel->update()->row();
         if($o->id > 0)
         {
-          $this->session->set_flashdata('update', 'success');
+          $this->session->set_flashdata('update', array('status' => 'success'));
           redirect(site_url('user/update/' . $o->id));
         }
         else
         {
-          show_error('Error updating user.');
+          $this->session->set_flashdata('update', array('status' => 'failed', 'message' => 'Error updating user.'));
+          redirect(site_url('user/update/' . $o->id));
         }
       /*}
       else

@@ -1,6 +1,6 @@
 <div class="row panel">
   <div class="small-12 medium-2 large-2 columns">
-    Field:
+    Report Type:
     <?php 
       echo form_dropdown
       (
@@ -24,7 +24,7 @@
       ?>
   </div>
 	<div class="small-12 medium-2 large-2 columns">
-    Series:
+    Target Audience:
     <?php 
       echo form_dropdown
       (

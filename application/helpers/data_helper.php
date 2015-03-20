@@ -153,7 +153,7 @@
   		}
   		else
   		{
-  			return $CI->upload->display_errors();
+  			show_error($CI->upload->display_errors());
   		}
     }
     else

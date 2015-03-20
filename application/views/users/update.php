@@ -3,15 +3,22 @@
       <div class="large-12 columns">
         <h4>Update Profile (<?php echo getRoleName(); ?>)</h4>
         <?php 
-          if($this->session->flashdata('update') == 'success') { ?>
-          <div class="alert-box success tiny">
-            Profile was updated.
-          </div>
+          $update = $this->session->flashdata('update');
+          if($update['status'] == 'success') { ?>
+          <div class="alert-box success tiny">Profile was updated.</div>
           <script>
-            $('#user.update .alert-box.success.radius').delay(5000).fadeOut(function(){
+            $('#user.update .alert-box.success').delay(5000).fadeOut(function(){
                $(this).remove(); 
             });
           </script>
+        <?php 
+          } 
+          else if($update['status'] == 'failed')
+          {
+        ?>
+            <div class="alert-box alert tiny">
+              <?php echo $update['message']; ?>
+            </div>
         <?php } ?>
       </div>
      </div>

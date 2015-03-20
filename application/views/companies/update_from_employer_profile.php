@@ -2,14 +2,14 @@
   <h4>Update Company</h4>
     <?php 
       echo validation_errors();
-      echo form_open('company/updateFromEmployerProfile'); 
+      echo form_open_multipart('company/updateFromEmployerProfile'); 
     ?>          
       <input type="hidden" name="id" value="<?php echo set_value('id', $company->organization_id); ?>" />
       <input type="hidden" name="user_id" value="<?php echo set_value('id', $company->user_id); ?>" />
       
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
-          <img class="logo" src="<?php echo set_value('logo_filename', $company->company_logo_filename); ?>" />      
+          <img class="logo" src="<?php echo base_url('public/uploads') . '/' .  set_value('logo_filename', $company->company_logo_filename); ?>" />      
           <input type="file" name="logo_filename" />
         </div>
         <div class="small-12 medium-12 large-12 columns">

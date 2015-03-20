@@ -90,7 +90,8 @@
     }
     private final function uploadAvatar($userId)
     {
-      //TODO: Query and remove prev image file.
+      //TODO: Query and remove prev image file. Also,
+      //remove update from IF condition.
       $avatar = upload('image_path');
       if(isset($avatar))
       {

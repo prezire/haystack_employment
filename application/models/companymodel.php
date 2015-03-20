@@ -73,8 +73,14 @@ class CompanyModel extends CI_Model
 	public final function updateFromEmployerProfile() {
 		$i = $this->input;
 		$id = $i->post( 'id' );
-		//upload('logo_filename');
 		$a = getPostValuePair( array( 'id', 'user_id' ) );
+		$logo = upload('logo_filename');
+		if(isset($logo))
+		{
+			$a['logo_filename'] = $logo['file_name'];
+			$a['logo_original_filename'] = $logo['orig_name'];
+		}
+		$this->db->where('id', $id);
 		$this->db->update( 'organizations', $a );
 	}
 	public final function update() {

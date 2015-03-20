@@ -42,7 +42,7 @@
   </div>
 
   <div class="panel row">
-    <div class="small-12 medium-12 large-12 columns">
+    <div class="small-12 medium-12 large-6 columns">
       <b>Company:</b> 
       <?php echo $position->company_name; ?>
       <br />
@@ -55,6 +55,9 @@
       </span>
     </div>
     <div class="small-12 medium-6 large-6 columns">
+      <img class="logo" src="<?php echo base_url('public/uploads/' . $position->logo_filename); ?>" />
+    </div>
+    <div class="small-12 medium-12 large-12 columns">
       <b>Mobile:</b> <?php echo $position->company_mobile; ?>
     </div>
     <div class="small-12 medium-6 large-6 columns">
