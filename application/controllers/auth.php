@@ -130,6 +130,11 @@
     }
     public final function login()
     {
+      $aErr = array
+      (
+        'status' => 'failed', 
+        'message' => 'User not found. Check your credentials or email activation and try again.'
+      );
       if($this->input->post())
       {
         if($this->form_validation->run('auth/login'))
@@ -144,16 +149,12 @@
           }
           else
           {
-            showView
-            (
-              'auth/login', 
-              array('error' => '<p>User not found. Check your credentials or email activation and try again.</p>')
-            );
+            showView('auth/login', $aErr);
           }
         }
         else
         {
-          showView('auth/login');
+          showView('auth/login', $aErr);
         }
       }
       else

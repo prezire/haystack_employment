@@ -1,9 +1,14 @@
 <div id="company" class="update row">
   <h4>Update Company</h4>
-    <?php 
-      echo validation_errors();
-      echo form_open_multipart('company/updateFromEmployerProfile'); 
-    ?>          
+  <?php 
+    echo $this->load->view
+    (
+      'commons/partials/header_messages', 
+      array('status' => @$status), 
+      true
+    );
+  ?>
+    <?php echo form_open_multipart('company/updateFromEmployerProfile'); ?>
       <input type="hidden" name="id" value="<?php echo set_value('id', $company->organization_id); ?>" />
       <input type="hidden" name="user_id" value="<?php echo set_value('id', $company->user_id); ?>" />
       

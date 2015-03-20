@@ -7,10 +7,10 @@
   <?php 
     echo $this->load->view
     (
-      'commons/partials/errors', 
-      isset($error) ? array('error' => $error) : null, 
+      'commons/partials/header_messages', 
+      array('status' => @$status), 
       true
-    ); 
+    );
   ?>
   
   <div class="row">
@@ -21,7 +21,7 @@
         
         <div class="large-12 columns">
           <button class="tiny">Login</button>
-          <!--a class="button radius tiny btnFb" permissions="public_profile,email,user_location,user_birthday,user_website,user_friends,user_about_me,user_education_history,user_photos,user_work_history">
+          <!--a class="button tiny btnFb" permissions="public_profile,email,user_location,user_birthday,user_website,user_friends,user_about_me,user_education_history,user_photos,user_work_history">
             Sign in with Facebook
           </a-->
           <div id="status"></div>

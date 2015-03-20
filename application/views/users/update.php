@@ -3,29 +3,16 @@
       <div class="large-12 columns">
         <h4>Update Profile (<?php echo getRoleName(); ?>)</h4>
         <?php 
-          $update = $this->session->flashdata('update');
-          if($update['status'] == 'success') { ?>
-          <div class="alert-box success tiny">Profile was updated.</div>
-          <script>
-            $('#user.update .alert-box.success').delay(5000).fadeOut(function(){
-               $(this).remove(); 
-            });
-          </script>
-        <?php 
-          } 
-          else if($update['status'] == 'failed')
-          {
+          echo $this->load->view
+          (
+            'commons/partials/header_messages', 
+            array('status' => @$status), 
+            true
+          );
         ?>
-            <div class="alert-box alert tiny">
-              <?php echo $update['message']; ?>
-            </div>
-        <?php } ?>
       </div>
      </div>
-    <?php 
-        echo validation_errors();
-        echo form_open_multipart('user/update'); 
-    ?>
+    <?php echo form_open_multipart('user/update'); ?>
       <input type="hidden" name="id" value="<?php echo set_value('id', $user->id); ?>" />      
       
       <div class="row">

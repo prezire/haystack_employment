@@ -79,14 +79,23 @@
         if($this->form_validation->run('company/update'))
         {
           $this->companymodel->updateFromEmployerProfile();
-          redirect(site_url('company/updateFromEmployerProfile/' . $userId));
+          //redirect(site_url('company/updateFromEmployerProfile/' . $userId));
+          //KLUDGE: Since we're no longer redirecting, 
+          //the $userId param is lost in the process.
+          $emplId = $this->employermodel->readByUserId($userId)->row()->id;
+          $o = $this->companymodel->readByEmployerId($emplId)->row();
+          $a = array('company' => $o);
+          $a['status'] = 'success';
+          $a['message'] = 'Company profile was updated.';
+          showView('companies/update_from_employer_profile', $a);
         }
         else
         {
           $emplId = $this->employermodel->readByUserId($userId)->row()->id;
           $o = $this->companymodel->readByEmployerId($emplId)->row();
           $a = array('company' => $o);
-          $this->form_validation->set_error_delimiters('<div data-alert class="alert-box alert">', '</div>');
+          $a['status'] = 'failed';
+          $a['message'] = validation_errors();
           showView('companies/update_from_employer_profile', $a);
         }
       }

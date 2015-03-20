@@ -14,7 +14,9 @@
 
   textarea{min-height: 115px;}
 
+  .headerMessages .columns{padding: 0;}
   .alert-box.success{padding: 8px;  background-color: #00AE41;}
+  .alert-box p{margin: 0 !important;}
 
   table tr.even, 
   table tr.alt, 

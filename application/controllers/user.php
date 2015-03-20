@@ -75,25 +75,52 @@ class User extends CI_Controller
       'user' => $o,
       'id' => $id
     );
-    if($this->input->post())
+    $i = $this->input;
+    if($i->post())
     {
-      //if($this->form_validation->run('user/update')){
-        $o = $this->usermodel->update()->row();
-        if($o->id > 0)
+      if($this->form_validation->run('user/update'))
+      {
+        $tmp = $this->usermodel->update()->row();
+        if($tmp->id > 0)
         {
-          $this->session->set_flashdata('update', array('status' => 'success'));
-          redirect(site_url('user/update/' . $o->id));
+          $o = $this->usermodel->read($tmp->id)->row();
+          $id = getLoggedUser()->id;
+          $a = array
+          (
+            'user' => $o,
+            'id' => $id,
+            'status' => 'success',
+            'message' => 'Profile was updated.'
+          );
+          showView('users/update', $a);
         }
         else
         {
-          $this->session->set_flashdata('update', array('status' => 'failed', 'message' => 'Error updating user.'));
-          redirect(site_url('user/update/' . $o->id));
+          $o = $this->usermodel->read($i->post('id'))->row();
+          $id = getLoggedUser()->id;
+          $a = array
+          (
+            'user' => $o,
+            'id' => $id,
+            'status' => 'failed',
+            'message' => 'Error updating user.'
+          );
+          showView('users/update', $a);
         }
-      /*}
+      }
       else
       {
+        $o = $this->usermodel->read($i->post('id'))->row();
+        $id = getLoggedUser()->id;
+        $a = array
+        (
+          'user' => $o,
+          'id' => $id,
+          'status' => 'failed',
+          'message' => validation_errors()
+        );
         showView('users/update', $a);
-      }*/
+      }
     }
     else
     {

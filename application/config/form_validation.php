@@ -32,18 +32,36 @@ $config = array
 	(
 		array
 		(
-			'field' => '',
-			'label' => '',
-			'rules' => ''
+			'field' => 'full_name',
+			'label' => 'Full Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|trim|valid_email'
+		),
+		array
+		(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required|xss_clean|trim'
 		)
 	),
   	'user/update' => array
 	(
 		array
 		(
-			'field' => '',
-			'label' => '',
-			'rules' => ''
+			'field' => 'full_name',
+			'label' => 'Full Name',
+			'rules' => 'required|xss_clean|trim'
+		),
+		array
+		(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|xss_clean|trim|valid_email'
 		)
 	),
 	'member/create' => array
