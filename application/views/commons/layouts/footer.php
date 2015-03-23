@@ -4,11 +4,12 @@
         $(document).ready(function()
         {
           var h = new Haystack();
-          //TODO: Change to site_url().
-          h.baseUrl = '<?php echo base_url(); ?>';
+          h.siteUrl = '<?php echo site_url(); ?>';
           h.init();
           //
-          new Resume().init();
+          var r = new Resume();
+          r.siteUrl = h.siteUrl;
+          r.init();
           //
           $(
             '#home.index .row.works .work a, ' + 
@@ -19,7 +20,7 @@
           $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
           //
           var a = new Analytics();
-          a.siteUrl = '<?php echo site_url(); ?>';
+          a.siteUrl = h.siteUrl;
           a.init();
           //
           var b = new Billing();

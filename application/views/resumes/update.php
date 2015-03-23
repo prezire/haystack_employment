@@ -49,27 +49,27 @@
           <div class="row options">
             <div class="large-1 columns"></div>
             <div class="large-11 columns">
-              <a href="<?php echo site_url('resume/update'); ?>" class="button tiny btnUpdateResume">
-                Update
-              </a>
               <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">
                 Back
+              </a>
+              <a href="<?php echo site_url('resume/update'); ?>" class="button tiny btnUpdateResume">
+                Update
               </a>
               <a href="<?php echo site_url('resume/read/' . $resume->resume_id); ?>" class="button tiny preview">
                 Preview
               </a>
+              <a href="#" class="button tiny download">
+                Download
+              </a>
               <a href="#" class="button tiny forward">
                 Forward
               </a>
-              <!--a href="#" class="button tiny download">
-                Download
-              </a-->
               <div class="row panel recipients tiny hide">
                 <div class="small-11 medium-11 large-11 columns">
                   <input type="text" class="recipients" placeholder="Comma-separated emails." /> 
                 </div>
                 <div class="small-1 medium-1 large-1 columns">
-                  <button class="tiny tiny">Send</button>
+                  <button data-id="<?php echo $resume->resume_id; ?>" class="tiny tiny">Send</button>
                 </div>
               </div>
             </div>
@@ -153,10 +153,10 @@
         <div class="row">
           <div class="small-6 medium-6 large-6 columns">
             </label>Current Position Title:</label>
-            <input type="text" name="current_position_title" value="<?php echo set_value('current_position_title', $resume->current_position_title); ?>" />
+            <input type="text" placeholder="e.g. Student, Developer, Manager" name="current_position_title" value="<?php echo set_value('current_position_title', $resume->current_position_title); ?>" />
           </div>
           <div class="small-6 medium-6 large-6 columns">
-            Qualification <input type="text" name="qualification" value="<?php echo set_value('qualification', $resume->qualification); ?>" />
+            Qualification <input type="text" placeholder="e.g. Bachelors" name="qualification" value="<?php echo set_value('qualification', $resume->qualification); ?>" />
           </div>
         </div>
         <div class="row">

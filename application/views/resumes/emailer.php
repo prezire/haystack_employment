@@ -7,18 +7,21 @@
   <body>
     <?php $s = base_url('public/img') . '/'; ?>
     <table border="0" 
-            style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
+            style="font-size: 13px; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
       <tr>
         <td colspan="4">
           Hi,<br /><br />
 
-          {complete_name} has forwarded you an updated
-          {resume_url} for reference.
+          {complete_name} has forwarded you his updated
+          <a href="{resume_url}" target="_blank">resume</a> for reference.
           
           <br /><br />
           
           Thank you,<br />
           The Simplifie Haystack Team
+
+          <br /><br />
+          This is an auto-generated email. Do not reply.
         </td>
       </tr>
        <tr>
@@ -26,7 +29,7 @@
           <br />
 
           <a href="{site_url}" target="_blank">
-            <img src="<?php echo $s . 'logo.png'; ?>" />
+            <img src="<?php echo $s . 'logo.png'; ?>" width="90" />
           </a>
         </td>
       </tr>

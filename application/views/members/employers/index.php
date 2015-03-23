@@ -27,7 +27,7 @@
         <tr>
           <th>Full Name</th>
           <th>Email</th>
-          <th>Options
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -42,14 +42,15 @@
               <?php echo $m->email; ?>
             </td>
             <td>
-              <a href="<?php echo site_url('member/delete/' . $m->member_id); ?>" 
-                class="button tiny delete alert">
-                Delete
-              </a>
-              <a href="<?php echo site_url('member/setEnabled/' . $m->member_id . '/1'); ?>" 
-                class="button tiny delete alert">
-                Suspend
-              </a>
+              <?php 
+                echo form_checkbox
+                (
+                  'suspended', 
+                  $m->member_id, 
+                  set_value('suspended', $m->user_enabled), 
+                  'id="suspend" class="enabled"'
+                ); 
+              ?><label for="suspend">Suspended</label>
             </td>
           </tr>
         <?php } ?>

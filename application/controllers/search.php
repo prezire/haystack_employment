@@ -82,4 +82,10 @@
       } 
     }
   	public final function index(){showView('searches/index');}
+    public final function positions($keywords, $page = 0)
+    {
+      $o = $this->searchmodel->positions();
+      $a = array('positions' => $o->result());
+      showView('positions/index', $a);
+    }
 }

@@ -24,27 +24,31 @@ class Resume extends CI_Controller
     $a = array('resumes' => $o);
     showView('resumes/index', $a);
   }
-  //@param  $recipients   Comma-separated string.
-  public final function forward($recipients)
+  public final function forward()
   {
-    $u = getLoggedUser();
-    $this->load->model('resumemodel');
-    $rId = $this->resumemodel->readByUserId($u->id)->row()->id;
-    $a = array
-    (
-      'complete_name' => $u->complete_name,
-      'resume_url' => site_url('resume/read/'. $rId)
-    );
-    sendEmailer
-    (
-      'Simplifie Haystack Resume',
-      $u->email,
-      $recipients,
-      $this->parser->parse
+    $i = $this->input;
+    if($i->post())
+    {
+      $this->load->model('resumemodel');
+      $conf = $this->config->item('email');
+      $u = getLoggedUser();
+      $rId = $this->resumemodel->read($i->post('id'))->row()->id;
+      $a = array
       (
-        'resumes/emailer', $a, true
-      )
-    );
+        'complete_name' => $u->full_name,
+        'resume_url' => site_url('resume/read/'. $rId)
+      );
+      sendEmailer
+      (
+        'Simplifie Haystack Resume',
+        'haystackadmin@localhost' /*$conf['admin']*/,
+        $i->post('recipients'),
+        $this->parser->parse
+        (
+          'resumes/emailer', $a, true
+        )
+      );
+    }
   }
   public final function create()
   {

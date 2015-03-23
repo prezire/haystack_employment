@@ -68,10 +68,8 @@ class Analytics extends CI_Controller
       //
       $bGeographic = $series == 'Geographic';
       //
-      $graphType = '';
       $data = array();
       if ( $bIsEmpl ) {
-        $graphType = 'Line';
         switch($field)
         {
           case 'Delivery':
@@ -110,7 +108,6 @@ class Analytics extends CI_Controller
       $a = array
       (
         'status' => 'success',
-        'graphType' => $graphType,
         'data' => $data
       );
       showJsonView( $a );

@@ -115,6 +115,7 @@
           various interactions
             <ul>
                 <li>Clicks</li>
+                <li>Impressions</li>
                 <li>Dwelling Applicants</li>
                 <li>Average Frequencies = The average number of times an Applicant was 
                 exposed to the Posted Positions</li>
@@ -152,13 +153,70 @@
             </ul>
           </li>
         </ul>
-        <b>
-          Faculty
-        </b>
-        <br />
-        <b>
-          Applicant
-        </b>
+        <b>Faculty (over school students)</b><br />
+        - Student Performance (based on Public Resume)
+        <ul>
+          <li>Course Graduates (requires Date To)</li>
+          <li>Employabilities (requires Course and Dates)</li>
+          <li>Employability Rates</li>
+          <li>Unemployabilities</li>
+          <li>Unemployability Rates</li>
+        </ul>
+        <b>Applicant</b>
+        <ul>
+          <li>
+            <b>Delivery</b>
+            <ul>
+              <li>Clicks = The number of Employers clicked from the listing (There are multiple ways that lead to Impression)</li>
+              <li>Click-Through Rates = </li> 
+              <li>Impressions = </li>
+              <li><strike>Conversions</strike></li>
+              <li><strike>Conversion Rates</strike></li>
+              <li>Dwells = </li>
+              <li>Average Dwells = </li>
+            </ul>
+          </li> 
+          <li>
+            <b>Unique</b>
+            <ul>
+              <li>Clicks</li>
+              <li>Impressions</li>
+              <li>Dwelling Employers</li>
+              <li>Average Frquency</li>
+            </ul>
+          </li>
+          <li>
+            <b>Engagement</b>
+            <ul>
+              <li>
+                Data By Days = Use this graph to see which days performed best 
+                for all metrices
+              </li>
+            </ul>
+          </li>
+          <li>
+            <b>Perfomance Frequency</b>
+            - Displays data for Position performance based on exposure to the Position<br />
+            - Frequency – The number of times an Applicant was exposed to the Posted Position
+            <ul>
+                <li>Dwells</li>
+                <li>Click-Through Rates</li>
+                <li>Impressions = The number of Applicants who saw a Posting 
+                at least the number of times indicated by the Frequency,
+                or the total number of Impressions served for an 
+                indicated Frequency</li>
+                <li>Unique Frequency Levels = The number of Unique Applicants 
+                who reached the indicated Frequency of viewed Impressions</li>
+                <li>Total Impressions Frequencies = The sum of Impressions 
+                viewed up to the indicated Frequency for all Applicants</li>
+                <li>Total Conversions to Frequencies = The sum of conversions 
+                recorded up to the indicated Frequency for all Applicants</li>
+                <li>Conversion Rate Frequencies = The percent of 
+                "Total Conversions to Frequency" out of 
+                "Total Impressions to Frequency</li>
+            </ul>
+          </li>
+        </ul>
 
       <hr />
       

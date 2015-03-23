@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 20, 2015 at 08:19 AM
+-- Generation Time: Mar 23, 2015 at 12:22 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `resume_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `applicants`
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `blogs` (
   `dated_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `blogs`
@@ -444,6 +444,7 @@ CREATE TABLE IF NOT EXISTS `organizations` (
   `nature` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `logo_filename` varchar(255) NOT NULL,
+  `logo_original_filename` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `landline` varchar(15) NOT NULL,
@@ -461,14 +462,14 @@ CREATE TABLE IF NOT EXISTS `organizations` (
 -- Dumping data for table `organizations`
 --
 
-INSERT INTO `organizations` (`id`, `organization_type`, `name`, `nature`, `description`, `logo_filename`, `website`, `email`, `landline`, `mobile`, `fax`, `address`, `city`, `state`, `zip_code`, `country`) VALUES
-(6, 'Company', 'Some Famous Company', '', 'test', '', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
-(7, 'School', 'sdf', '', '', '', '', '', '', '', '', 'sdf', 'sdf', '', 0, 'Austria'),
-(8, 'School', 'sdf', '', '', '', '', '', '', '', '', 'sdf', 'sdf', '', 0, 'Austria'),
-(9, 'School', 'some school', '', '', '', '', '', '', '', '', 'some school address', 'school city', '', 0, 'American Samoa'),
-(10, 'School', 'sdf', '', '', '', '', '', '', '', '', 'asdf', 'sdf', '', 0, 'Anguilla'),
-(11, 'School', 'sdfxxxxxx', '', '', '', '', '', '', '', '', 'fasdfasdf', 'asdfadf', '', 0, 'Andorra'),
-(12, 'School', 'dffffff', '', '', '', '', '', '', '', '', 'sfsf', 'sdfsdf', '', 0, 'Angola');
+INSERT INTO `organizations` (`id`, `organization_type`, `name`, `nature`, `description`, `logo_filename`, `logo_original_filename`, `website`, `email`, `landline`, `mobile`, `fax`, `address`, `city`, `state`, `zip_code`, `country`) VALUES
+(6, 'Company', 'Some Famous Company', '', 'test', 'bb96034c7aad99d6890a6fae1ef5fda4.jpg', 'work6.jpg', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(7, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(8, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(9, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(10, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(11, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan'),
+(12, 'School', 'Some Famous Company', '', 'test', '<', '<', 'http://www.google.com', 'admin@google.com', '1', '1', '', 'ca', 'cc', 'NY', 0, 'Afghanistan');
 
 -- --------------------------------------------------------
 
@@ -580,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `position_clicks` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `position_clicks`
@@ -595,7 +596,14 @@ INSERT INTO `position_clicks` (`id`, `position_id`, `user_id`, `ip_address`, `ad
 (6, 5, 13, '::1', '', '2015-03-19 04:14:12'),
 (7, 7, 13, '::1', '', '2015-03-19 04:14:15'),
 (8, 3, 13, '::1', '', '2015-03-19 05:58:16'),
-(9, 3, NULL, '::1', '', '2015-03-20 06:12:44');
+(9, 3, NULL, '::1', '', '2015-03-20 06:12:44'),
+(10, 3, 13, '::1', '', '2015-03-20 09:36:03'),
+(11, 3, 13, '::1', '', '2015-03-20 09:56:50'),
+(12, 3, NULL, '::1', '', '2015-03-22 05:11:48'),
+(13, 3, 13, '::1', '', '2015-03-22 16:43:55'),
+(14, 3, NULL, '::1', '', '2015-03-22 17:05:52'),
+(15, 3, NULL, '::1', '', '2015-03-22 17:10:06'),
+(16, 3, NULL, '::1', '', '2015-03-22 17:22:51');
 
 -- --------------------------------------------------------
 
@@ -614,7 +622,7 @@ CREATE TABLE IF NOT EXISTS `position_dwells` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `position_dwells`
@@ -636,7 +644,22 @@ INSERT INTO `position_dwells` (`id`, `user_id`, `position_id`, `ip_address`, `ad
 (13, 13, 5, '::1', '', 0, '2015-03-19 04:14:13'),
 (14, 13, 7, '::1', '', 18, '2015-03-19 04:14:35'),
 (15, 13, 3, '::1', '', 4, '2015-03-19 05:58:22'),
-(16, NULL, 3, '::1', '', 2005, '2015-03-20 07:38:20');
+(16, NULL, 3, '::1', '', 2005, '2015-03-20 07:38:20'),
+(17, 13, 3, '::1', '', 79, '2015-03-20 09:37:23'),
+(18, 13, 3, '::1', '', 10, '2015-03-20 09:38:25'),
+(19, 13, 3, '::1', '', 5, '2015-03-20 09:38:31'),
+(20, 13, 3, '::1', '', 0, '2015-03-20 09:38:45'),
+(21, 13, 3, '::1', '', 27, '2015-03-20 09:39:13'),
+(22, 13, 3, '::1', '', 45, '2015-03-20 09:39:59'),
+(23, 13, 3, '::1', '', 3, '2015-03-20 09:40:04'),
+(24, 13, 3, '::1', '', 24, '2015-03-20 09:40:29'),
+(25, 13, 3, '::1', '', 96, '2015-03-20 09:42:07'),
+(26, 13, 3, '::1', '', 57, '2015-03-20 09:57:49'),
+(27, NULL, 3, '::1', '', 11, '2015-03-22 05:12:00'),
+(28, 13, 3, '::1', '', 4, '2015-03-22 16:43:59'),
+(29, NULL, 3, '::1', '', 24, '2015-03-22 17:06:17'),
+(30, NULL, 3, '::1', '', 7, '2015-03-22 17:10:13'),
+(31, NULL, 3, '::1', '', 311, '2015-03-22 17:28:06');
 
 -- --------------------------------------------------------
 
@@ -654,7 +677,7 @@ CREATE TABLE IF NOT EXISTS `position_impressions` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=311 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=328 ;
 
 --
 -- Dumping data for table `position_impressions`
@@ -970,7 +993,24 @@ INSERT INTO `position_impressions` (`id`, `user_id`, `ip_address`, `position_id`
 (307, 13, '::1', 5, '', '2015-03-19 03:14:12'),
 (308, 13, '::1', 7, '', '2015-03-19 03:14:15'),
 (309, 13, '::1', 3, '', '2015-03-19 04:58:16'),
-(310, NULL, '::1', 3, '', '2015-03-20 05:12:44');
+(310, NULL, '::1', 3, '', '2015-03-20 05:12:44'),
+(311, 13, '::1', 3, '', '2015-03-20 08:36:03'),
+(312, 13, '::1', 3, '', '2015-03-20 08:37:23'),
+(313, 13, '::1', 3, '', '2015-03-20 08:38:15'),
+(314, 13, '::1', 3, '', '2015-03-20 08:38:25'),
+(315, 13, '::1', 3, '', '2015-03-20 08:38:44'),
+(316, 13, '::1', 3, '', '2015-03-20 08:38:45'),
+(317, 13, '::1', 3, '', '2015-03-20 08:39:13'),
+(318, 13, '::1', 3, '', '2015-03-20 08:39:59'),
+(319, 13, '::1', 3, '', '2015-03-20 08:40:04'),
+(320, 13, '::1', 3, '', '2015-03-20 08:40:29'),
+(321, 13, '::1', 3, '', '2015-03-20 08:56:50'),
+(322, NULL, '::1', 3, '', '2015-03-22 04:11:48'),
+(323, 13, '::1', 3, '', '2015-03-22 15:43:46'),
+(324, 13, '::1', 3, '', '2015-03-22 15:43:55'),
+(325, NULL, '::1', 3, '', '2015-03-22 16:05:52'),
+(326, NULL, '::1', 3, '', '2015-03-22 16:10:06'),
+(327, NULL, '::1', 3, '', '2015-03-22 16:22:51');
 
 -- --------------------------------------------------------
 
@@ -1138,7 +1178,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `notes`, `title`, `full_name`, `email`, `website`, `password`, `enabled`, `enable_token`, `password_reset_token`, `landline`, `mobile`, `address`, `city`, `state`, `zip_code`, `country`, `nationality`, `alternate_email`, `image_path`, `image_original_filename`, `date_registered`) VALUES
-(13, 2, '', 'Mr.', 'Some Employer', 'e@e.com', '', '1', 1, '528d80d64843abdbf3a9dbed0ccb84836009738d', '', '', '', '', '', '', 0, 'All Countries', '', '', '', '', '2015-03-04 06:15:56'),
+(13, 2, '', 'Mr.', 'Some Employer', 'e@e.com', '', '1', 1, '528d80d64843abdbf3a9dbed0ccb84836009738d', '', '1', '2', 'cebu', 'cebu city', 'cebu', 7000, 'Austria', 'filipino', '', '164a366cc9d9726fc39adc8c8edfb38c.jpg', 'work6.jpg', '2015-03-04 06:15:56'),
 (14, 4, '', 'Mr.', 'sdf', 'appl1@a.com', '', '1', 0, 'd293a6c0f52917fdbf7c0fec7446980b7dd43669', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-04 08:49:51'),
 (15, 4, '', 'Mr.', 'adslfk', 'fklsj@jlfkd.com', '', '1', 0, '5fa65367e7b0bb2dd08c3fc086f48ec5bb9459ed', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-04 08:52:56'),
 (16, 1, '', 'Mr.', 'Test User 1', 'a@a.com', '', '1', 1, 'ace203f684b8cb8a4bf201412528073b66848aa1', '', '', '', '', '', '', 0, 'All Countries', '', '', '7138c67e3d950c9a261bd1590938e7b1.jpg', 'work6.jpg', '2015-03-04 08:54:16'),
@@ -1175,11 +1215,11 @@ INSERT INTO `users` (`id`, `role_id`, `notes`, `title`, `full_name`, `email`, `w
 (49, 5, '', 'Mr.', 'fsf', 'ksjsf@fjlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 15:54:38'),
 (50, 5, '', 'Mr.', 'fsklfjsklxxxxxxxx', 'skdfjslkfjsfks@jlskdf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:03:34'),
 (51, 2, '', 'Mr.', 'adsf', 'sdfsskjdfhsjfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:08:46'),
-(52, 2, '', 'Mr.', 'sfsf', 'sdfsskjdfhs1jfh@jfslkdfj.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:09:10'),
+(52, 2, '', 'Mr.', 'sfsf', 'sdfsskjdfhs1jfh@jfslkdfj.com', '', '1', 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:09:10'),
 (53, 2, '', 'Mr.', 'adsf', 'ff2@fsdfjl.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:01'),
 (54, 2, '', 'Mr.', '', 'ff23@fsdfjl.com', '', '', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:11'),
 (55, 2, '', 'Mr.', 'sfsf', 'ffffff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:11:50'),
-(56, 2, '', 'Mr.', 'sfsf', 'ffff3ff@sjdflk.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:12:05'),
+(56, 2, '', 'Mr.', 'sfsf', 'ffff3ff@sjdflk.com', '', '1', 0, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:12:05'),
 (57, 5, '', 'Mr.', 'asdf', 'fskdfjslfkjslfjslkfj@jfslkfjsd.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:13:37'),
 (58, 5, '', 'Mr.', 'sdfasdf', 'fjskldfjslkfjslkfjslkfjsldfjskldfj@jflskdjf.com', '', '1', 1, '', '', '', '', '', '', '', 0, '', '', '', '', '', '2015-03-17 16:13:54');
 

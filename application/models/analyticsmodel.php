@@ -51,9 +51,9 @@
 				 - from Date. Required. Default is today - 1.
 				 - to Date. Required. Default is today.
 			*/
-		public final function generate( $options ) {$o = $options;}
-		//
-		private final function getDataProviderAndParams($queryResult)
+		//public final function generate( $options ) {$o = $options;}
+		//@param 	$graphType		Refer to analytics.js under renderGraph().
+		private final function getDataProviderAndParams($queryResult, $graphType = 'Line')
 		{
 			$maximum = 0;
 			foreach ($queryResult as $o) {
@@ -63,7 +63,8 @@
 			$a = array
 			(
 				'provider' => $queryResult,
-				'parameters' => array('maximum' => $maximum)
+				'parameters' => array('maximum' => $maximum),
+				'graphType' => $graphType
 			);
 			return $a;
 		}

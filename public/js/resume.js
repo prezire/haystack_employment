@@ -1,6 +1,7 @@
 function Resume()
 {
   this.sCloseUi;
+  this.siteUrl;
   //
   this.init = function(){
     this.sCloseUi = '<a href="#" class="close">&times;</a>';
@@ -64,6 +65,17 @@ function Resume()
   };
   this.setListeners = function(){
     var o = this;
+    $('#resume.update .recipients button').click(function(e){
+      e.preventDefault();
+      var r = $('#resume.update .recipients .recipients').val();
+      var url = o.siteUrl + '/resume/forward';
+      var id = $(this).data('id');
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: {id: id, recipients: r},
+      });
+    });
     $('#resume.index .isPublic').change(function(e){
       var t = $(this);
       var id = t.attr('id');

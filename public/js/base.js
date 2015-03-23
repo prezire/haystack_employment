@@ -7,11 +7,23 @@ function Haystack()
   };
   this.setListeners = function()
   {
+    var o = this;
     $('.delete').click(function(e){
       if(!confirm('Are you sure?'))
       {
         e.preventDefault();
       }
+    });
+    $('#member.index .enabled').change(function(){
+      var t = $(this);
+      var memberId = t.val();
+      var enabled = t.is(':checked') ? 1 : 0;
+      var url = o.siteUrl + 
+                '/member/setEnabled/' + 
+                memberId + '/' + 
+                enabled;
+                console.log(url);
+      $.ajax({url: url});
     });
     //Pool.
     $('#pooledApplicant.index form').submit(function(e){

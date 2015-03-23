@@ -100,4 +100,8 @@
         redirect(site_url('facultymember'));
       }
     }
+    public final function setEnabled($id, $state)
+    {
+      $this->membermodel->setEnabled($id, $state);
+    }
   }

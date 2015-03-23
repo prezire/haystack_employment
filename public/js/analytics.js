@@ -31,15 +31,34 @@ function Analytics()
 	this.renderGraph = function(graphType, data)
 	{
 		var imagesPath = '../public/libs/amcharts_3.13.0.free/images/';
-		var s = '#analytics.index';
-		var gCntr = $(s + ' .graph');
+		var gCntr = $('#analytics.index .graph');
 		gCntr.css({minHeight: 400});
 		switch(graphType)
 		{
+			case 'Line With Multiple Value Axes':
+				//Used for multiple items.
+				//lineWithMultipleValueAxes.html
+			break;
+			case 'Radar Simple':
+				//For Geographic targets.
+				//radarSimple.html
+			break;
+			case 'Area Hundred Percent Stacked':
+				//area100PercentStacked.html
+			break;
+			case 'Column Hundred Percent Stacked':
+				//column100PercentStacked.html
+			break;
 			case 'Line With Different Bullet Sizes':
 				//All in one graph.
 				//Use this graph perhaps for Engagement Data By Days. 
 				//lineWithDifferentBulletSizes.html
+			break;
+			case 'Column Stacked':
+				//columnStacked.html
+			break;
+			case 'Column Stacked And Clustered':
+				//columnStackedAndClustered.html
 			break;
 			case 'Column':
 				/*
@@ -186,7 +205,7 @@ function Analytics()
 		                    }]
 		                }],
 		                "graphs": [{
-		                    "bullet": "round",
+		                    "bullet": "square",
 		                    "dashLength": 4,
 		                    "valueField": "value"
 		                }],
@@ -492,7 +511,7 @@ function Analytics()
 			{
 				if(response.status == 'success')
 				{
-					ref.renderGraph(response.graphType, response.data);
+					ref.renderGraph(response.data.graphType, response.data);
 				}
 				else
 				{

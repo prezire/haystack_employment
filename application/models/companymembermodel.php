@@ -15,7 +15,7 @@
 			$orgId = $this->organizationmodel->readByEmployerId($empId)->row()->organization_id;
 			$this->db->select
 			(
-				'u.*, u.id user_id, m.id member_id, o.id organization_id, o.name'
+				'u.*, u.id user_id, m.id member_id, o.id organization_id, o.name, u.enabled user_enabled'
 			);
 			$this->db->from( 'members m' );
 			$this->db->join( 'users u', 'm.user_id = u.id' );

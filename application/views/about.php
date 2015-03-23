@@ -33,8 +33,8 @@
       <?php
         echo $this->load->view
         (
-          'commons/partials/errors',
-          isset($error) ? array('error' => $error) : null,
+          'commons/partials/header_messages',
+          array('status' => @$status),
           true
         );
       ?>

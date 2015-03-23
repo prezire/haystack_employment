@@ -109,4 +109,41 @@
       }
       return $items;
     }
+    private final function getPositions($keywords)
+    {
+      $aSpaces = explode(' ', $keywords);
+      $hasSpaces = count($aSpaces) > 1;
+      if($hasSpaces)
+      {
+        foreach($aSpaces as $s)
+        {
+          $this->db->or_like('name', $s);
+        }
+      }
+      else
+      {
+        $this->db->or_like('name', $keywords);
+      }
+    }
+    //curl -d 'keywords=developer' 'http://localhost/haystack/search/positions'
+    public final function positions()
+    {
+      $k = $this->input->post('keywords');
+      $aCommas = explode(',', $k);
+      $hasCommas = count($aCommas) > 1;
+      $this->db->select('*')->from('positions p');
+      if($hasCommas)
+      {
+        foreach ($aCommas as $c) 
+        {
+          $this->getPositions(trim($c));
+        }
+      }
+      else
+      {
+        $this->getPositions($k);
+      }
+      $o = $this->db->get();
+      return $o;
+    }
   }

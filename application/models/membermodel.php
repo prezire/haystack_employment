@@ -9,34 +9,33 @@ class MemberModel extends CI_Model
 	}
 	public function create() {
 		$i = $this->input;
-		$this->load->model('rolemodel');
-		$this->load->model('organizationmodel');
+		$this->load->model( 'rolemodel' );
+		$this->load->model( 'organizationmodel' );
 		//The user who creates the new users.
 		$u = getLoggedUser();
-		$role = $this->rolemodel->read($u->role_id)->row();
+		$role = $this->rolemodel->read( $u->role_id )->row();
 		$roleName = $role->name;
 		//
 		$a = getPostValuePair();
 		$a['enabled'] = true;
 		$a['role_id'] = $u->role_id;
-		$member = $this->db->insert('users', $a);
+		$member = $this->db->insert( 'users', $a );
 		$uId = $this->db->insert_id();
 		//
 		$orgId = 0;
-		switch($roleName)
-		{
-			case 'Employer':
-				$this->load->model('companymembermodel');
-				$orgId = $this->companymembermodel->create($uId);
+		switch ( $roleName ) {
+		case 'Employer':
+			$this->load->model( 'companymembermodel' );
+			$orgId = $this->companymembermodel->create( $uId );
 			break;
-			case 'Faculty':
-				$this->load->model('facultymembermodel');
-				$orgId = $this->facultymembermodel->create($uId);
+		case 'Faculty':
+			$this->load->model( 'facultymembermodel' );
+			$orgId = $this->facultymembermodel->create( $uId );
 			break;
 		}
 		$a = array
 		(
-			'user_id' => $uId, 
+			'user_id' => $uId,
 			'organization_id' => $orgId
 		);
 		$this->db->insert( 'members', $a );
@@ -61,6 +60,11 @@ class MemberModel extends CI_Model
 	}
 	public final function delete( $id ) {
 		$this->db->where( 'id', $id );
-		return $this->db->delete('members');
+		return $this->db->delete( 'members' );
+	}
+	public final function setEnabled( $id, $state ) {
+		$uId = $this->db->get_where( 'members', array( 'id' => $id ) )->row()->user_id;
+		$this->db->where( 'id', $uId )->update( 'users', array( 'enabled' => $state ) );
+		echo $this->db->last_query();
 	}
 }

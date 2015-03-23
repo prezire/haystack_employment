@@ -63,6 +63,8 @@
   .button:hover,
   .accordion dd.active a:hover{background-color: #540F33 !important;}
 
+  #resume .skills li,
+  #resume .certifications li,
   li{list-style-type: square;}
 
   input[type="text"],
@@ -313,7 +315,7 @@
 
   #resume .hidden{display: none;}
   #resume img{width: 100px;}
-  #resume li{list-style-type: none; /*font-size: 12px;*/}
+  #resume li{list-style-type: none;}
   #resume .close,
   #resume i{font-size: 15px;}
   #resume i{cursor: pointer; cursor: hand;}
@@ -374,6 +376,11 @@
   /*/Internship.*/
 
   /*Position.*/
+  #position.index .panel{padding: 8px;}
+  #position.index .columns{padding: 0;}
+  #position.index .panel .button{margin: 0;}
+  #position.index a.position{font-size: 14px;}
+  
   #position.index .accordion dd > a
   {
     padding: 0 8px; 
@@ -417,8 +424,9 @@
   /*Analytics.*/
   #analytics.index .graph.panel{padding: 0; background-color: #3F3F4F;}
   #analytics.index .saved.panel{padding: 4px;}
-  #analytics.index .saved.panel .panel{position: relative;}
-  #analytics.index .saved.panel .panel a{position: absolute; right: 0.2rem; top: 0.2rem;}
+  #analytics.index .saved.panel .panel{position: relative; padding: 8px; background-color: #fff;}
+  #analytics.index .saved.panel .panel a.delete{position: absolute; right: 0.2rem; top: 0.2rem;}
+  #analytics.index .saved.panel .button.tiny{margin: 0;}
   #analytics.index .saved.panel .panel h5{font-weight: bold; color: #C3317E;}
   #analytics input[type="checkbox"],
   #analytics label{margin: 0;}

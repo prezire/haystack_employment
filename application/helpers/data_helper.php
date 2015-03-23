@@ -131,11 +131,11 @@
     $CI->email->bcc($cc);
     $CI->email->subject($subject);
     $CI->email->message($message);
-    /*if(!$CI->email->send())
+    if(!$CI->email->send())
     {
       show_error($CI->email->print_debugger());
       exit;
-    }*/
+    }
   }
   function upload($fieldName)
   {

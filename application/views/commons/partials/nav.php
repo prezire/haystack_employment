@@ -12,7 +12,7 @@
 
 		<nav>
 			<ul>
-        <li><?php echo $this->load->view('commons/partials/search', null, true); ?></li>
+        <!--li><?php echo $this->load->view('commons/partials/search', null, true); ?></li-->
         <li><a href="<?php echo site_url('main'); ?>">Home</a></li>
         <li><a href="<?php echo site_url('position'); ?>">Browse Positions</a></li>
         <?php 
