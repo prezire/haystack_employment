@@ -28,11 +28,13 @@
 	<?php 
 		} 
 		else
-		{ 
+		{
 	?>
-			<?php echo $this->load->view('searches/search_positions', null, true); ?>
-
-			<?php foreach($positions as $p){ ?>
+			<?php 
+				echo $this->load->view('searches/search_positions', null, true);
+				foreach($positions as $p)
+				{ 
+			?>
 				<div class="panel">
 					<div class="row">
 						<div class="small-12 large-5 columns">
@@ -79,7 +81,7 @@
 			<?php }///foreach. ?> 
 	<?php 
 		}///else.
-		echo $pagination;
+		echo @$pagination;
 	?>
 	<script>
 		$(document).ready(function(){

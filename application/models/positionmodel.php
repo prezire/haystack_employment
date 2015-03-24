@@ -17,6 +17,14 @@
 			$o = $this->db->get();
 			return $o;
 		}
+		public final function applicantHasApplied($id, $applicantId)
+		{
+			return $this->db->from('position_applications')
+							->where('id', $id)
+							->where('applicant_id', $applicantId)
+							->count_all_results() > 0;
+
+		}
 		public final function readBrowsablePositionsCount() {
 			$this->db->where( 'CURDATE() >= date_from' );
 			$this->db->where( 'CURDATE() <= date_to' );

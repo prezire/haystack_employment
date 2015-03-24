@@ -1,5 +1,5 @@
 <?php
-	function getPaginationDetails($limit)
+	function getPaginationDetails($limit, $configs = null)
   {
     $CI = get_instance();
     $CI->load->library('pagination');
@@ -12,6 +12,12 @@
       'per_page' => $perPage,
       'total_rows' => $limit
     );
+    if(!empty($configs))
+    {
+      foreach ($configs as $c => $i) {
+        $c[$c] = $i;
+      }
+    }
     $CI->pagination->initialize($c);
     $links = $CI->pagination->create_links();
     $a = array('perPage' => $perPage,'links' => $links);

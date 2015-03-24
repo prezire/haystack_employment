@@ -82,10 +82,25 @@
       } 
     }
   	public final function index(){showView('searches/index');}
-    public final function positions($keywords, $page = 0)
+    public final function positions()
     {
-      $o = $this->searchmodel->positions();
-      $a = array('positions' => $o->result());
-      showView('positions/index', $a);
+      if($this->input->post())
+      {
+        $this->form_validation->set_rules('keywords', 'Keywords', 'required|trim|xss_clean');
+        if ($this->form_validation->run())
+        {
+            $o = $this->searchmodel->positions();
+            $a = array('positions' => $o->result());
+            showView('positions/index', $a);
+        }
+        else
+        {
+          showView('positions/index');
+        }
+      }
+      else
+      {
+        show_error('Request not permitted.');
+      }
     }
 }

@@ -1,13 +1,13 @@
-<div class="row panel">
+<div class="row panel employer">
   <div class="small-12 medium-2 large-2 columns">
     Report Type:
     <?php 
       echo form_dropdown
       (
-        'field', 
+        'reportType', 
         getAnalyticsFields('Employer'),
         null,
-        'class="field"'
+        'class="reportType"'
       ); 
     ?>
   </div>
@@ -28,10 +28,10 @@
     <?php 
       echo form_dropdown
       (
-        'series', 
+        'targetAudience', 
         getAnalyticsSeries(),
         null,
-        'class="series"'
+        'class="targetAudience"'
       );
     ?>
   </div>

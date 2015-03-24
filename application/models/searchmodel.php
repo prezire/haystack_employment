@@ -125,13 +125,18 @@
         $this->db->or_like('name', $keywords);
       }
     }
-    //curl -d 'keywords=developer' 'http://localhost/haystack/search/positions'
     public final function positions()
     {
       $k = $this->input->post('keywords');
       $aCommas = explode(',', $k);
       $hasCommas = count($aCommas) > 1;
-      $this->db->select('*')->from('positions p');
+      $this->db->select('*')
+            ->from('positions')
+            ->where('vacancy_count >', 0)
+            ->where('enabled', 1)
+            ->where('archived', 0)
+            ->where('DATE(NOW()) >= ', 'date_from', false)
+            ->where('DATE(NOW()) <=', 'date_to', false);
       if($hasCommas)
       {
         foreach ($aCommas as $c) 

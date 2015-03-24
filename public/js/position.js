@@ -57,6 +57,7 @@ function Position()
 	//End static methods.
 	this.setListeners = function()
 	{
+		var o = this;
 		$('#position.index .accordion a.update').click(function(e){
 			e.preventDefault();
 			var t = $(this);

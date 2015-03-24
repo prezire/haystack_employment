@@ -53,7 +53,11 @@
 			*/
 		//public final function generate( $options ) {$o = $options;}
 		//@param 	$graphType		Refer to analytics.js under renderGraph().
-		private final function getDataProviderAndParams($queryResult, $graphType = 'Line')
+		private final function getDataProviderAndParams
+		(
+			$queryResult, 
+			$graphType = 'Line'
+		)
 		{
 			$maximum = 0;
 			foreach ($queryResult as $o) {
@@ -74,17 +78,19 @@
 			$f = $i->post('date_from');
 			$t = $i->post('date_to');
 			//Don't go down to Time level for Delivery.
-			$r = $this->db->select('DATE(pc.date_time_clicked) date, COUNT(pc.id) value')
-					->from('position_clicks pc')
-					->join('positions p', 'pc.position_id = p.id')
-					//TODO: Change employer comparison to organization.
-					->join('employers e', 'p.employer_id = e.id')
-					->join('users u', 'e.user_id = u.id')
-					->where('DATE(pc.date_time_clicked) >=', $f)
-					->or_where('DATE(pc.date_time_clicked) <=', $t)
-					->group_by('DATE(pc.date_time_clicked)')
-					->order_by('DATE(pc.date_time_clicked)', 'ASC')
-					->get()->result();
+			$r = $this->db->select
+			(
+				'DATE(pc.date_time_clicked) date, COUNT(pc.id) value'
+			)->from('position_clicks pc')
+				->join('positions p', 'pc.position_id = p.id')
+				//TODO: Change employer comparison to organization.
+				->join('employers e', 'p.employer_id = e.id')
+				->join('users u', 'e.user_id = u.id')
+				->where('DATE(pc.date_time_clicked) >=', $f)
+				->or_where('DATE(pc.date_time_clicked) <=', $t)
+				->group_by('DATE(pc.date_time_clicked)')
+				->order_by('DATE(pc.date_time_clicked)', 'ASC')
+				->get()->result();
 			$a = $this->getDataProviderAndParams($r);
 			/*
 				//For Unique Clicks...
@@ -219,6 +225,14 @@
 					->where('', '')
 					->get();
 		}
+		private final function readPositionsUniqueImpressions()
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
 		private final function readPositionsUniqueDwellingApplicants()
 		{
 			return $this->db->select('')
@@ -328,6 +342,9 @@
 			{
 				case 'Unique Clicks':
 		            $data = $this->readPositionsUniqueClicks($isGeographic);
+				break;
+				case 'Unique Impressions':
+					$data = $this->readPositionsUniqueImpressions($isGeographic);
 				break;
 				case 'Unique Dwelling Applicants':
 					$data = $this->readPositionsUniqueDwellingApplicants($isGeographic);

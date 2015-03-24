@@ -165,7 +165,7 @@
   {
     $a = array
     (
-      "All Countries" =>	"All Countries", 
+      "Please select a country" => "Please select a country",
       "Afghanistan" => "Afghanistan", 
       "Albania" => "Albania", 
       "Algeria" => "Algeria", 

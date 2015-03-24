@@ -56,8 +56,8 @@ class Analytics extends CI_Controller
       $this->load->model( 'facultymodel' );
       //
       $uId = $i->post( 'user_id' );
-      $field = $i->post('field');
-      $series = $i->post( 'series' );
+      $reportType = $i->post('report_type');
+      $targetAudience = $i->post( 'target_audience' );
       $from = $i->post( 'from' );
       $to = $i->post( 'to' );
       $metric = $i->post('metric');
@@ -66,11 +66,11 @@ class Analytics extends CI_Controller
       $bIsEmpl = $this->employermodel->readByUserId( $uId )->num_rows() > 0;
       $bIsFaculty = $this->facultymodel->readByUserId( $uId )->num_rows() > 0;
       //
-      $bGeographic = $series == 'Geographic';
+      $bGeographic = $targetAudience == 'Geographic';
       //
       $data = array();
       if ( $bIsEmpl ) {
-        switch($field)
+        switch($reportType)
         {
           case 'Delivery':
             $data = $this->analyticsmodel->readDelivery($metric, $bGeographic);
@@ -150,6 +150,11 @@ class Analytics extends CI_Controller
   }
   public final function deleteEmailer( $id ) {
     $this->analyticsmodel->deleteEmailer( $id );
+  }
+  public final function readMetrices($reportType)
+  {
+    $a = getAnalyticsFieldMetrices(getRoleName(), $reportType);
+    showJsonView(array('metrices' => $a));
   }
   //curl http://localhost/haystack_employment/index.php/analytics/readDelivery/7/impressions/2015-03-08%2016:56:00/2015-03-12%2016:24:34
   /*public final function readDelivery(

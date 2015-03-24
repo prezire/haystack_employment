@@ -84,8 +84,18 @@
         if($r == 'Administrator' || $r == 'Employer'){
       ?>
       <a href="<?php echo site_url('position/update/' . $position->position_id); ?>" class="button tiny">Update</a>
-      <?php } else if($r == 'Applicant'){ ?>
-      <a href="<?php echo site_url('positionapplication/create/' . $position->position_id); ?>" class="button tiny">
+      <?php
+        } 
+        else if($r == 'Applicant')
+        {
+          $sDisabled = '';
+          if(isset($hasApplied))
+          {
+            $sDisabled = 'disabled="disabled"';
+          }
+      ?>
+      <a href="<?php echo site_url('positionapplication/create/' . $position->position_id); ?>" 
+          class="button tiny"<?php echo $sDisabled; ?>>
         Apply
       </a>
       <?php } ?>

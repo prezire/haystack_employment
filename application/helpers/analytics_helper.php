@@ -41,7 +41,8 @@
 		      ),
 	      'Unique' => array
 		      (
-		      	'Clicks' => 'Clicks', 
+		      	'Clicks' => 'Clicks',
+            'Impressions' => 'Impressions',
 		      	'Dwelling Applicants' => 'Dwelling Applicants', 
 		      	'Average Frequencies' => 'Average Frequencies'
 		      ),
@@ -49,7 +50,7 @@
 		   		(
 		    		'Data By Days' => 'Data By Days'
 				),
-	      'Frequency Performance' => array
+	      'Performance Frequency' => array
 		      (
 		      	'Dwells' => 'Dwells', 
 		      	'Click-Through Rates' => 'Click-Through Rates', 
@@ -70,7 +71,7 @@
         //
       break;
     }
-    return $a[$fieldName];
+    return $a[urldecode($fieldName)];
   }
   //Y-Axis.
   function getAnalyticsSeries()

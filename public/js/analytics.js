@@ -5,13 +5,43 @@ function Analytics()
 	{
 		this.setListeners();
 	};
+	this.generateRandomNumbers = function(base, length)
+	{
+		var a = [];
+		do
+		{
+			var i = Math.floor(Math.random() * base);
+			var b = a.indexOf(i) > 0;
+			if(!b)
+			{
+				a.push(i);
+			}
+		} while(a.length < length);
+		return a;
+	};
+	this.generateRandomColors = function(length)
+	{
+		var colors = [];
+		var letters = '0123456789ABCDEF'.split('');
+		for(var a = 0; a < length; a++)
+		{
+			var nums = this.generateRandomNumbers(letters.length, 6);
+			var c = '#';
+			for(var j = 0; j < nums.length; j++)
+			{
+				c += letters[nums[j]];
+			}
+			colors.push(c);
+		}
+		return colors;
+	};
 	this.getFilters = function()
 	{
 		var s = '#analytics.index';
 		var uId = $(s + ' .userId').val();
-		var field = $(s + ' .field').val();
+		var reportType = $(s + ' .reportType').val();
 		var metric = $(s + ' .metric').val();
-		var series = $(s + ' .series').val();
+		var targetAudience = $(s + ' .targetAudience').val();
 		var from = $(s + ' .from').val();
 		var to = $(s + ' .to').val();
 		//Orgs are the most common among users.
@@ -22,8 +52,8 @@ function Analytics()
 			date_from: from,
 			user_id: uId,
 			metric: metric,
-			field: field, 
-			series: series,
+			report_type: reportType, 
+			target_audience: targetAudience,
 			organization_id: orgId
 		};
 		return o;
@@ -524,6 +554,27 @@ function Analytics()
 	{
 		var o = this;
 		var s = '#analytics.index';
+		$('.row.panel.employer .reportType').change(function(){
+			var t = $(this);
+			var sReportType = t.val();
+			$.ajax({
+				url: o.siteUrl + '/analytics/readMetrices/' + sReportType,
+				success: function(response)
+				{
+					var m = $('.row.panel.employer .metric');
+					m.html('');
+					var data = response.metrices;
+					var s = '';
+					for(var a in data)
+					{
+						s += '<option value="' + a + 
+							'">' + a + 
+							'</option>';
+					}
+					m.html(s);
+				}
+			});
+		});
 		$(s + ' .btnGenerate').click(function(e){
 			o.generateReport();
 			//o.renderGraph('Line', null);
@@ -605,3 +656,4 @@ function Analytics()
 		);
 	};
 }
+new Analytics().generateRandomColors(10);

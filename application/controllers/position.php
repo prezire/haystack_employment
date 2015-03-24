@@ -62,7 +62,18 @@
         redirect( site_url( 'position/expired/' . $p->employer_id ) );
       }
       else {
-        showView( 'positions/read', array( 'position' => $p ) );
+        $a = array( 'position' => $p );
+        if(isLoggedIn())
+        {
+          if(getRoleName() == 'Applicant')
+          {
+            $this->load->model('applicantmodel');
+            $applId = $this->applicantmodel->readByUserId(getLoggedUser()->id)->row()->id;
+            $bHasApplied = $this->positionmodel->applicantHasApplied($id, $applId);
+            $a['hasApplied'] = $bHasApplied;
+          }
+        }
+        showView( 'positions/read', $a );
       }
     }
     public final function readByIndustry( $industry ) {
