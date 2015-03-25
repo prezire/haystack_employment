@@ -1,4 +1,4 @@
-<section id="contact" class="row">
+<section id="about" class="row">
 
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
@@ -9,7 +9,7 @@
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
       Simplifie Haystack is an employment and recruit management platform
-      that provides the best experience.
+      that provides the best experience. Current version is 1.0.0.0.
 
       This service is owned and operated by 
       <a href="http://www.simplifie.net" target="_blank">Simplifie</a> 
@@ -17,8 +17,6 @@
       registered company.<br /><br />
     </div>
   </div>
-
-  
 
   <hr />
 

@@ -7,20 +7,17 @@
 		public final function index() {
 			//
 		}
-		public final function email() {
-			//CRON?
-		}
 		public final function createEmailer() {
 			$a = getPostValuePair( array( 'user_id' ) );
-			$this->db->insert( 'analytics_report_emailers', $a );
+			$this->db->insert( 'analytics_saved_reports', $a );
 			return $this->readEmailer( $this->db->insert_id() );
 		}
 		public final function readEmailer( $id ) {
 			$this->db->where( 'id', $id );
-			return $this->db->get_where( 'analytics_report_emailers' );
+			return $this->db->get_where( 'analytics_saved_reports' );
 		}
 		//Get all reports from a specific organization_id using role_name.
-		public final function readEmailersByRoleName( $userId, $roleName ) {
+		public final function readSavedReportsByRoleName( $userId, $roleName ) {
 			$orgId = null;
 			switch ( $roleName ) {
 			case 'Employer':
@@ -37,12 +34,63 @@
 				break;
 			}
 			$this->db->where( 'organization_id', $orgId );
-			return $this->db->get( 'analytics_report_emailers' );
+			return $this->db->get( 'analytics_saved_reports' );
 		}
 		public final function deleteEmailer( $id ) {
 			$this->db->where( 'id', $id );
-			$this->db->delete( 'analytics_report_emailers' );
+			$this->db->delete( 'analytics_saved_reports' );
 		}
+
+		/*private final saveExportedReport()
+		{
+			$i = $this->input;
+			$data = urldecode($i->post('data'));
+			list($type, $data) = explode(';', $data);
+			list(, $data) = explode(',', $data);
+			$data = base64_encode($data);
+			//
+			$id = $i->post('id');
+			$title = $i->post('title');
+			$orgId = $i->post('organization_id');
+			$s = $id . $title . $orgId;
+			$filename = generateToken($s) . '.png';
+			file_put_contents($filename, $data);
+		}*/
+		public final function readSendableReports($frequency = 'Daily') {
+			$params = $_SERVER['argv'];
+			//$len = $_SERVER['argc'];
+			//Loop DB for Daily, Weekly, Monthly.
+			$frequency = $params[3];
+			//Also save file_path.
+			//TODO: Get day.
+			//if sunday, weekly,
+			//if first day of month, monthly
+			$d = date('d', time());
+			$this->db->select('*')->from('analytics_saved_reports');
+			switch($frequency)
+			{
+				case 'Daily':
+					$this->db->where('frequency', $frequency);
+				break;
+				case 'Weekly':
+					if($d == 1 || $d == 7 || $d == 21)
+					{
+						$this->db->where('frequency', $frequency);
+					}
+				break;
+				case 'Monthly':
+					if($d == 30)
+					{
+						$this->db->where('frequency', $frequency);
+					}
+				break;
+			}
+			return $this->db->get();
+		}
+
+		//
+
+
 		/*
 				@param  $options  Array of the following items:
 				 - frequency String  Daily (Default), Weekly, Monthly.

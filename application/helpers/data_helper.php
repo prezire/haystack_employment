@@ -116,7 +116,8 @@
     $to, 
     $message, 
     $cc = null,
-    $bcc = null
+    $bcc = null,
+    $attachments = null
   )
   {
     $CI = get_instance();
@@ -426,4 +427,24 @@
       'Published' => 'Published'
     );
     return $a;
+  }
+  //@params An array containging hashed value/pair as POST parameters.
+  function sendReceivePostData($params = array())
+  {
+    $post = http_build_query($params);
+    $opts = array
+    (
+      'http' => array
+      (
+        'method' => 'POST',
+        'header' => "Content-Type: application/x-www-form-urlencoded\r\n" .
+                    "Content-Length: ". strlen($post) . "\r\n".
+                    'Accept: application/x-www-form-urlencoded',  
+        'content' => $post
+      )
+    );
+    $context = stream_context_create($opts);
+    //Return the server's response.
+    $data = file_get_contents('https://github.com/login/oauth/access_token', false, $context);
+    return $data;
   }

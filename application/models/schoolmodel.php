@@ -47,8 +47,15 @@
 		{
 			$i = $this->input;
 			$id = $i->post( 'id' );
-			//upload('logo_filename');
 			$a = getPostValuePair(array('id', 'user_id'));
+			$logo = upload('logo_filename');
+			if(isset($logo))
+			{
+				$oldFile = base_url('public/uploads/' . $this->read($id)->row()->logo_filename);
+				unlink($oldFile);
+				$a['logo_filename'] = $logo['file_name'];
+				$a['logo_original_filename'] = $logo['orig_name'];
+			}
 			$this->db->update('organizations', $a);
 		}
 		public final function update() {

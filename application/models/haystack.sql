@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2015 at 12:22 PM
+-- Generation Time: Mar 25, 2015 at 11:35 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -50,28 +50,32 @@ INSERT INTO `additional_informations` (`id`, `resume_id`, `information`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `analytics_report_emailers`
+-- Table structure for table `analytics_saved_reports`
 --
 
-CREATE TABLE IF NOT EXISTS `analytics_report_emailers` (
+CREATE TABLE IF NOT EXISTS `analytics_saved_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
+  `send_to_emails` tinyint(1) NOT NULL DEFAULT '0',
   `frequency` varchar(10) NOT NULL,
   `recipients` varchar(255) NOT NULL,
   `date_from` date NOT NULL,
   `date_to` date NOT NULL,
   `report_type` varchar(20) NOT NULL,
+  `metric` varchar(50) NOT NULL,
+  `target_audience` varchar(50) NOT NULL,
   `organization_id` int(11) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `analytics_report_emailers`
+-- Dumping data for table `analytics_saved_reports`
 --
 
-INSERT INTO `analytics_report_emailers` (`id`, `title`, `frequency`, `recipients`, `date_from`, `date_to`, `report_type`, `organization_id`) VALUES
-(1, 'test', 'Daily', 'dfs@lfksd.com', '2015-03-12', '2015-03-18', 'Views', 6);
+INSERT INTO `analytics_saved_reports` (`id`, `title`, `send_to_emails`, `frequency`, `recipients`, `date_from`, `date_to`, `report_type`, `metric`, `target_audience`, `organization_id`, `file_path`) VALUES
+(11, 'test 1', 1, 'Off', 'asdf@jflskdf.com', '2015-03-25', '2015-03-25', 'Delivery', 'Clicks', 'Person', 6, '');
 
 -- --------------------------------------------------------
 
@@ -317,9 +321,6 @@ CREATE TABLE IF NOT EXISTS `employer_companies` (
 --
 
 INSERT INTO `employer_companies` (`id`, `organization_id`, `employer_id`) VALUES
-(3, 6, 7),
-(4, 6, 7),
-(6, 6, 7),
 (7, 6, 7),
 (8, 6, 17),
 (9, 6, 19),
@@ -554,16 +555,14 @@ CREATE TABLE IF NOT EXISTS `position_applications` (
   KEY `application_status_id` (`application_status_id`),
   KEY `applicant_id` (`applicant_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `position_applications`
 --
 
 INSERT INTO `position_applications` (`id`, `applicant_id`, `position_id`, `date_time_applied`, `application_status_id`, `notes`) VALUES
-(3, 9, 2, '2015-03-09 08:04:35', 9, 'The applicant withdrew..'),
-(4, 10, 2, '2015-03-09 12:00:37', 7, ''),
-(5, 9, 8, '2015-03-13 19:30:22', 9, '');
+(6, 9, 3, '2015-03-24 08:16:19', 9, '');
 
 -- --------------------------------------------------------
 
@@ -581,7 +580,7 @@ CREATE TABLE IF NOT EXISTS `position_clicks` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `position_clicks`
@@ -603,7 +602,9 @@ INSERT INTO `position_clicks` (`id`, `position_id`, `user_id`, `ip_address`, `ad
 (13, 3, 13, '::1', '', '2015-03-22 16:43:55'),
 (14, 3, NULL, '::1', '', '2015-03-22 17:05:52'),
 (15, 3, NULL, '::1', '', '2015-03-22 17:10:06'),
-(16, 3, NULL, '::1', '', '2015-03-22 17:22:51');
+(16, 3, NULL, '::1', '', '2015-03-22 17:22:51'),
+(17, 3, NULL, '::1', '', '2015-03-23 18:32:27'),
+(18, 3, 18, '::1', '', '2015-03-24 09:16:15');
 
 -- --------------------------------------------------------
 
@@ -622,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `position_dwells` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `position_dwells`
@@ -659,7 +660,18 @@ INSERT INTO `position_dwells` (`id`, `user_id`, `position_id`, `ip_address`, `ad
 (28, 13, 3, '::1', '', 4, '2015-03-22 16:43:59'),
 (29, NULL, 3, '::1', '', 24, '2015-03-22 17:06:17'),
 (30, NULL, 3, '::1', '', 7, '2015-03-22 17:10:13'),
-(31, NULL, 3, '::1', '', 311, '2015-03-22 17:28:06');
+(31, NULL, 3, '::1', '', 311, '2015-03-22 17:28:06'),
+(32, NULL, 3, '::1', '', 14, '2015-03-23 18:32:42'),
+(33, 18, 3, '::1', '', 3, '2015-03-24 09:16:19'),
+(34, 18, 3, '::1', '', 560, '2015-03-24 09:25:50'),
+(35, 18, 3, '::1', '', 16, '2015-03-24 09:26:07'),
+(36, 18, 3, '::1', '', 195, '2015-03-24 09:29:26'),
+(37, 18, 3, '::1', '', 0, '2015-03-24 09:31:12'),
+(38, 18, 3, '::1', '', 282, '2015-03-24 09:36:00'),
+(39, 18, 3, '::1', '', 8, '2015-03-24 11:27:37'),
+(40, 18, 3, '::1', '', 76, '2015-03-24 11:28:54'),
+(41, 18, 3, '::1', '', 16, '2015-03-24 11:29:12'),
+(42, 18, 3, '::1', '', 5, '2015-03-24 11:32:03');
 
 -- --------------------------------------------------------
 
@@ -677,7 +689,7 @@ CREATE TABLE IF NOT EXISTS `position_impressions` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=328 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=341 ;
 
 --
 -- Dumping data for table `position_impressions`
@@ -1010,7 +1022,20 @@ INSERT INTO `position_impressions` (`id`, `user_id`, `ip_address`, `position_id`
 (324, 13, '::1', 3, '', '2015-03-22 15:43:55'),
 (325, NULL, '::1', 3, '', '2015-03-22 16:05:52'),
 (326, NULL, '::1', 3, '', '2015-03-22 16:10:06'),
-(327, NULL, '::1', 3, '', '2015-03-22 16:22:51');
+(327, NULL, '::1', 3, '', '2015-03-22 16:22:51'),
+(328, NULL, '::1', 3, '', '2015-03-23 17:32:27'),
+(329, 18, '::1', 3, '', '2015-03-24 08:16:15'),
+(330, 18, '::1', 3, '', '2015-03-24 08:16:19'),
+(331, NULL, '::1', 3, '', '2015-03-24 08:16:43'),
+(332, 18, '::1', 3, '', '2015-03-24 08:25:50'),
+(333, 18, '::1', 3, '', '2015-03-24 08:26:07'),
+(334, 18, '::1', 3, '', '2015-03-24 08:31:11'),
+(335, 18, '::1', 3, '', '2015-03-24 08:31:12'),
+(336, 13, '::1', 2, '', '2015-03-24 10:19:37'),
+(337, 18, '::1', 3, '', '2015-03-24 10:27:28'),
+(338, 18, '::1', 3, '', '2015-03-24 10:27:37'),
+(339, 18, '::1', 3, '', '2015-03-24 10:28:54'),
+(340, 18, '::1', 3, '', '2015-03-24 10:31:57');
 
 -- --------------------------------------------------------
 
@@ -1263,10 +1288,10 @@ ALTER TABLE `additional_informations`
   ADD CONSTRAINT `additional_informations_ibfk_1` FOREIGN KEY (`resume_id`) REFERENCES `resumes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `analytics_report_emailers`
+-- Constraints for table `analytics_saved_reports`
 --
-ALTER TABLE `analytics_report_emailers`
-  ADD CONSTRAINT `analytics_report_emailers_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `analytics_saved_reports`
+  ADD CONSTRAINT `analytics_saved_reports_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `applicants`

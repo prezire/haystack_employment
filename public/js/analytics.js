@@ -19,11 +19,11 @@ function Analytics()
 		} while(a.length < length);
 		return a;
 	};
-	this.generateRandomColors = function(length)
+	this.generateRandomColors = function(repeatCount)
 	{
 		var colors = [];
 		var letters = '0123456789ABCDEF'.split('');
-		for(var a = 0; a < length; a++)
+		for(var a = 0; a < repeatCount; a++)
 		{
 			var nums = this.generateRandomNumbers(letters.length, 6);
 			var c = '#';
@@ -539,13 +539,16 @@ function Analytics()
 			data: params,
 			success: function(response)
 			{
+				var e = $('#analytics.index .error');
 				if(response.status == 'success')
 				{
+					e.hide();
 					ref.renderGraph(response.data.graphType, response.data);
 				}
 				else
 				{
-					//TODO: Show error.
+					e.show();
+					e.html(response.error);
 				}
 			}
 		});
@@ -587,14 +590,15 @@ function Analytics()
 				var freq = $(s + ' .frequency').val();
 				var ttl = $(s + ' .title').val();
 				var recipients = $(s + ' .recipients').val();
-				//Concat 2 obj params.
+				var sendToEmails = $(s + ' .sendToEmails').is(':checked') ? 1 : 0;
 				var params = $.extend
 				(
 					{}, 
 					{
 						frequency: freq, 
 						title: ttl, 
-						recipients: recipients
+						recipients: recipients,
+						send_to_emails: sendToEmails
 					}, 
 					o.getFilters()
 				);
@@ -607,26 +611,16 @@ function Analytics()
 						success: function(response)
 						{
 							var r = response;
+							var e = $('#analytics.index .error');
 							if(r.status == 'success')
 							{
-								var d = r.data;
-								var sCntr = $(s + ' .saved');
-								var v = '<div data-id="' + d.id + '" class="panel row">';
-									v += '<div class="small-12 medium-12 large-12 columns"><h5>' + d.title + '</h5></div>';
-									v += '<div class="small-12 medium-12 large-4 columns">Report Type: ' + d.report_type + '</div>';
-									v += '<div class="small-12 medium-12 large-4 columns">Frequency: ' + d.frequency + '</div>';
-									v += '<div class="small-12 medium-12 large-4 columns">Dates: ' + 
-											o.toHumanReadableDate(d.date_to) + ' - ' + 
-											o.toHumanReadableDate(d.date_from) + 
-										'</div>';
-									v += '<div class="small-12 medium-12 large-12 columns">Recipients: ' + d.recipients + '</div>';
-									v += '<a href="#" class="button tiny delete">&times;</a>';
-								v += '</div>';
-								sCntr.append(v);
+								e.hide();
+								$(s + ' .saved').append(response.view);
 							}
 							else
 							{
-								console.log(response.error);
+								e.show();
+								e.html(response.error);
 							}
 						}
 					}
@@ -639,11 +633,12 @@ function Analytics()
 			{
 				if(confirm('Are you sure?'))
 				{
-					var p = $(this).parent();
+					var p = $(this).parent().parent().parent();
+					var id = p.data('id');
 					$.ajax
 					(
 						{
-							url: o.siteUrl + '/analytics/deleteEmailer/' + p.data('id'),
+							url: o.siteUrl + '/analytics/deleteEmailer/' + id,
 							success: function()
 							{
 								p.remove();

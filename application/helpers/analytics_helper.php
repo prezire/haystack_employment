@@ -1,5 +1,5 @@
 <?php
-  //Refer to FAQ for the definitions.
+  //Report Types.
   function getAnalyticsFields($roleName)
   {
   	switch($roleName)
@@ -49,7 +49,7 @@
 	      'Engagement' => array
 		   		(
 		    		'Data By Days' => 'Data By Days'
-				),
+				  ),
 	      'Performance Frequency' => array
 		      (
 		      	'Dwells' => 'Dwells', 
@@ -64,16 +64,20 @@
       case 'Faculty':
         $a = array
         (
-          'Employability'
+          'Employability',
+          'Industry'
         );
       break;
       case 'Applicant':
-        //
+        $a = array
+        (
+          ''
+        );
       break;
     }
     return $a[urldecode($fieldName)];
   }
-  //Y-Axis.
+  //Y-Axis, Target Audiences.
   function getAnalyticsSeries()
   {
   	return array('Person' => 'Person', 'Geographic' => 'Geographic');

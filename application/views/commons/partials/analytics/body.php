@@ -1,6 +1,6 @@
 <div class="row panel employer">
   <div class="small-12 medium-2 large-2 columns">
-    Report Type:
+    <b>Report Type:</b>
     <?php 
       echo form_dropdown
       (
@@ -12,7 +12,7 @@
     ?>
   </div>
   <div class="small-12 medium-2 large-2 columns">
-    Metric:
+    <b>Metric:</b>
       <?php 
         echo form_dropdown
         (
@@ -24,7 +24,7 @@
       ?>
   </div>
 	<div class="small-12 medium-2 large-2 columns">
-    Target Audience:
+    <b>Target Audience:</b>
     <?php 
       echo form_dropdown
       (

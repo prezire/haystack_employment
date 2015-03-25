@@ -88,17 +88,23 @@
         } 
         else if($r == 'Applicant')
         {
-          $sDisabled = '';
           if(isset($hasApplied))
           {
-            $sDisabled = 'disabled="disabled"';
-          }
       ?>
-      <a href="<?php echo site_url('positionapplication/create/' . $position->position_id); ?>" 
-          class="button tiny"<?php echo $sDisabled; ?>>
-        Apply
-      </a>
-      <?php } ?>
+            <div class="button tiny disabled">Applied</div>
+      <?php
+          }
+          else
+          {
+      ?>
+            <a href="<?php echo site_url('positionapplication/create/' . $position->position_id); ?>" 
+                class="button tiny">
+              Apply
+            </a>
+      <?php
+          }
+        } 
+      ?>
     </div>
   </div>
   <script>

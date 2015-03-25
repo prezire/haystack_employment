@@ -40,18 +40,14 @@
     }
 		public final function create()
 		{
-			$i = $this->input;
-			if($i->post())
-			{
-				$this->db->insert
-				(
-					'users', 
-					getPostValuePair(array('role'))
-				);
-        $id = $this->db->insert_id();
-        $this->uploadAvatar($id);
-				return $this->read($id);
-			}
+			$this->db->insert
+			(
+				'users', 
+				getPostValuePair(array('role'))
+			);
+      $id = $this->db->insert_id();
+      $this->uploadAvatar($id);
+			return $this->read($id);
 		}
 		public final function read($id)
 		{
@@ -95,6 +91,9 @@
       $avatar = upload('image_path');
       if(isset($avatar))
       {
+        $oldFile = base_url('public/uploads/' . $this->read($userId)->row()->image_path);
+        unlink($oldFile);
+        //
         $a = array
         (
           'image_path' => $avatar['file_name'],

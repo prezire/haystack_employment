@@ -34,13 +34,17 @@
 						if($sAppStatName == 'Withdrawn')
 						{
 					?>
-					<a href="#" class="button tiny alert" disabled>
-					<?php } else { ?>
-					<a href="<?php echo site_url('positionapplication/withdraw/' . $p->position_application_id); ?>" 
-						class="button tiny alert delete">
+							<div href="#" class="button tiny disabled">Withdrawn</div>
+					<?php 
+						} 
+						else 
+						{ 
+					?>
+							<a href="<?php echo site_url('positionapplication/withdraw/' . $p->position_application_id); ?>" 
+								class="button tiny alert delete">
+								Withdraw
+							</a>
 					<?php } ?>
-						<?php echo $sAppStatName == 'Withdrawn' ? $sAppStatName : 'Withdraw'; ?>
-					</a>
 				</td>
 			</tr>
 			<?php } ?>

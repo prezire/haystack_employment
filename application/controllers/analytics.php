@@ -14,7 +14,7 @@ class Analytics extends CI_Controller
     $uId = getLoggedUser()->id;
     $this->load->model( 'organizationmodel' );
     $r = getRoleName();
-    $a['emailers'] = $this->analyticsmodel->readEmailersByRoleName( $uId, $r )->result();
+    $a['savedReports'] = $this->analyticsmodel->readSavedReportsByRoleName( $uId, $r )->result();
     switch ( $r ) {
     case 'Employer':
       $this->load->model( 'positionmodel' );
@@ -47,6 +47,7 @@ class Analytics extends CI_Controller
   private final function export( $data, $filename = 'Haystack Report' ) {
     $this->load->helper( 'export_helepr' );
   }
+  //TODO: Make to GET request in order to generate saved reports.
   public final function generate() {
     $i = $this->input;
     if ( $i->post() ) {
@@ -54,7 +55,7 @@ class Analytics extends CI_Controller
       $this->load->model( 'employermodel' );
       $this->load->model( 'applicantmodel' );
       $this->load->model( 'facultymodel' );
-      //
+      //TODO Change $user_id to $organization_id from the view hidden field.
       $uId = $i->post( 'user_id' );
       $reportType = $i->post('report_type');
       $targetAudience = $i->post( 'target_audience' );
@@ -121,15 +122,34 @@ class Analytics extends CI_Controller
   }
   public final function createEmailer() {
     if ( $this->input->post() ) {
-      //TODO: Create CRON Job.
       if ( $this->form_validation->run( 'analytics/emailer' ) ) {
-        $data = $this->analyticsmodel->createEmailer()->row();
+        $s = $this->analyticsmodel->createEmailer()->row();
+        $this->load->library('parser');
+        $a = array
+        (
+          'id' => $s->id,
+          'title' => $s->title,
+          'sendToEmails' => $s->send_to_emails,
+          'frequency' => $s->frequency,
+          'dateFrom' => $s->date_from,
+          'dateTo' => $s->date_to,
+          'reportType' => $s->report_type,
+          'metric' => $s->metric,
+          'targetAudience' => $s->target_audience,
+          'recipients' => $s->recipients
+        );
+        $view = $this->parser->parse
+        (
+          'commons/partials/analytics/saved_report', 
+          $a, 
+          true
+        );
         showJsonView
         (
           array
           (
             'status' => 'success',
-            'data' => $data
+            'view' => $view
           )
         );
       }
@@ -151,6 +171,45 @@ class Analytics extends CI_Controller
   public final function deleteEmailer( $id ) {
     $this->analyticsmodel->deleteEmailer( $id );
   }
+  //Cron Job.
+  public final function sendEmailers()
+  {
+    if($this->input->is_cli_request())
+    {
+      $reports = $this->analyticsmodel->readSendableReports()->result();
+      //Send request to JS, export PNG, 
+      //get file and send to email as attachment.
+      $this->load->library('parser');
+      $conf = $this->config->item('email');
+      foreach ($reports as $r) 
+      {
+        $img = APPATH . 'public/uploads/' . $r->file_path;
+        $a = array
+        (
+          'title' => $r->title,
+          'reportType' => $r->report_type,
+          'reportDates' => toHumanReadableDate($r->date_from) . 
+                          ' - ' . 
+                          toHumanReadableDate($r->date_to),
+          'metric' => $r->metric,
+          'targetAudience' => $r->target_audience
+        );
+        sendEmailer
+        (
+          'Simplifie Haystack Saved Report' . $r->title,
+          $conf['admin'],
+          $r->recipients,
+          $this->parser->parse('commons/emailers/analytics', $a, true),
+          null,
+          null,
+          array($img)
+        );
+      }
+    }
+  }
+
+  //
+
   public final function readMetrices($reportType)
   {
     $a = getAnalyticsFieldMetrices(getRoleName(), $reportType);

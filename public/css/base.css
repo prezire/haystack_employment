@@ -12,6 +12,9 @@
   .accordion:before, .accordion:after{display: none;}
   .accordion{margin-bottom: 1px;}
 
+  button.disabled,
+  .button.disabled{background-color: #6E3453;}
+
   textarea{min-height: 115px;}
 
   .headerMessages .columns{padding: 0;}
@@ -146,6 +149,7 @@
   .button.small{padding: 9px; font-size: 11px;}
   .postfix.button{width: 30px;}
 
+  #search.positions.row .row .columns{padding: 0;}
   #search{margin-top: 11px;}
   #search .postfix
   {
@@ -377,7 +381,7 @@
 
   /*Position.*/
   #position.index .panel{padding: 8px;}
-  #position.index .columns{padding: 0;}
+  #position.index .columns{padding: 4px;}
   #position.index .panel .button{margin: 0;}
   #position.index a.position{font-size: 14px;}
   
@@ -413,19 +417,23 @@
   }*/
   /*/Internship Application.*/
 
-  /*Contact.*/
-  /*/Contact.*/
-
   /*TOC and EULA.*/
   #toc strong,
   #eula strong{display: block; margin-top: 20px; margin-bottom: 4px;}
   /*/TOC and EULA.*/
 
   /*Analytics.*/
+  #analytics.index .error{display: none;}
   #analytics.index .graph.panel{padding: 0; background-color: #3F3F4F;}
   #analytics.index .saved.panel{padding: 4px;}
-  #analytics.index .saved.panel .panel{position: relative; padding: 8px; background-color: #fff;}
-  #analytics.index .saved.panel .panel a.delete{position: absolute; right: 0.2rem; top: 0.2rem;}
+  #analytics.index .saved.panel .panel
+  {
+    position: relative; 
+    padding: 8px; 
+    background-color: #fff;
+    margin-bottom: 4px;
+  }
+  #analytics.index .saved.panel .panel a.delete{position: absolute; right: -8px; top: -8px;}
   #analytics.index .saved.panel .button.tiny{margin: 0;}
   #analytics.index .saved.panel .panel h5{font-weight: bold; color: #C3317E;}
   #analytics input[type="checkbox"],
@@ -463,6 +471,18 @@
   #blog.read .header{margin-bottom: 8px;}
   #blog.read .back.button{margin-top: 8px;}
   /*/Blog.*/
+
+  /*Partner.*/
+  #partner.index.row .row{margin-bottom: 32px;}
+  #partner.index .columns{padding-left: 4px;}
+  #partner.index img
+  {
+    display: block; 
+    width: 100%;
+    height: auto;
+  }
+  #partner h5{font-size: 15px; margin: 0;}
+  /*/Partner.*/
 }
 
 /* min-width 641px, medium screens */
@@ -544,7 +564,11 @@
   #comment h4,
   #billing h4,
   #member h4,
-  #blog h4{margin-left: 0;}
+  #blog h4,
+  #partner h4,
+  #advertise h4,
+  #faq h4,
+  #about h4{margin-left: 0;}
 
   #auth.login h4{margin-left: 0;}
   header{border-right: 1px solid rgba(43, 50, 57, 0.15);}
@@ -577,5 +601,5 @@
   header{padding-left: 20px;}
 }
 
-
-@media only screen and (min-width: 120.063em) { } /* min-width 1921px, xxlarge screens */
+/* min-width 1921px, xxlarge screens */
+@media only screen and (min-width: 120.063em){}

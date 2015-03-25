@@ -82,16 +82,12 @@
 				    		  <div class="small-3 medium-3 large-4 columns">
 				    		  	<label>Application Status</label>
 				    		  	<?php 
-				    		  		$sDisabled = 
-				    		  			$appl->status_name == 'Withdrawn' ? 
-		    		  					' disabled' : 
-		    		  					'';
 				    		  		echo form_dropdown
 				    		  		(
 				    		  			'application_status', 
 				    		  			getApplicationStatuses(), 
 				    		  			$appl->status_name,
-				    		  			'class="applicationStatus"' . $sDisabled
+				    		  			'class="applicationStatus"'
 				    		  		); 
 				    		  	?>
 				    		  </div>

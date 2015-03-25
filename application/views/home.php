@@ -8,19 +8,14 @@
       employers and education institutions together in <u>one centralized location</u>. 
       Our system specializes in <u>helping students and professionals</u> find the right 
       positions for their career as well as provide insightful data for 
-      employers and schools.
+      employers, applicants and schools.
 
       <br /><br />
 
       Select different categories such as internships. Internships are the most 
       effective way for students to gain work experience before graduation. It's 
       also another way to gain more experience for professionals who are changing 
-      career paths. In fact, studies show that 7 out of 10 internships turn into 
-      full-time jobs.
-
-      <br /><br />
-
-      Luckily, starting your positions search is easy. Simply tell 
+      career paths. Luckily, starting your positions search is easy. Simply tell 
       us your college major and preferred location and you can connect with 
       companies that are hiring now.
 
