@@ -360,25 +360,6 @@
   #search.results .panel{padding: 8px; margin-bottom: 4px;}
   /*/Search.*/
 
-  /*Internship.*/
-  /*#internship .listing .row .columns.primary{margin-bottom: 8px;}
-  #internship .listing .row .columns a,
-  #internship .listing .row .columns .calendar
-  {
-    margin-bottom: 8px;
-    display: block;
-  }
-  .listing .row .columns a
-  {
-    display: inline !important;
-    margin-top: 4px;
-    font-size: 13px;
-  }
-  .listing .row .columns a.alert{color: #F04124;}
-  .listing .row .columns a:hover{text-decoration: underline;}
-  #internship .button.radius{margin-bottom: 0;}*/
-  /*/Internship.*/
-
   /*Position.*/
   #position.index .panel{padding: 8px;}
   #position.index .columns{padding: 4px;}
@@ -409,14 +390,6 @@
   /*Employer.*/
   /*/Employer.*/
 
-  /*Internship Applications.*/
-  /*#internshipApplication.index.employer .applicants.panel
-  {
-    padding: 4px !important;
-    margin-top: 8px;
-  }*/
-  /*/Internship Application.*/
-
   /*TOC and EULA.*/
   #toc strong,
   #eula strong{display: block; margin-top: 20px; margin-bottom: 4px;}
@@ -433,7 +406,12 @@
     background-color: #fff;
     margin-bottom: 4px;
   }
-  #analytics.index .saved.panel .panel a.delete{position: absolute; right: -8px; top: -8px;}
+  #analytics.index .saved.panel .panel a.delete
+  {
+    position: absolute; 
+    right: -8px; 
+    top: -88px;
+  }
   #analytics.index .saved.panel .button.tiny{margin: 0;}
   #analytics.index .saved.panel .panel h5{font-weight: bold; color: #C3317E;}
   #analytics input[type="checkbox"],
@@ -506,16 +484,6 @@
     #home.index .intro .columns{padding: 0;}
     #home.index .row.works{width: auto;}
     #home.index .row.features .columns:first-child{padding-left: 0;}
-    /*#home.index .row.intro > div
-    {
-      background-image: url(../img/index_carousel_1.png);
-      padding: 16px;
-      height: 419px;
-      background-position-x: -150px;
-      color: #fff;
-    }
-    #home.index .row.intro u{color: #fff;}
-    #home.index .row.intro .large{display: none;}*/
     /*/Home.*/
 
     /*Auth.*/
@@ -547,10 +515,11 @@
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) 
 {
+  /*Commons.*/
   #search .keywords{width: 186px;}
-
-  header{width: 290px;}
   
+  header{width: 290px;}
+
   h4{margin-left: -16px;}
   #resume h4,
   #applicant.index h4,
@@ -578,21 +547,36 @@
   div.footer{margin-left: -10px;}
   div.footer .social.right{float: right !important;}
   div.footer .nav{padding-top: 12px; padding-left: 8px;}
+  /*/Commons.*/
 
   /*Home.*/
-  #home.index .large{text-align: left; position: relative; top: 16px;}
+  #home.index .large
+  {
+    text-align: left; 
+    position: relative; 
+    top: 16px;
+  }
   #home.index .quickRegister
   {
     padding: 8px; 
     margin-right: 40px;
     margin-top: -260px;
   }
-  #home.index .quickRegister{width: auto; text-align: left;}
+  #home.index .quickRegister
+  {
+    width: auto; 
+    text-align: left;
+  }
   /*/Home.*/
 
   /*Resume.*/
   #resume.read h3{margin-top: 28px;}
   /*/Resume.*/
+
+  /*Analytics.*/
+  #analytics.index .btnGenerate{margin-top: 12px;}
+  #analytics.index .saved.panel .panel a.delete{top: -8px;}
+  /*/Analytics.*/
 }
 
 /* min-width 1441px, xlarge screens */

@@ -46,15 +46,16 @@ function Analytics()
 		var to = $(s + ' .to').val();
 		//Orgs are the most common among users.
 		var orgId = $(s + ' .organizationId').val();
+		var roleName = $(s + ' .roleName').val();
 		var o = 
 		{ 
 			date_to: to,
 			date_from: from,
-			user_id: uId,
 			metric: metric,
 			report_type: reportType, 
 			target_audience: targetAudience,
-			organization_id: orgId
+			organization_id: orgId,
+			role_name: roleName
 		};
 		return o;
 	};
@@ -518,8 +519,7 @@ function Analytics()
 				//
 			break;
 			case 'Faculty':
-				//Fields.
-				$('.fields input').each(function(){
+				/*$('.fields input').each(function(){
 					var t = $(this);
 					if(t.is(':checked'))
 					{
@@ -527,7 +527,7 @@ function Analytics()
 						o[name] = 1;
 					}
 				});
-				var course = $('select.course').val();
+				var course = $('select.course').val();*/
 			break;
 		}
 		var params = $.extend({}, o, this.getFilters());
@@ -543,7 +543,11 @@ function Analytics()
 				if(response.status == 'success')
 				{
 					e.hide();
-					ref.renderGraph(response.data.graphType, response.data);
+					ref.renderGraph
+					(
+						response.data.graphType, 
+						response.data
+					);
 				}
 				else
 				{

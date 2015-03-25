@@ -22,10 +22,19 @@
 			}
 		?>
 	</p>
-	<input type="hidden" class="organizationId" value="<?php echo $organizationId; ?>" />
+
+	<input type="hidden" 
+			class="organizationId" 
+			value="<?php echo $organizationId; ?>" />
+	<input type="hidden" 
+			class="roleName" 
+			value="<?php echo $r; ?>" />
+
 	<?php 
-		echo $this->load->view('commons/partials/analytics/header', null, true);
-		echo $this->load->view('commons/partials/analytics/body', null, true);
-		echo $this->load->view('commons/partials/analytics/footer', array('savedReports' => $savedReports), true);
+		$s = 'commons/partials/analytics/';
+		$a = array('savedReports' => $savedReports);
+		echo $this->load->view($s . 'header', null, true);
+		echo $this->load->view($s . 'body', null, true);
+		echo $this->load->view($s . 'footer', $a, true);
 	?>
 </div>

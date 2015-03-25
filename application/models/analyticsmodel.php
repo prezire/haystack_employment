@@ -41,30 +41,24 @@
 			$this->db->delete( 'analytics_saved_reports' );
 		}
 
-		/*private final saveExportedReport()
+		private final function saveExportedReport($postData)
 		{
 			$i = $this->input;
-			$data = urldecode($i->post('data'));
+			$data = urldecode($postData);
 			list($type, $data) = explode(';', $data);
 			list(, $data) = explode(',', $data);
 			$data = base64_encode($data);
-			//
+			//TODO: Other post data params.
 			$id = $i->post('id');
 			$title = $i->post('title');
 			$orgId = $i->post('organization_id');
 			$s = $id . $title . $orgId;
 			$filename = generateToken($s) . '.png';
 			file_put_contents($filename, $data);
-		}*/
+		}
 		public final function readSendableReports($frequency = 'Daily') {
 			$params = $_SERVER['argv'];
-			//$len = $_SERVER['argc'];
-			//Loop DB for Daily, Weekly, Monthly.
 			$frequency = $params[3];
-			//Also save file_path.
-			//TODO: Get day.
-			//if sunday, weekly,
-			//if first day of month, monthly
 			$d = date('d', time());
 			$this->db->select('*')->from('analytics_saved_reports');
 			switch($frequency)
@@ -85,21 +79,26 @@
 					}
 				break;
 			}
-			return $this->db->get();
+			$o = $this->db->get();
+			$records = $o->result();
+			foreach ($records as $r)
+			{
+				//Generate file and save.
+				$file = $this->saveExportedReport(sendReceivePostData(array()));
+				$a = array('file_path' => $file);
+				$this->db->where('id', $r->id)
+						->update('analytics_saved_reports', $a);
+			}
+			return $o;
 		}
-
-		//
-
-
 		/*
-				@param  $options  Array of the following items:
-				 - frequency String  Daily (Default), Weekly, Monthly.
-				 - geographic String  Country. Optional
-				 - industry  String. Required. Default is null.
-				 - from Date. Required. Default is today - 1.
-				 - to Date. Required. Default is today.
-			*/
-		//public final function generate( $options ) {$o = $options;}
+			@param  $options  Array of the following items:
+			 - frequency String  Daily (Default), Weekly, Monthly.
+			 - geographic String  Country. Optional
+			 - industry  String. Required. Default is null.
+			 - from Date. Required. Default is today - 1.
+			 - to Date. Required. Default is today.
+		*/
 		//@param 	$graphType		Refer to analytics.js under renderGraph().
 		private final function getDataProviderAndParams
 		(
@@ -120,22 +119,23 @@
 			);
 			return $a;
 		}
-		private final function readPositionsClicks($isGeographic)
+		private final function readPositionsClicks($params)
 		{
-			$i = $this->input;
-			$f = $i->post('date_from');
-			$t = $i->post('date_to');
+			$f = $params['date_from'];
+			$t = $params['date_to'];
 			//Don't go down to Time level for Delivery.
 			$r = $this->db->select
 			(
 				'DATE(pc.date_time_clicked) date, COUNT(pc.id) value'
 			)->from('position_clicks pc')
 				->join('positions p', 'pc.position_id = p.id')
-				//TODO: Change employer comparison to organization.
 				->join('employers e', 'p.employer_id = e.id')
 				->join('users u', 'e.user_id = u.id')
+				->join('employer_companies ec', 'e.id = ec.employer_id')
+				->join('organizations o', 'o.id = ec.organization_id')
+				->where('o.id', $params['organization_id'])
 				->where('DATE(pc.date_time_clicked) >=', $f)
-				->or_where('DATE(pc.date_time_clicked) <=', $t)
+				->where('DATE(pc.date_time_clicked) <=', $t) //TODO: Change to where.
 				->group_by('DATE(pc.date_time_clicked)')
 				->order_by('DATE(pc.date_time_clicked)', 'ASC')
 				->get()->result();
@@ -155,25 +155,30 @@
 			*/
 			return $a;
 		}
-		private final function readPositionsImpressions()
+		private final function readPositionsImpressions($params)
 		{
-			$i = $this->input;
-			$f = $i->post('date_from');
-			$t = $i->post('date_to');
-			$r = $this->db->select('DATE(pi.date_time_viewed) date, COUNT(pi.id) value')
-					->from('position_impressions pi')
+			$f = $params['date_from'];
+			$t = $params['date_to'];
+			$r = $this->db->select
+			(
+				'DATE(pi.date_time_viewed) date, COUNT(pi.id) value'
+			)->from('position_impressions pi')
 					->join('positions p', 'pi.position_id = p.id')
 					->join('employers e', 'p.employer_id = e.id')
 					->join('users u', 'e.user_id = u.id')
+					->join('employer_companies ec', 'e.id = ec.employer_id')
+					->join('organizations o', 'o.id = ec.organization_id')
+					->where('o.id', $params['organization_id'])
 					->where('DATE(pi.date_time_viewed) >=', $f)
-					->or_where('DATE(pi.date_time_viewed) <=', $t)
+					->where('DATE(pi.date_time_viewed) <=', $t)
 					->group_by('DATE(pi.date_time_viewed)')
 					->order_by('DATE(pi.date_time_viewed)', 'ASC')
 					->get()->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
-		private final function readPositionsCtrs()
+		//BUG: Incorrect output.
+		private final function readPositionsCtrs($params)
 		{
 			/*
 				
@@ -185,25 +190,35 @@
 				ORDER BY average DESC
 			*/
 			//KLUDGE: Not sure if output is correct.
-			$r = $this->db->select('DATE(pc.date_time_clicked) date, (((SELECT sum(id) FROM position_clicks WHERE position_id = pi.position_id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = pc.position_id)) * 100) value')
+			$r = $this->db->select('DATE(pc.date_time_clicked) date, (((SELECT COUNT(id) FROM position_clicks WHERE position_id = pi.position_id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = pc.position_id)) * 100) value')
 				->from('position_clicks pc')
 				->join('position_impressions pi', 'pc.position_id = pi.position_id')
+				
+				->join('positions p', 'pi.position_id = p.id')
+				->join('employers e', 'p.employer_id = e.id')
+				->join('users u', 'e.user_id = u.id')
+				->join('employer_companies ec', 'e.id = ec.employer_id')
+				->join('organizations o', 'o.id = ec.organization_id')
+				->where('o.id', $params['organization_id'])
+				
 				->group_by('DATE(pc.date_time_clicked)')
 				->order_by('DATE(pc.date_time_clicked)', 'ASC')
 				->get()->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
-		private final function readPositionsDwells()
+		private final function readPositionsDwells($params)
 		{
-			$i = $this->input;
-			$f = $i->post('date_from');
-			$t = $i->post('date_to');
+			$f = $params['date_from'];
+			$t = $params['date_to'];
 			$r = $this->db->select('DATE(pd.date_time_created) date, SUM(pd.seconds) value')
 					->from('position_dwells pd')
 					->join('positions p', 'pd.position_id = p.id')
 					->join('employers e', 'p.employer_id = e.id')
 					->join('users u', 'e.user_id = u.id')
+					->join('employer_companies ec', 'e.id = ec.employer_id')
+					->join('organizations o', 'o.id = ec.organization_id')
+					->where('o.id', $params['organization_id'])
 					->where('DATE(pd.date_time_created) >=', $f)
 					->or_where('DATE(pd.date_time_created) <=', $t)
 					->group_by('DATE(pd.date_time_created)')
@@ -212,7 +227,7 @@
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
-		private final function readPositionsAvgDwellRates()
+		private final function readPositionsAvgDwellRates($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -220,33 +235,10 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsConversions()
+		private final function readPositionsConversions($params)
 		{
-			$i = $this->input;
-			$f = $i->post('date_from');
-			$t = $i->post('date_to');
-			$r = $this->db->select
-					(
-						'DATE(pa.date_time_applied) date, ' . 
-						'SUM(pa.id) value'
-					)
-					->from('position_applications pa')
-					->join('positions p', 'pa.position_id = p.id')
-					->join('employers e', 'p.employer_id = e.id')
-					->join('users u', 'e.user_id = u.id')
-					->where('DATE(pa.date_time_applied) >=', $f)
-					->or_where('DATE(pa.date_time_applied) <=', $t)
-					->group_by('DATE(pa.date_time_applied)')
-					->order_by('DATE(pa.date_time_applied)', 'ASC')
-					->get()->result();
-			$a = $this->getDataProviderAndParams($r);
-			return $a;
-		}
-		private final function readPositionsConversionRates()
-		{
-			$i = $this->input;
-			$f = $i->post('date_from');
-			$t = $i->post('date_to');
+			$f = $params['date_from'];
+			$t = $params['date_to'];
 			$r = $this->db->select
 					(
 						'DATE(pa.date_time_applied) date, ' . 
@@ -256,8 +248,35 @@
 					->join('positions p', 'pa.position_id = p.id')
 					->join('employers e', 'p.employer_id = e.id')
 					->join('users u', 'e.user_id = u.id')
+					->join('employer_companies ec', 'e.id = ec.employer_id')
+					->join('organizations o', 'o.id = ec.organization_id')
+					->where('o.id', $params['organization_id'])
 					->where('DATE(pa.date_time_applied) >=', $f)
-					->or_where('DATE(pa.date_time_applied) <=', $t)
+					->where('DATE(pa.date_time_applied) <=', $t)
+					->group_by('DATE(pa.date_time_applied)')
+					->order_by('DATE(pa.date_time_applied)', 'ASC')
+					->get()->result();
+			$a = $this->getDataProviderAndParams($r);
+			return $a;
+		}
+		private final function readPositionsConversionRates($params)
+		{
+			$f = $params['date_from'];
+			$t = $params['date_to'];
+			$r = $this->db->select
+					(
+						'DATE(pa.date_time_applied) date, ' . 
+						'COUNT(pa.id) / (SELECT COUNT(id) FROM position_impressions) value'
+					)
+					->from('position_applications pa')
+					->join('positions p', 'pa.position_id = p.id')
+					->join('employers e', 'p.employer_id = e.id')
+					->join('users u', 'e.user_id = u.id')
+					->join('employer_companies ec', 'e.id = ec.employer_id')
+					->join('organizations o', 'o.id = ec.organization_id')
+					->where('o.id', $params['organization_id'])
+					->where('DATE(pa.date_time_applied) >=', $f)
+					->where('DATE(pa.date_time_applied) <=', $t)
 					->group_by('DATE(pa.date_time_applied)')
 					->order_by('DATE(pa.date_time_applied)', 'ASC')
 					->get()->result();
@@ -265,7 +284,7 @@
 			return $a;
 		}
 		//
-		private final function readPositionsUniqueClicks()
+		private final function readPositionsUniqueClicks($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -273,7 +292,7 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsUniqueImpressions()
+		private final function readPositionsUniqueImpressions($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -281,7 +300,7 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsUniqueDwellingApplicants()
+		private final function readPositionsUniqueDwellingApplicants($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -289,16 +308,7 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsUniqueDwellingFrequencies()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		//
-		private final function readPositionsEngagementDataByDays()
+		private final function readPositionsUniqueDwellingFrequencies($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -307,47 +317,7 @@
 					->get();
 		}
 		//
-		private final function readPositionsFrequencyPerformanceDwells()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceCtrs()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceImpressions()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceUniqueFrequencyLevels()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceTotalImpressionsFrequencies()
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceConversionRatesFrequencies()
+		private final function readPositionsEngagementDataByDays($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -356,190 +326,114 @@
 					->get();
 		}
 		//
-		public final function readDelivery($metric, $isGeographic = false)
+		private final function readPositionsFrequencyPerformanceDwells($params)
 		{
-			switch($metric)
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		private final function readPositionsFrequencyPerformanceCtrs($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		private final function readPositionsFrequencyPerformanceImpressions($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		private final function readPositionsFrequencyPerformanceUniqueFrequencyLevels($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		private final function readPositionsFrequencyPerformanceTotalImpressionsFrequencies($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		private final function readPositionsFrequencyPerformanceConversionRatesFrequencies($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
+		public final function readDelivery($params = array())
+		{
+			switch($params['metric'])
 	        {
 	          case 'Clicks':
-	            $data = $this->readPositionsClicks($isGeographic);
+	            $data = $this->readPositionsClicks($params);
 	          break;
 	          case 'Impressions':
-	            $data = $this->readPositionsImpressions($isGeographic);
+	            $data = $this->readPositionsImpressions($params);
 	          break;
 	          case 'Click-Through Rates':
-	            $data = $this->readPositionsCtrs($isGeographic);
+	            $data = $this->readPositionsCtrs($params);
 	          break;
 	          case 'Dwells':
-	            $data = $this->readPositionsDwells($isGeographic);
+	            $data = $this->readPositionsDwells($params);
 	          break;
 	          case 'Average Dwell Rates':
-	            $data = $this->readPositionsAvgDwellRates($isGeographic);
+	            $data = $this->readPositionsAvgDwellRates($params);
 	          break;
 	          case 'Conversions':
-	            $data = $this->readPositionsConversions($isGeographic);
+	            $data = $this->readPositionsConversions($params);
 	          break;
 	          case 'Conversion Rates':
-	            $data = $this->readPositionsConversionRates($isGeographic);
+	            $data = $this->readPositionsConversionRates($params);
 	          break;
 	        }
 	        return $data;
 		}
-		public final function readUnique($metric, $isGeographic = false)
+		public final function readEngagement($params = array())
 		{
-			switch($metric)
-			{
-				case 'Unique Clicks':
-		            $data = $this->readPositionsUniqueClicks($isGeographic);
-				break;
-				case 'Unique Impressions':
-					$data = $this->readPositionsUniqueImpressions($isGeographic);
-				break;
-				case 'Unique Dwelling Applicants':
-					$data = $this->readPositionsUniqueDwellingApplicants($isGeographic);
-				break;
-				case 'Unique Dwelling Frequencies':
-					$data = $this->readPositionsUniqueDwellingFrequencies($isGeographic);
-				break;
-			}
-			return $data;
-		}
-		public final function readEngagement($metric, $isGeographic = false)
-		{
-			switch($metric)
+			switch($params['metric'])
 			{
 				case 'Engagement Data By Days':
-					$data = $this->readPositionsEngagementDataByDays($isGeographic);
+					$data = $this->readPositionsEngagementDataByDays($params);
 				break;
 			}
 			return $data;
 		}
-		public final function readFrequencyPerformance($metric, $isGeographic = false)
+		public final function readFrequencyPerformance($params = array())
 		{
-			switch($metric)
+			switch($params['metric'])
 	        {
 	          case 'Frequency Performance Dwells':
-	            $data = $this->readPositionsFrequencyPerformanceDwells($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceDwells($params);
 	          break;
 	          case 'Frequency Performance Click-Through Rates':
-	            $data = $this->readPositionsFrequencyPerformanceCtrs($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceCtrs($params);
 	          break;
 	          case 'Frequency Performance Impressions':
-	            $data = $this->readPositionsFrequencyPerformanceImpressions($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceImpressions($params);
 	          break;
 	          case 'Frequency Performance Unique Frequency Levels':
-	            $data = $this->readPositionsFrequencyPerformanceUniqueFrequencyLevels($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceUniqueFrequencyLevels($params);
 	          break;
 	          case 'Frequency Performance Total Impressions':
-	            $data = $this->readPositionsFrequencyPerformanceTotalImpressionsFrequencies($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceTotalImpressionsFrequencies($params);
 	          break;
 	          case 'Frequency Performance Conversion Rate':
-	            $data = $this->readPositionsFrequencyPerformanceConversionRatesFrequencies($isGeographic);
+	            $data = $this->readPositionsFrequencyPerformanceConversionRatesFrequencies($params);
 	          break;
 	        }
 		}
-		//Employer Metrices. Refer to analytics_helper
-		//for definitions.
-		/*public final function readDelivery(
-			$employerId,
-			$metric,
-			$dateFrom,
-			$dateTo
-		) {
-			//TODO: Decode %20.
-			$dates = array( $dateFrom, $dateTo );
-			$this->load->model( 'positionmodel' );
-			$positions = $this->positionmodel->readByEmployerId( $employerId )->result();
-			$a = array();
-			foreach ( $positions as $p ) {
-				array_push( $a, $p->id );
-			}
-			switch ( $metric ) {
-			case 'Clicks':
-				return $this->db->select( 'id' )
-				->from( 'position_clicks' )
-				->where_in( 'date_time_clicked', $dates )
-				->where_in( 'id', $a )
-				->count_all_results();
-				break;
-			case 'Impressions':
-				return $this->db->select( 'id' )
-				->from( 'position_impressions' )
-				->where_in( 'date_time_viewed', $dates )
-				->where_in( 'id', $a )
-				->count_all_results();
-				break;
-			case 'Click-Through Rates':
-				$clicks = $this->db->select( 'id' )
-				->from( 'position_clicks' )
-				->where_in( 'date_time_clicked', $dates )
-				->where_in( 'id', $a )
-				->count_all_results();
-				//
-				$imps = $this->db->select( 'id' )
-				->from( 'position_impressions' )
-				->where_in( 'date_time_viewed', $dates )
-				->where_in( 'id', $a )
-				->count_all_results();
-				//
-				return ($clicks / $imps) * 100;
-				break;
-			case 'Dwells':
-				return $this->db->select( 'SUM(seconds)' )
-				->from( 'position_dwells' )
-				->where_in( 'date_time_created', $dates )
-				->where_in( 'id', $a )
-				->get();
-				break;
-			case 'Average Dwell Rates';
-				//
-			break;
-			}
-		}
-		public final function readUnique(
-			$employerId,
-			$metric,
-			$dateFrom,
-			$dateTo
-		) {
-			switch ( $metric ) {
-			case 'Clicks':
-				break;
-			case 'Dwelling Applicants':
-				break;
-			case 'Average Frequencies':
-				break;
-			}
-		}
-		public final function readEngagement(
-			$employerId,
-			$metric,
-			$dateFrom,
-			$dateTo
-		) {
-			switch ( $metric ) {
-			case 'Data By Day':
-				break;
-			}
-		}
-		public final function readPerformanceFrequency(
-			$employerId,
-			$metric,
-			$dateFrom,
-			$dateTo
-		) {
-			switch ( $metric ) {
-			case 'Dwells':
-				break;
-			case 'Click-Through Rates':
-				break;
-			case 'Impressions':
-				break;
-			case 'Unique Frequency Levels':
-				break;
-			case 'Total Impressions Frequencies':
-				break;
-			case 'Total Conversions Frequencies':
-				break;
-			}
-		}*/
 	}

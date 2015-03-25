@@ -75,7 +75,12 @@
 			    	  <dd>
 			    	    <a href="#panel<?php echo $panelName; ?>">
 			    	    	<?php echo $appl->full_name; ?>
-			    	    	(<?php echo $appl->current_position_title; ?>)
+			    	    	|
+			    	    	Current Position Title: 
+			    	    	<?php echo $appl->current_position_title; ?>
+			    	    	|
+				    	    Applied On: 
+				    	    <?php echo toHumanReadableDate($appl->date_time_applied); ?>
 			    	    </a>
 			    	    <div id="panel<?php echo $panelName; ?>" class="content">
 			    	      <div class="row">
