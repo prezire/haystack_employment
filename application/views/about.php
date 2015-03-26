@@ -8,7 +8,7 @@
 
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      Simplifie Haystack is an employment and recruit management platform
+      JobFormity is an employment and recruit management platform
       that provides the best experience. Current version is 1.0.0.0.
 
       This service is owned and operated by 

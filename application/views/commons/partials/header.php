@@ -4,16 +4,16 @@
 	<meta name="description" content="Need work experience? Apply for an Internship."/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	
-	<meta property="og:site_name" content="Simplifie Haystack" />
-	<meta property="og:title" content="Simplifie Haystack" />
+	<meta property="og:site_name" content="JobFormity" />
+	<meta property="og:title" content="JobFormity" />
 	<meta property="og:description" content="" />
 	<meta property="og:image" content="" />
 	
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="apple-mobile-web-app-title" content="Simplifie Haystack" />
+	<meta name="apple-mobile-web-app-title" content="JobFormity" />
 	
-	<title>Simplifie Haystack</title>
+	<title>JobFormity</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('public/img'); ?>/favicon.png" />
 	<link rel="stylesheet" href="<?php echo base_url('public/css/main.css'); ?>" />

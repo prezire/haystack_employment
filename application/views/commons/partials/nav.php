@@ -1,7 +1,7 @@
 <header>
 		<span class="logo">
 			<a href="<?php echo site_url('main'); ?>">
-        <img src="<?php echo base_url('public/img/logo.png'); ?>" />
+        <img src="<?php echo base_url('public/img/logo_jobformity.png'); ?>" />
       </a>
       <div class="slogan">
         Enhance your career.
@@ -65,7 +65,7 @@
 			<div class="rights">
 				<p>Copyright &copy; 2015 <br />
           <a href="http://www.simplifie.net" target="_blank">Simplifie</a>
-          <a href="<?php echo site_url(); ?>">Haystack</a>.</p>
+          <a href="<?php echo site_url(); ?>">JobFormity</a>.</p>
 			</div><!-- end rights -->
 		</footer><!-- end footer -->
 	</header><!-- end header -->

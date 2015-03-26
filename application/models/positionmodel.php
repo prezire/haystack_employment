@@ -54,10 +54,15 @@
 			$this->load->model( 'employermodel' );
 			$uId = getLoggedUser()->id;
 			$emplId = $this->employermodel->readByUserid( $uId )->row()->id;
-			$a = array( 'employer_id' => $emplId, 'archived <' => 1 );
+			//$a = array( 'employer_id' => $emplId, 'archived <' => 1 );
 			if ( $limit )
+			{
 				$this->db->limit( $limit, $page );
-			$positions = $this->db->get_where( 'positions', $a )->result();
+			}
+			$this->db->where('employer_id', $emplId);
+			$this->db->where('archived <', 1);
+			$this->db->order_by('name', 'ASC');
+			$positions = $this->db->get( 'positions' )->result();
 			$aPositions = array();
 			foreach ( $positions as $p ) {
 				$this->db->select( '*, ast.name status_name, a.id applicant_id, pa.notes position_application_notes' )
@@ -91,7 +96,6 @@
 			return $o;
 		}
 		public final function read( $id ) {
-			//Include employer details.
 			$this->db->select
 			(
 				'*, p.id position_id, ' .
@@ -107,13 +111,15 @@
 				'o.email company_email, ' .
 				'o.mobile company_mobile, ' .
 				'o.landline company_landline, ' .
-				'o.website company_website'
+				'o.website company_website, ' . 
+				'COUNT(pa.id) total_applications'
 			);
 			$this->db->from( 'positions p' );
 			$this->db->join( 'employers e', 'p.employer_id = e.id' );
 			$this->db->join( 'users u', 'u.id = e.user_id' );
 			$this->db->join( 'employer_companies ec', 'e.id = ec.employer_id' );
 			$this->db->join( 'organizations o', 'ec.organization_id = o.id' );
+			$this->db->join('position_applications pa', 'p.id = pa.position_id', 'left');
 			$this->db->where( 'p.id', $id );
 			$o = $this->db->get();
 			if ( $o->num_rows() > 0 ) {

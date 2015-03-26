@@ -9,9 +9,13 @@
         Job ID: <?php echo $position->position_id; ?>
       </span>
     </div>
-    <div class="small-12 medium-12 large-6 columns">
+    <div class="small-12 medium-12 large-4 columns">
       <b>Category:</b>
       <?php echo $position->category; ?>
+    </div>
+    <div class="small-12 medium-12 large-2 columns">
+      <b>Applicants:</b>
+      <?php echo $position->total_applications; ?>
     </div>
     <div class="small-12 medium-12 large-12 columns">
       <b>Job Description:</b>
@@ -33,8 +37,15 @@
     <div class="small-12 medium-6 large-6 columns">
       <b>Shift Pattern:</b> <?php echo $position->shift_pattern; ?>      
     </div>
-    <div class="small-12 medium-6 large-6 columns">      
-      <b>Salary (USD):</b> <?php echo $position->salary; ?>      
+    <div class="small-12 medium-6 large-6 columns">
+      <?php 
+        $sSalary = $position->salary;
+        if($sSalary < 1 || empty($sSalary))
+        {
+          $sSalary = 'Confidential';
+        }
+      ?>  
+      <b>Salary (USD):</b> <?php echo $sSalary; ?>      
     </div>
     <div class="small-12 medium-6 large-6 columns">
       <b>Vacancy Count:</b> <?php echo $position->vacancy_count; ?>      

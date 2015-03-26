@@ -2,9 +2,9 @@
   
   <div class="row intro">
     <div class="small-12 medium-12 large-12 columns">
-      <div class="large">Simplifie Haystack</div>
+      <div class="large">JobFormity</div>
       <span>
-      Simplifie Haystack is a platform bringing students, job seekers, 
+      JobFormity is a platform bringing students, job seekers, 
       employers and education institutions together in <u>one centralized location</u>. 
       Our system specializes in <u>helping students and professionals</u> find the right 
       positions for their career as well as provide insightful data for 

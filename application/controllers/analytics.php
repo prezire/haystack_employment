@@ -56,6 +56,7 @@
         $this->load->model( 'applicantmodel' );
         $this->load->model( 'facultymodel' );
         //Not using Sessions in order to generate Saved Reports.
+        $params = getPostValuePair();
         /*$reportType = $i->post('report_type');
         $targetAudience = $i->post( 'target_audience' );
         $from = $i->post( 'from' );
@@ -63,13 +64,12 @@
         $metric = $i->post('metric');
         $roleName = $i->post('role_name');
         $orgId = $i->post('organization_id');*/
-        $bIsGeographic = $targetAudience == 'Geographic';
-        $params = getPostValuePair();
+        $bIsGeographic = $params['target_audience'] == 'Geographic';
         $params['isGeographic'] = $bIsGeographic;
         //
         $data = array();
-        if ( $roleName == 'Employer' ) {
-          switch($reportType)
+        if ( $params['role_name'] == 'Employer' ) {
+          switch($params['report_type'])
           {
             case 'Delivery':
             case 'Unique':

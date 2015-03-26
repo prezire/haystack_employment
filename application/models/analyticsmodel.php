@@ -180,30 +180,28 @@
 		//BUG: Incorrect output.
 		private final function readPositionsCtrs($params)
 		{
-			/*
-				
-				SELECT (((SELECT sum(id) FROM position_clicks WHERE position_id = p.id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = p.id)) * 100) average, p.id, p.name
-				FROM position_clicks pc
-				INNER JOIN position_impressions pi ON pc.position_id = pi.position_id
-				RIGHT JOIN positions p ON pc.position_id = p.id
-				GROUP BY p.id
-				ORDER BY average DESC
-			*/
-			//KLUDGE: Not sure if output is correct.
-			$r = $this->db->select('DATE(pc.date_time_clicked) date, (((SELECT COUNT(id) FROM position_clicks WHERE position_id = pi.position_id) / (SELECT SUM(id) FROM position_impressions WHERE position_id = pc.position_id)) * 100) value')
-				->from('position_clicks pc')
-				->join('position_impressions pi', 'pc.position_id = pi.position_id')
-				
-				->join('positions p', 'pi.position_id = p.id')
+			$f = $params['date_from'];
+			$t = $params['date_to'];
+			$r = $this->db->select
+			(
+				'DATE(pc.date_time_clicked) date, ' . 
+				'((COUNT(pc.id) / (SELECT COUNT(id) FROM position_impressions pi WHERE pi.position_id = pc.position_id AND DATE(pc.date_time_clicked) = DATE(pi.date_time_viewed))) * 100) value'
+			)->from('position_clicks pc')
+				->join('positions p', 'pc.position_id = p.id')
+
+				->join('position_impressions pi', 'p.id = pi.position_id', 'left')
+
 				->join('employers e', 'p.employer_id = e.id')
 				->join('users u', 'e.user_id = u.id')
 				->join('employer_companies ec', 'e.id = ec.employer_id')
 				->join('organizations o', 'o.id = ec.organization_id')
 				->where('o.id', $params['organization_id'])
-				
+				->where('DATE(pc.date_time_clicked) >=', $f)
+				->where('DATE(pc.date_time_clicked) <=', $t)
 				->group_by('DATE(pc.date_time_clicked)')
 				->order_by('DATE(pc.date_time_clicked)', 'ASC')
 				->get()->result();
+				//echo $this->db->last_query();exit;
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
@@ -229,11 +227,26 @@
 		}
 		private final function readPositionsAvgDwellRates($params)
 		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
+			$f = $params['date_from'];
+			$t = $params['date_to'];
+			$r = $this->db->select
+			(
+				'DATE(pd.date_time_created) date, ' . 
+				'SUM(pd.seconds) / (SELECT COUNT(id) FROM position_impressions) value'
+			)->from('position_dwells pd')
+					->join('positions p', 'pd.position_id = p.id')
+					->join('employers e', 'p.employer_id = e.id')
+					->join('users u', 'e.user_id = u.id')
+					->join('employer_companies ec', 'e.id = ec.employer_id')
+					->join('organizations o', 'o.id = ec.organization_id')
+					->where('o.id', $params['organization_id'])
+					->where('DATE(pd.date_time_created) >=', $f)
+					->where('DATE(pd.date_time_created) <=', $t)
+					->group_by('DATE(pd.date_time_created)')
+					->order_by('DATE(pd.date_time_created)', 'ASC')
+					->get()->result();
+			$a = $this->getDataProviderAndParams($r);
+			return $a;
 		}
 		private final function readPositionsConversions($params)
 		{
