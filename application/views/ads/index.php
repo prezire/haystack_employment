@@ -5,6 +5,8 @@
 		<thead>
 			<tr>
 				<th>Id</th>
+				<th>Name</th>
+				<th>Tags</th>
 				<th>Script</th>
 				<th>Script Type</th>
 				<th>Description</th>
@@ -38,6 +40,8 @@
       <?php foreach($ads as $a){ ?>      
 			<tr>
 				<td><?php echo $a->id; ?></td>
+				<td><?php echo $a->name; ?></td>
+				<td><?php echo $a->tags; ?></td>
 				<td><?php echo $a->script; ?></td>
 				<td><?php echo $a->script_type; ?></td>
 				<td><?php echo $a->description; ?></td>

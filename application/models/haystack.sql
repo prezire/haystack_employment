@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2015 at 11:35 AM
+-- Generation Time: Mar 26, 2015 at 06:29 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -46,6 +46,45 @@ INSERT INTO `additional_informations` (`id`, `resume_id`, `information`) VALUES
 (5, 11, 'sdfdsfdsfsdf'),
 (6, 12, ''),
 (7, 13, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ads`
+--
+
+CREATE TABLE IF NOT EXISTS `ads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `tags` varchar(255) NOT NULL,
+  `script` varchar(1000) NOT NULL,
+  `script_type` varchar(20) NOT NULL,
+  `description` text NOT NULL,
+  `width` int(3) NOT NULL,
+  `height` int(3) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `date_from` datetime NOT NULL,
+  `date_to` datetime NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `owner_full_name` varchar(50) NOT NULL,
+  `owner_email` varchar(50) NOT NULL,
+  `owner_landline` varchar(15) NOT NULL,
+  `owner_mobile` varchar(15) NOT NULL,
+  `company_name` varchar(50) NOT NULL,
+  `company_address` varchar(50) NOT NULL,
+  `company_city` varchar(20) NOT NULL,
+  `company_country` varchar(50) NOT NULL,
+  `company_zip_code` varchar(8) NOT NULL,
+  `company_landline` varchar(15) NOT NULL,
+  `company_mobile` varchar(15) NOT NULL,
+  `payable_amount` float NOT NULL,
+  `paid_amount` float NOT NULL,
+  `paid_by` varchar(50) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `last_updated` datetime NOT NULL,
+  `paid_on` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -164,20 +203,23 @@ CREATE TABLE IF NOT EXISTS `blogs` (
   `author` varchar(100) NOT NULL,
   `content` text NOT NULL,
   `slug` varchar(255) NOT NULL,
+  `weight` float NOT NULL DEFAULT '0' COMMENT 'The listing order in the index page. Higher means bottom (sink).',
   `publish_state` enum('Draft','Review','Published') NOT NULL,
   `tags` varchar(255) NOT NULL,
   `date_time_created` datetime NOT NULL,
   `dated_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `blogs`
 --
 
-INSERT INTO `blogs` (`id`, `name`, `author`, `content`, `slug`, `publish_state`, `tags`, `date_time_created`, `dated_updated`) VALUES
-(1, 'Internship Basics', 'Simplifie Inc.', 'An internship isn''t just any temporary job. It can be a bridge to your life''s work or an experiment in a career that interests you. Maybe you''ve heard a lot about them from parents, counselors or a co-worker who used one to transition from another field. You might be wondering, "What''s in it for me?"\r\n\r\nIf you''ve got questions about whether interning is the right way to achieve your career goals, this is the place to start. We''ll begin with the basic definition and move to answering many of the most common questions people have about taking on the role of the intern.', 'internship-basics', 'Published', 'internship basics', '2015-03-18 00:00:00', '2015-03-17 16:20:39');
+INSERT INTO `blogs` (`id`, `name`, `author`, `content`, `slug`, `weight`, `publish_state`, `tags`, `date_time_created`, `dated_updated`) VALUES
+(1, 'Internship Basics', 'Simplifie Inc.', 'An internship isn''t just any temporary job. It can be a bridge to your life''s work or an experiment in a career that interests you. Maybe you''ve heard a lot about them from parents, counselors or a co-worker who used one to transition from another field. You might be wondering, "What''s in it for me?"\r\n\r\nIf you''ve got questions about whether interning is the right way to achieve your career goals, this is the place to start. We''ll begin with the basic definition and move to answering many of the most common questions people have about taking on the role of the intern.', 'internship-basics', 1, 'Published', 'internship basics', '2015-03-18 00:00:00', '2015-03-17 16:20:39'),
+(2, 'Job Interview Questions and Answers', 'Simplifie Inc.', '1. Can you tell me a little about yourself?\r\nThis question seems simple, so many people fail to prepare for it, but it''s crucial. Here''s the deal: Don''t give your complete employment (or personal) history. Instead give a pitch—one that’s concise and compelling and that shows exactly why you’re the right fit for the job. Start off with the 2-3 specific accomplishments or experiences that you most want the interviewer to know about, then wrap up talking about how that prior experience has positioned you for this specific role.\r\n\r\n2. How did you hear about the position?\r\nAnother seemingly innocuous question, this is actually a perfect opportunity to stand out and show your passion for and connection to the company. For example, if you found out about the gig through a friend or professional contact, name drop that person, then share why you were so excited about it. If you discovered the company through an event or article, share that. Even if you found the listing through a random job board, share what, specifically, caught your eye about the role.\r\n\r\n3. What do you know about the company?\r\nAny candidate can read and regurgitate the company’s “About” page. So, when interviewers ask this, they aren''t necessarily trying to gauge whether you understand the mission—they want to know whether you care about it. Start with one line that shows you understand the company''s goals, using a couple key words and phrases from the website, but then go on to make it personal. Say, “I’m personally drawn to this mission because…” or “I really believe in this approach because…” and share a personal example or two.\r\n\r\n4. Why do you want this job?\r\nAgain, companies want to hire people who are passionate about the job, so you should have a great answer about why you want the position. (And if you don''t? You probably should apply elsewhere.) First, identify a couple of key factors that make the role a great fit for you (e.g., “I love customer support because I love the constant human interaction and the satisfaction that comes from helping someone solve a problem"), then share why you love the company (e.g., “I’ve always been passionate about education, and I think you guys are doing great things, so I want to be a part of it”).\r\n\r\n5. Why should we hire you?\r\nThis question seems forward (not to mention intimidating!), but if you''re asked it, you''re in luck: There''s no better setup for you to sell yourself and your skills to the hiring manager. Your job here is to craft an answer that covers three things: that you can not only do the work, you can deliver great results; that you''ll really fit in with the team and culture; and that you''d be a better hire than any of the other candidates.\r\n\r\n6. What are your greatest professional strengths?\r\nWhen answering this question, interview coach Pamela Skillings recommends being accurate (share your true strengths, not those you think the interviewer wants to hear); relevant (choose your strengths that are most targeted to this particular position); and specific (for example, instead of “people skills,” choose “persuasive communication” or “relationship building”). Then, follow up with an example of how you''ve demonstrated these traits in a professional setting.\r\n\r\n7. What do you consider to be your weaknesses?\r\nWhat your interviewer is really trying to do with this question—beyond identifying any major red flags—is to gauge your self-awareness and honesty. So, “I can''t meet a deadline to save my life” is not an option—but neither is “Nothing! I''m perfect!” Strike a balance by thinking of something that you struggle with but that you’re working to improve. For example, maybe you’ve never been strong at public speaking, but you''ve recently volunteered to run meetings to help you be more comfortable when addressing a crowd.\r\n\r\n8. What is your greatest professional achievement?\r\nNothing says “hire me” better than a track record of achieving amazing results in past jobs, so don''t be shy when answering this question! A great way to do so is by using the S-T-A-R method: Set up the situation and the task that you were required to complete to provide the interviewer with background context (e.g., “In my last job as a junior analyst, it was my role to manage the invoicing process”), but spend the bulk of your time describing what you actually did (the action) and what you achieved (the result). For example, “In one month, I streamlined the process, which saved my group 10 man-hours each month and reduced errors on invoices by 25%.”\r\n\r\n9. Tell me about a challenge or conflict you''ve faced at work, and how you dealt with it.\r\nIn asking this question, “your interviewer wants to get a sense of how you will respond to conflict. Anyone can seem nice and pleasant in a job interview, but what will happen if you’re hired and Gladys in Compliance starts getting in your face?” says Skillings. Again, you''ll want to use the S-T-A-R method, being sure to focus on how you handled the situation professionally and productively, and ideally closing with a happy ending, like how you came to a resolution or compromise.\r\n\r\n10. Where do you see yourself in five years?\r\nIf asked this question, be honest and specific about your future goals, but consider this: A hiring manager wants to know a) if you''ve set realistic expectations for your career, b) if you have ambition (a.k.a., this interview isn''t the first time you''re considering the question), and c) if the position aligns with your goals and growth. Your best bet is to think realistically about where this position could take you and answer along those lines. And if the position isn’t necessarily a one-way ticket to your aspirations? It’s OK to say that you’re not quite sure what the future holds, but that you see this experience playing an important role in helping you make that decision.\r\n\r\n\r\n11. What''s your dream job?\r\nAlong similar lines, the interviewer wants to uncover whether this position is really in line with your ultimate career goals. While “an NBA star” might get you a few laughs, a better bet is to talk about your goals and ambitions—and why this job will get you closer to them.\r\n\r\n12. What other companies are you interviewing with?\r\nCompanies ask this for a number of reasons, from wanting to see what the competition is for you to sniffing out whether you''re serious about the industry. “Often the best approach is to mention that you are exploring a number of other similar options in the company''s industry,” says job search expert Alison Doyle. “It can be helpful to mention that a common characteristic of all the jobs you are applying to is the opportunity to apply some critical abilities and skills that you possess. For example, you might say ''I am applying for several positions with IT consulting firms where I can analyze client needs and translate them to development teams in order to find solutions to technology problems.''”\r\n\r\n13. Why are you leaving your current job?\r\nThis is a toughie, but one you can be sure you''ll be asked. Definitely keep things positive—you have nothing to gain by being negative about your past employers. Instead, frame things in a way that shows that you''re eager to take on new opportunities and that the role you’re interviewing for is a better fit for you than your current or last position. For example, “I’d really love to be part of product development from beginning to end, and I know I’d have that opportunity here.” And if you were let go? Keep it simple: “Unfortunately, I was let go,” is a totally OK answer.\r\n\r\n14. Why were you fired?\r\nOK, if you get the admittedly much tougher follow-up question as to why you were let go (and the truth isn''t exactly pretty), your best bet is to be honest (the job-seeking world is small, after all). But it doesn''t have to be a deal-breaker. Share how you’ve grown and how you approach your job and life now as a result. If you can position the learning experience as an advantage for this next job, even better.\r\n\r\n15. What are you looking for in a new position?\r\nHint: Ideally the same things that this position has to offer. Be specific.\r\n\r\n16. What type of work environment do you prefer?\r\nHint: Ideally one that''s similar to the environment of the company you''re applying to. Be specific.\r\n\r\n17. What''s your management style?\r\nThe best managers are strong but flexible, and that''s exactly what you want to show off in your answer. (Think something like, “While every situation and every team member requires a bit of a different strategy, I tend to approach my employee relationships as a coach...”) Then, share a couple of your best managerial moments, like when you grew your team from five to 15 or coached an underperforming employee to become the company''s top salesperson.\r\n\r\n18. What''s a time you exercised leadership?\r\nDepending on what''s more important for the the role, you''ll want to choose an example that showcases your project management skills (spearheading a project from end to end, juggling multiple moving parts) or one that shows your ability to confidently and effectively rally a team. And remember: “The best stories include enough detail to be believable and memorable,” says Skillings. “Show how you were a leader in this situation and how it represents your overall leadership experience and potential.”\r\n\r\n19. What''s a time you disagreed with a decision that was made at work?\r\nEveryone disagrees with the boss from time to time, but in asking this question, hiring managers want to know that you can do so in a productive, professional way. “You don’t want to tell the story about the time when you disagreed but your boss was being a jerk and you just gave in to keep the peace. And you don’t want to tell the one where you realized you were wrong,” says Peggy McKee of Career Confidential. “Tell the one where your actions made a positive difference on the outcome of the situation, whether it was a work-related outcome or a more effective and productive working relationship.”\r\n\r\n20. How would your boss and co-workers describe you?\r\nFirst of all, be honest (remember, if you get this job, the hiring manager will be calling your former bosses and co-workers!). Then, try to pull out strengths and traits you haven''t discussed in other aspects of the interview, such as your strong work ethic or your willingness to pitch in on other projects when needed.\r\n\r\n21. Why was there a gap in your employment?\r\nIf you were unemployed for a period of time, be direct and to the point about what you’ve been up to (and hopefully, that’s a litany of impressive volunteer and other mind-enriching activities, like blogging or taking classes). Then, steer the conversation toward how you will do the job and contribute to the organization: “I decided to take a break at the time, but today I’m ready to contribute to this organization in the following ways.”\r\n\r\n22. Can you explain why you changed career paths?\r\nDon''t be thrown off by this question—just take a deep breath and explain to the hiring manager why you''ve made the career deicions you have. More importantly, give a few examples of how your past experience is transferrable to the new role. This doesn''t have to be a direct connection; in fact, it''s often more impressive when a candidate can make seemingly irrelevant experience seem very relevant to the role.\r\n\r\n23. How do you deal with pressure or stressful situations?\r\n"Choose an answer that shows that you can meet a stressful situation head-on in a productive, positive manner and let nothing stop you from accomplishing your goals," says McKee. A great approach is to talk through your go-to stress-reduction tactics (making the world''s greatest to-do list, stopping to take 10 deep breaths), and then share an example of a stressful situation you navigated with ease.\r\n\r\n24. What would your first 30, 60, or 90 days look like in this role?\r\nStart by explaining what you''d need to do to get ramped up. What information would you need? What parts of the company would you need to familiarize yourself with? What other employees would you want to sit down with? Next, choose a couple of areas where you think you can make meaningful contributions right away. (e.g., “I think a great starter project would be diving into your email marketing campaigns and setting up a tracking system for them.”) Sure, if you get the job, you (or your new employer) might decide there’s a better starting place, but having an answer prepared will show the interviewer where you can add immediate impact—and that you’re excited to get started.\r\n\r\n25. What are your salary requirements?\r\nThe #1 rule of answering this question is doing your research on what you should be paid by using sites like Payscale and Glassdoor. You’ll likely come up with a range, and we recommend stating the highest number in that range that applies, based on your experience, education, and skills. Then, make sure the hiring manager knows that you''re flexible. You''re communicating that you know your skills are valuable, but that you want the job and are willing to negotiate.\r\n\r\n26. What do you like to do outside of work?\r\nInterviewers ask personal questions in an interview to “see if candidates will fit in with the culture [and] give them the opportunity to open up and display their personality, too,” says longtime hiring manager Mitch Fortner. “In other words, if someone asks about your hobbies outside of work, it’s totally OK to open up and share what really makes you tick. (Do keep it semi-professional, though: Saying you like to have a few beers at the local hot spot on Saturday night is fine. Telling them that Monday is usually a rough day for you because you’re always hungover is not.)”\r\n\r\n27. If you were an animal, which one would you want to be?\r\nSeemingly random personality-test type questions like these come up in interviews generally because hiring managers want to see how you can think on your feet. There''s no wrong answer here, but you''ll immediately gain bonus points if your answer helps you share your strengths or personality or connect with the hiring manager. Pro tip: Come up with a stalling tactic to buy yourself some thinking time, such as saying, “Now, that is a great question. I think I would have to say… ”\r\n\r\n28. How many tennis balls can you fit into a limousine?\r\n1,000? 10,000? 100,000? Seriously?\r\nWell, seriously, you might get asked brainteaser questions like these, especially in quantitative jobs. But remember that the interviewer doesn’t necessarily want an exact number—he wants to make sure that you understand what’s being asked of you, and that you can set into motion a systematic and logical way to respond. So, just take a deep breath, and start thinking through the math. (Yes, it’s OK to ask for a pen and paper!)\r\n\r\n29. Are you planning on having children?\r\nQuestions about your family status, gender (“How would you handle managing a team of all men?”), nationality (“Where were you born?”), religion, or age, are illegal—but they still get asked (and frequently). Of course, not always with ill intent—the interviewer might just be trying to make conversation—but you should definitely tie any questions about your personal life (or anything else you think might be inappropriate) back to the job at hand. For this question, think: “You know, I’m not quite there yet. But I am very interested in the career paths at your company. Can you tell me more about that?”\r\n\r\n30. What do you think we could do better or differently?\r\nThis is a common one at startups (and one of our personal favorites here at The Muse). Hiring managers want to know that you not only have some background on the company, but that you''re able to think critically about it and come to the table with new ideas. So, come with new ideas! What new features would you love to see? How could the company increase conversions? How could customer service be improved? You don’t need to have the company’s four-year strategy figured out, but do share your thoughts, and more importantly, show how your interests and expertise would lend themselves to the job.\r\n\r\n31. Do you have any questions for us?\r\nYou probably already know that an interview isn''t just a chance for a hiring manager to grill you—it''s your opportunity to sniff out whether a job is the right fit for you. What do you want to know about the position? The company? The department? The team?\r\nYou''ll cover a lot of this in the actual interview, so have a few less-common questions ready to go. We especially like questions targeted to the interviewer (“What''s your favorite part about working here?") or the company''s growth (“What can you tell me about your new products or plans for growth?")', 'job-iInterview-questions-and-answers', 0, 'Published', '', '2015-03-26 17:57:05', '2015-03-26 16:57:05');
 
 -- --------------------------------------------------------
 
@@ -580,7 +622,7 @@ CREATE TABLE IF NOT EXISTS `position_clicks` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `position_clicks`
@@ -604,7 +646,23 @@ INSERT INTO `position_clicks` (`id`, `position_id`, `user_id`, `ip_address`, `ad
 (15, 3, NULL, '::1', '', '2015-03-22 17:10:06'),
 (16, 3, NULL, '::1', '', '2015-03-22 17:22:51'),
 (17, 3, NULL, '::1', '', '2015-03-23 18:32:27'),
-(18, 3, 18, '::1', '', '2015-03-24 09:16:15');
+(18, 3, 18, '::1', '', '2015-03-24 09:16:15'),
+(19, 3, 13, '::1', '', '2015-03-25 19:50:16'),
+(20, 3, 13, '::1', '', '2015-03-25 19:50:26'),
+(21, 3, 13, '::1', '', '2015-03-25 19:51:05'),
+(22, 3, 13, '::1', '', '2015-03-25 19:51:07'),
+(23, 3, 13, '::1', '', '2015-03-25 19:51:08'),
+(24, 3, 13, '::1', '', '2015-03-25 19:51:10'),
+(25, 3, 13, '::1', '', '2015-03-25 19:51:11'),
+(26, 3, 13, '::1', '', '2015-03-25 19:51:12'),
+(27, 3, 13, '::1', '', '2015-03-25 19:51:14'),
+(28, 3, 13, '::1', '', '2015-03-25 19:51:15'),
+(29, 3, 13, '::1', '', '2015-03-25 19:51:16'),
+(30, 3, 13, '::1', '', '2015-03-25 19:51:17'),
+(31, 3, NULL, '::1', '', '2015-03-26 09:25:41'),
+(32, 3, 13, '::1', '', '2015-03-26 09:34:27'),
+(33, 3, NULL, '::1', '', '2015-03-26 09:42:02'),
+(34, 3, 13, '0.0.0.0', '', '2015-03-26 11:02:42');
 
 -- --------------------------------------------------------
 
@@ -623,7 +681,7 @@ CREATE TABLE IF NOT EXISTS `position_dwells` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=103 ;
 
 --
 -- Dumping data for table `position_dwells`
@@ -671,7 +729,67 @@ INSERT INTO `position_dwells` (`id`, `user_id`, `position_id`, `ip_address`, `ad
 (39, 18, 3, '::1', '', 8, '2015-03-24 11:27:37'),
 (40, 18, 3, '::1', '', 76, '2015-03-24 11:28:54'),
 (41, 18, 3, '::1', '', 16, '2015-03-24 11:29:12'),
-(42, 18, 3, '::1', '', 5, '2015-03-24 11:32:03');
+(42, 18, 3, '::1', '', 5, '2015-03-24 11:32:03'),
+(43, 13, 3, '::1', '', 6, '2015-03-25 19:50:24'),
+(44, 13, 3, '::1', '', 20, '2015-03-25 19:50:48'),
+(45, 13, 3, '::1', '', 0, '2015-03-25 19:50:48'),
+(46, 13, 3, '::1', '', 0, '2015-03-25 19:50:49'),
+(47, 13, 3, '::1', '', 0, '2015-03-25 19:50:49'),
+(48, 13, 3, '::1', '', 0, '2015-03-25 19:50:49'),
+(49, 13, 3, '::1', '', 0, '2015-03-25 19:50:49'),
+(50, 13, 3, '::1', '', 0, '2015-03-25 19:50:50'),
+(51, 13, 3, '::1', '', 13, '2015-03-25 19:51:04'),
+(52, 13, 3, '::1', '', 0, '2015-03-25 19:51:06'),
+(53, 13, 3, '::1', '', 0, '2015-03-25 19:51:07'),
+(54, 13, 3, '::1', '', 0, '2015-03-25 19:51:09'),
+(55, 13, 3, '::1', '', 0, '2015-03-25 19:51:10'),
+(56, 13, 3, '::1', '', 0, '2015-03-25 19:51:12'),
+(57, 13, 3, '::1', '', 0, '2015-03-25 19:51:13'),
+(58, 13, 3, '::1', '', 0, '2015-03-25 19:51:14'),
+(59, 13, 3, '::1', '', 0, '2015-03-25 19:51:15'),
+(60, 13, 3, '::1', '', 0, '2015-03-25 19:51:16'),
+(61, NULL, 3, '::1', '', 157, '2015-03-26 09:28:19'),
+(62, NULL, 3, '::1', '', 4, '2015-03-26 09:28:24'),
+(63, 13, 3, '::1', '', 7, '2015-03-26 09:28:52'),
+(64, 13, 3, '::1', '', 172, '2015-03-26 09:37:20'),
+(65, 13, 3, '::1', '', 12, '2015-03-26 09:37:32'),
+(66, 13, 3, '::1', '', 45, '2015-03-26 09:40:43'),
+(67, 13, 3, '::1', '', 22, '2015-03-26 09:41:06'),
+(68, 13, 3, '::1', '', 16, '2015-03-26 09:41:23'),
+(69, 13, 3, '::1', '', 30, '2015-03-26 09:41:53'),
+(70, NULL, 3, '0.0.0.0', '', 3560, '2015-03-26 10:43:06'),
+(71, 13, 3, '0.0.0.0', '', 19, '2015-03-26 11:03:03'),
+(72, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:03'),
+(73, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:04'),
+(74, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:05'),
+(75, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:05'),
+(76, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:06'),
+(77, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:06'),
+(78, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:07'),
+(79, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:07'),
+(80, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:08'),
+(81, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:08'),
+(82, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:09'),
+(83, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:09'),
+(84, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:10'),
+(85, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:10'),
+(86, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:10'),
+(87, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:11'),
+(88, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:11'),
+(89, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:12'),
+(90, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:12'),
+(91, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:12'),
+(92, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:13'),
+(93, 13, 3, '0.0.0.0', '', 15, '2015-03-26 11:03:30'),
+(94, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:30'),
+(95, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:31'),
+(96, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:31'),
+(97, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:31'),
+(98, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:32'),
+(99, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:32'),
+(100, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:33'),
+(101, 13, 3, '0.0.0.0', '', 0, '2015-03-26 11:03:33'),
+(102, NULL, 3, '0.0.0.0', '', 13680, '2015-03-26 16:13:59');
 
 -- --------------------------------------------------------
 
@@ -689,7 +807,7 @@ CREATE TABLE IF NOT EXISTS `position_impressions` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=341 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=408 ;
 
 --
 -- Dumping data for table `position_impressions`
@@ -1035,7 +1153,74 @@ INSERT INTO `position_impressions` (`id`, `user_id`, `ip_address`, `position_id`
 (337, 18, '::1', 3, '', '2015-03-24 10:27:28'),
 (338, 18, '::1', 3, '', '2015-03-24 10:27:37'),
 (339, 18, '::1', 3, '', '2015-03-24 10:28:54'),
-(340, 18, '::1', 3, '', '2015-03-24 10:31:57');
+(340, 18, '::1', 3, '', '2015-03-24 10:31:57'),
+(341, 13, '::1', 3, '', '2015-03-25 18:50:16'),
+(342, 13, '::1', 3, '', '2015-03-25 18:50:26'),
+(343, 13, '::1', 3, '', '2015-03-25 18:50:48'),
+(344, 13, '::1', 3, '', '2015-03-25 18:50:48'),
+(345, 13, '::1', 3, '', '2015-03-25 18:50:49'),
+(346, 13, '::1', 3, '', '2015-03-25 18:50:49'),
+(347, 13, '::1', 3, '', '2015-03-25 18:50:49'),
+(348, 13, '::1', 3, '', '2015-03-25 18:50:49'),
+(349, 13, '::1', 3, '', '2015-03-25 18:50:50'),
+(350, 13, '::1', 3, '', '2015-03-25 18:50:50'),
+(351, 13, '::1', 3, '', '2015-03-25 18:51:05'),
+(352, 13, '::1', 3, '', '2015-03-25 18:51:07'),
+(353, 13, '::1', 3, '', '2015-03-25 18:51:08'),
+(354, 13, '::1', 3, '', '2015-03-25 18:51:10'),
+(355, 13, '::1', 3, '', '2015-03-25 18:51:11'),
+(356, 13, '::1', 3, '', '2015-03-25 18:51:12'),
+(357, 13, '::1', 3, '', '2015-03-25 18:51:14'),
+(358, 13, '::1', 3, '', '2015-03-25 18:51:15'),
+(359, 13, '::1', 3, '', '2015-03-25 18:51:16'),
+(360, 13, '::1', 3, '', '2015-03-25 18:51:17'),
+(361, NULL, '::1', 3, '', '2015-03-26 08:25:41'),
+(362, NULL, '::1', 3, '', '2015-03-26 08:28:19'),
+(363, 13, '::1', 3, '', '2015-03-26 08:28:33'),
+(364, 13, '::1', 3, '', '2015-03-26 08:28:40'),
+(365, 13, '::1', 3, '', '2015-03-26 08:28:44'),
+(366, 13, '::1', 3, '', '2015-03-26 08:28:58'),
+(367, 13, '::1', 3, '', '2015-03-26 08:34:27'),
+(368, 13, '::1', 3, '', '2015-03-26 08:37:20'),
+(369, 13, '::1', 3, '', '2015-03-26 08:37:32'),
+(370, 13, '::1', 3, '', '2015-03-26 08:39:41'),
+(371, 13, '::1', 3, '', '2015-03-26 08:39:57'),
+(372, 13, '::1', 3, '', '2015-03-26 08:40:43'),
+(373, 13, '::1', 3, '', '2015-03-26 08:41:06'),
+(374, 13, '::1', 3, '', '2015-03-26 08:41:23'),
+(375, NULL, '::1', 3, '', '2015-03-26 08:42:02'),
+(376, 13, '0.0.0.0', 3, '', '2015-03-26 10:02:42'),
+(377, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:03'),
+(378, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:03'),
+(379, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:04'),
+(380, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:05'),
+(381, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:05'),
+(382, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:06'),
+(383, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:06'),
+(384, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:07'),
+(385, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:07'),
+(386, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:08'),
+(387, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:08'),
+(388, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:09'),
+(389, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:09'),
+(390, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:10'),
+(391, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:10'),
+(392, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:10'),
+(393, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:11'),
+(394, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:11'),
+(395, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:12'),
+(396, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:12'),
+(397, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:12'),
+(398, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:13'),
+(399, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:30'),
+(400, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:30'),
+(401, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:31'),
+(402, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:31'),
+(403, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:31'),
+(404, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:32'),
+(405, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:32'),
+(406, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:33'),
+(407, 13, '0.0.0.0', 3, '', '2015-03-26 10:03:33');
 
 -- --------------------------------------------------------
 

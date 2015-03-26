@@ -7,6 +7,8 @@
 		public final function index() {
 			$this->db->select( 'b.*' );
 			$this->db->from( 'blogs b' );
+			$this->db->order_by('weight', 'ASC');
+			$this->db->order_by('date_time_created', 'ASC');
 			return $this->db->get();
 		}
 		public final function create() {
@@ -20,6 +22,13 @@
 			(
 				'blogs',
 				array( 'id' => $id )
+			);
+		}
+		public final function readBySlug( $slug ) {
+			return $this->db->get_where
+			(
+				'blogs',
+				array( 'slug' => $slug )
 			);
 		}
 		public final function update() {

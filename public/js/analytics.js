@@ -61,7 +61,7 @@ function Analytics()
 	};
 	this.renderGraph = function(graphType, data)
 	{
-		var imagesPath = '../public/libs/amcharts_3.13.0.free/images/';
+		var imagesPath = 'public/libs/amcharts_3.13.0.free/images/';
 		var gCntr = $('#analytics.index .graph');
 		gCntr.css({minHeight: 400});
 		switch(graphType)

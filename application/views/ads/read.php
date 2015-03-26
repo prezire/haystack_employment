@@ -4,6 +4,10 @@
   <div class="small-12 medium-12 large-12 columns">  
         Id: <?php echo $ad->id; ?>    </div>
   <div class="small-12 medium-12 large-12 columns">  
+        Name: <?php echo $ad->name; ?>    </div>
+  <div class="small-12 medium-12 large-12 columns">  
+        Tags: <?php echo $ad->tags; ?>    </div>
+  <div class="small-12 medium-12 large-12 columns">  
         Script: <?php echo $ad->script; ?>    </div>
   <div class="small-12 medium-12 large-12 columns">  
         Script Type: <?php echo $ad->script_type; ?>    </div>

@@ -1,5 +1,5 @@
 <?php 
-  //php index.php generate crud ad id:int script:varchar script_type:varchar description:text width:int height:int image:file date_from:datetime date_to:datetime enabled:boolean owner_full_name:varchar owner_email:varchar owner_landline:varchar owner_mobile:varchar company_name:varchar company_address:varchar company_city:varchar company_country:varchar company_zip_code:varchar company_landline:varchar company_mobile:varchar payable_amount:float paid_amount:float paid_by:varchar created_on:datetime last_updated:datetime paid_on:datetime
+  //php index.php generate crud ad id:int name:varchar tags:varchar script:varchar script_type:varchar description:text width:int height:int image:file date_from:datetime date_to:datetime enabled:boolean owner_full_name:varchar owner_email:varchar owner_landline:varchar owner_mobile:varchar company_name:varchar company_address:varchar company_city:varchar company_country:varchar company_zip_code:varchar company_landline:varchar company_mobile:varchar payable_amount:float paid_amount:float paid_by:varchar created_on:datetime last_updated:datetime paid_on:datetime
   
   if(!defined('BASEPATH')) 
     exit('No direct script access allowed');

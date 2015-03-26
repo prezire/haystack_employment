@@ -479,6 +479,7 @@
     /*/Commons.*/
 
     /*Home.*/
+    #home.index .expandable{display: none;}
     #home.index .expandable .columns{padding-left: 0;}
     #home.index .intro .columns{padding: 0;}
     #home.index .row.works{width: auto;}

@@ -9,6 +9,12 @@
           Id: <input type="text" name="id" value="<?php echo set_value('id', $ad->id); ?>" />      
       </div>
       <div class="small-12 medium-12 large-12 columns">
+          Name: <input type="text" name="name" value="<?php echo set_value('name', $ad->name); ?>" />      
+      </div>
+      <div class="small-12 medium-12 large-12 columns">
+          Tags: <input type="text" name="tags" value="<?php echo set_value('tags', $ad->tags); ?>" />      
+      </div>
+      <div class="small-12 medium-12 large-12 columns">
           Script: <input type="text" name="script" value="<?php echo set_value('script', $ad->script); ?>" />      
       </div>
       <div class="small-12 medium-12 large-12 columns">

@@ -9,6 +9,12 @@
           Id: <input type="text" name="id" />      
       </div>  
       <div class="small-12 medium-12 large-12 columns">        
+          Name: <input type="text" name="name" />      
+      </div>  
+      <div class="small-12 medium-12 large-12 columns">        
+          Tags: <input type="text" name="tags" />      
+      </div>  
+      <div class="small-12 medium-12 large-12 columns">        
           Script: <input type="text" name="script" />      
       </div>  
       <div class="small-12 medium-12 large-12 columns">        

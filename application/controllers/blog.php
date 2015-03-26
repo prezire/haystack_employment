@@ -33,6 +33,9 @@ class Blog extends CI_Controller
   public final function read( $id ) {
     showView( 'blogs/read', array( 'blog' => $this->blogmodel->read( $id )->row() ) );
   }
+  public final function readBySlug( $slug ) {
+    showView( 'blogs/read', array( 'blog' => $this->blogmodel->readBySlug( $slug )->row() ) );
+  }
   public final function update( $id = null ) {
     $o = $this->blogmodel->read( $id )->row();
     $a = array( 'blog' => $o );

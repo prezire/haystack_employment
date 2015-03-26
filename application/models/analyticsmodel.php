@@ -182,26 +182,39 @@
 		{
 			$f = $params['date_from'];
 			$t = $params['date_to'];
-			$r = $this->db->select
-			(
-				'DATE(pc.date_time_clicked) date, ' . 
-				'((COUNT(pc.id) / (SELECT COUNT(id) FROM position_impressions pi WHERE pi.position_id = pc.position_id AND DATE(pc.date_time_clicked) = DATE(pi.date_time_viewed))) * 100) value'
-			)->from('position_clicks pc')
-				->join('positions p', 'pc.position_id = p.id')
-
-				->join('position_impressions pi', 'p.id = pi.position_id', 'left')
-
-				->join('employers e', 'p.employer_id = e.id')
-				->join('users u', 'e.user_id = u.id')
-				->join('employer_companies ec', 'e.id = ec.employer_id')
-				->join('organizations o', 'o.id = ec.organization_id')
-				->where('o.id', $params['organization_id'])
-				->where('DATE(pc.date_time_clicked) >=', $f)
-				->where('DATE(pc.date_time_clicked) <=', $t)
-				->group_by('DATE(pc.date_time_clicked)')
-				->order_by('DATE(pc.date_time_clicked)', 'ASC')
-				->get()->result();
-				//echo $this->db->last_query();exit;
+			$s = "SELECT 
+					DATE(pc.date_time_clicked) date, 
+					(
+						COUNT(pc.id)
+						/
+						(
+							SELECT COUNT(pi.id) 
+							FROM position_impressions pi 
+							JOIN `positions` p ON `pi`.`position_id` = `p`.`id`
+							JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+							JOIN `users` u ON `e`.`user_id` = `u`.`id`
+							JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+							JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+							WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+							AND DATE(pi.date_time_viewed) >= DATE(pc.date_time_clicked)
+							AND DATE(pi.date_time_viewed) <= DATE(pc.date_time_clicked)
+							GROUP BY DATE(pi.date_time_viewed)
+							ORDER BY DATE(pi.date_time_viewed) ASC
+						) * 100 
+					) value
+				FROM (`position_clicks` pc)
+				JOIN `positions` p ON `pc`.`position_id` = `p`.`id`
+				JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+				JOIN `users` u ON `e`.`user_id` = `u`.`id`
+				JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+				JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+				WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+				AND DATE(pc.date_time_clicked) >= '" . $f . "'
+				AND DATE(pc.date_time_clicked) <= '" . $t . "'
+				GROUP BY DATE(pc.date_time_clicked)
+				ORDER BY DATE(pc.date_time_clicked) ASC
+			";
+			$r = $this->db->query($s)->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}

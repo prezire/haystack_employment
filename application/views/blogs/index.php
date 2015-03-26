@@ -54,9 +54,9 @@
             if($b->publish_state == 'Published')
             {
     ?>
-        <div class="large-4 columns">
+        <div class="large-12 columns">
           <strong>
-            <a href="<?php echo site_url('blog/read/' . $b->id); ?>">
+            <a href="<?php echo site_url('blog/readBySlug/' . $b->slug); ?>">
               <?php echo $b->name; ?>
             </a>
           </strong>

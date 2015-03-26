@@ -15,9 +15,13 @@
     <?php echo form_open('blog/update');?>
     <input type="hidden" name="id" value="<?php echo set_value('id', $blog->id); ?>" />      
     <div class="row">
-        <div class="large-12 columns">
+        <div class="large-6 columns">
             Name: 
             <input type="text" name="name" value="<?php echo set_value('name', $blog->name); ?>" />
+        </div>
+        <div class="large-6 columns">
+            Weight: 
+            <input type="text" name="weight" value="<?php echo set_value('weight', $blog->weight); ?>" />
         </div>
         <div class="large-12 columns">
             Date Created: 

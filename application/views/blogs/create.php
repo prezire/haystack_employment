@@ -9,9 +9,13 @@
         echo form_open('blog/create'); 
     ?>     
     <div class="row">
-      <div class="large-12 columns">
+      <div class="large-6 columns">
         Name: 
         <input type="text" name="name" />
+      </div>
+      <div class="large-6 columns">
+        Weight: 
+        <input type="text" name="weight" />
       </div>
       <div class="large-6 columns">
         Author: 
