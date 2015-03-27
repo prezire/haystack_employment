@@ -94,15 +94,14 @@
         <ul>
           <li>
             <b>Delivery</b><br />
-            Detect over/under delivery
+            - Detect over/under delivery
             <ul>
-              <li>Clicks - Views the entire details from the Position listing</li>
-              <li>Impressions = Seen from the Position listing</li>
+              <li>Clicks - Views the entire details of the Position from the Browsable Positions</li>
+              <li>Impressions = Views from the Browsable Positions</li>
               <li>Click-Through Rates = Percent of Total Clicks out of Served Impressions</li>
               <li>Dwells = The number of seconds an Applicant is looking at the
                 entire details of the Posted Position</li>
-              <li>Average Dwell Rates = The average time all Applicants spent
-               engaging with the Posted Position</li>
+              <li>Average Dwell Rates = The Percent Average Dwells out of Served Impressions</li>
               <li>Conversions = Position Applications</li>
               <li>Conversion Rates = Percent of Position Applications out of served Impressions</li>
             </ul>
@@ -130,28 +129,6 @@
               </li>
             </ul>
           </li>
-          <li>
-            <b>Performance Frequency</b><br />
-            - Displays data for Position performance based on exposure to the Position<br />
-            - Frequency – The number of times an Applicant was exposed to the Posted Position
-            <ul>
-                <li>Dwells</li>
-                <li>Click-Through Rates</li>
-                <li>Impressions = The number of Applicants who saw a Posting 
-                at least the number of times indicated by the Frequency,
-                or the total number of Impressions served for an 
-                indicated Frequency</li>
-                <li>Unique Frequency Levels = The number of Unique Applicants 
-                who reached the indicated Frequency of viewed Impressions</li>
-                <li>Total Impressions Frequencies = The sum of Impressions 
-                viewed up to the indicated Frequency for all Applicants</li>
-                <li>Total Conversions to Frequencies = The sum of conversions 
-                recorded up to the indicated Frequency for all Applicants</li>
-                <li>Conversion Rate Frequencies = The percent of 
-                "Total Conversions to Frequency" out of 
-                "Total Impressions to Frequency</li>
-            </ul>
-          </li>
         </ul>
         <b>Faculty (over school students)</b><br />
         - Student Performance (based on Public Resume)
@@ -170,8 +147,6 @@
               <li>Clicks = The number of Employers clicked from the listing (There are multiple ways that lead to Impression)</li>
               <li>Click-Through Rates = </li> 
               <li>Impressions = </li>
-              <li><strike>Conversions</strike></li>
-              <li><strike>Conversion Rates</strike></li>
               <li>Dwells = </li>
               <li>Average Dwells = </li>
             </ul>
@@ -189,31 +164,8 @@
             <b>Engagement</b>
             <ul>
               <li>
-                Data By Days = Use this graph to see which days performed best 
-                for all metrices
+                Data By Days = Use this graph to see which Posted Position suits best for applying
               </li>
-            </ul>
-          </li>
-          <li>
-            <b>Perfomance Frequency</b>
-            - Displays data for Position performance based on exposure to the Position<br />
-            - Frequency – The number of times an Applicant was exposed to the Posted Position
-            <ul>
-                <li>Dwells</li>
-                <li>Click-Through Rates</li>
-                <li>Impressions = The number of Applicants who saw a Posting 
-                at least the number of times indicated by the Frequency,
-                or the total number of Impressions served for an 
-                indicated Frequency</li>
-                <li>Unique Frequency Levels = The number of Unique Applicants 
-                who reached the indicated Frequency of viewed Impressions</li>
-                <li>Total Impressions Frequencies = The sum of Impressions 
-                viewed up to the indicated Frequency for all Applicants</li>
-                <li>Total Conversions to Frequencies = The sum of conversions 
-                recorded up to the indicated Frequency for all Applicants</li>
-                <li>Conversion Rate Frequencies = The percent of 
-                "Total Conversions to Frequency" out of 
-                "Total Impressions to Frequency</li>
             </ul>
           </li>
         </ul>

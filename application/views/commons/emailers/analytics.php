@@ -25,7 +25,7 @@
 					The Simplifie Haystack Team.
 
 					<br /><br />
-					<img src="<?php base_url('public/images/logo.png'); ?>"  width="80px" />
+					<img src="<?php base_url('public/images/logo_jobformity.png'); ?>"  width="80px" />
 				</td>
 			</tr>
 		</table>

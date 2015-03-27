@@ -212,8 +212,7 @@
 				AND DATE(pc.date_time_clicked) >= '" . $f . "'
 				AND DATE(pc.date_time_clicked) <= '" . $t . "'
 				GROUP BY DATE(pc.date_time_clicked)
-				ORDER BY DATE(pc.date_time_clicked) ASC
-			";
+				ORDER BY DATE(pc.date_time_clicked) ASC";
 			$r = $this->db->query($s)->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
@@ -242,22 +241,40 @@
 		{
 			$f = $params['date_from'];
 			$t = $params['date_to'];
-			$r = $this->db->select
-			(
-				'DATE(pd.date_time_created) date, ' . 
-				'SUM(pd.seconds) / (SELECT COUNT(id) FROM position_impressions) value'
-			)->from('position_dwells pd')
-					->join('positions p', 'pd.position_id = p.id')
-					->join('employers e', 'p.employer_id = e.id')
-					->join('users u', 'e.user_id = u.id')
-					->join('employer_companies ec', 'e.id = ec.employer_id')
-					->join('organizations o', 'o.id = ec.organization_id')
-					->where('o.id', $params['organization_id'])
-					->where('DATE(pd.date_time_created) >=', $f)
-					->where('DATE(pd.date_time_created) <=', $t)
-					->group_by('DATE(pd.date_time_created)')
-					->order_by('DATE(pd.date_time_created)', 'ASC')
-					->get()->result();
+			$s = "SELECT 
+					DATE(pd.date_time_created) date,
+					(
+						(
+							(
+								SELECT COUNT(pi.id) 
+								FROM position_impressions pi 
+								JOIN `positions` p ON `pi`.`position_id` = `p`.`id`
+								JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+								JOIN `users` u ON `e`.`user_id` = `u`.`id`
+								JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+								JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+								WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+								AND DATE(pi.date_time_viewed) >= DATE(pd.date_time_created)
+								AND DATE(pi.date_time_viewed) <= DATE(pd.date_time_created)
+								GROUP BY DATE(pi.date_time_viewed)
+								ORDER BY DATE(pi.date_time_viewed) ASC
+							) 
+							/
+							AVG(pd.seconds)
+						) * 100
+					) value
+					FROM (`position_dwells` pd)
+					JOIN `positions` p ON `pd`.`position_id` = `p`.`id`
+					JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+					JOIN `users` u ON `e`.`user_id` = `u`.`id`
+					JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+					JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+					WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+					AND DATE(pd.date_time_created) >= '" . $f. "'
+					AND DATE(pd.date_time_created) <= '" . $t . "'
+					GROUP BY DATE(pd.date_time_created)
+					ORDER BY DATE(pd.date_time_created) ASC";
+			$r = $this->db->query($s)->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
@@ -265,23 +282,35 @@
 		{
 			$f = $params['date_from'];
 			$t = $params['date_to'];
-			$r = $this->db->select
+			$s = "SELECT 
+					DATE(pi.date_time_viewed) date, 
 					(
-						'DATE(pa.date_time_applied) date, ' . 
-						'COUNT(pa.id) value'
-					)
-					->from('position_applications pa')
-					->join('positions p', 'pa.position_id = p.id')
-					->join('employers e', 'p.employer_id = e.id')
-					->join('users u', 'e.user_id = u.id')
-					->join('employer_companies ec', 'e.id = ec.employer_id')
-					->join('organizations o', 'o.id = ec.organization_id')
-					->where('o.id', $params['organization_id'])
-					->where('DATE(pa.date_time_applied) >=', $f)
-					->where('DATE(pa.date_time_applied) <=', $t)
-					->group_by('DATE(pa.date_time_applied)')
-					->order_by('DATE(pa.date_time_applied)', 'ASC')
-					->get()->result();
+						SELECT COUNT(pa.id)
+						FROM (`position_applications` pa)
+						JOIN `positions` p ON `pa`.`position_id` = `p`.`id`
+						JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+						JOIN `users` u ON `e`.`user_id` = `u`.`id`
+						JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+						JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+						WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+						AND DATE(pa.date_time_applied) >= DATE(pi.date_time_viewed)
+						AND DATE(pa.date_time_applied) <= DATE(pi.date_time_viewed)
+						GROUP BY DATE(pa.date_time_applied)
+						ORDER BY DATE(pa.date_time_applied) ASC
+					) value
+
+					FROM (`position_impressions` pi)
+					JOIN `positions` p ON `pi`.`position_id` = `p`.`id`
+					JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+					JOIN `users` u ON `e`.`user_id` = `u`.`id`
+					JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+					JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+					WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+					AND DATE(pi.date_time_viewed) >= '" . $f . "'
+					AND DATE(pi.date_time_viewed) <= '" . $t . "'
+					GROUP BY DATE(pi.date_time_viewed)
+					ORDER BY DATE(pi.date_time_viewed) ASC";
+			$r = $this->db->query($s)->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}
@@ -289,23 +318,40 @@
 		{
 			$f = $params['date_from'];
 			$t = $params['date_to'];
-			$r = $this->db->select
+			$s = "SELECT 
+					DATE(pi.date_time_viewed) date, 
 					(
-						'DATE(pa.date_time_applied) date, ' . 
-						'COUNT(pa.id) / (SELECT COUNT(id) FROM position_impressions) value'
-					)
-					->from('position_applications pa')
-					->join('positions p', 'pa.position_id = p.id')
-					->join('employers e', 'p.employer_id = e.id')
-					->join('users u', 'e.user_id = u.id')
-					->join('employer_companies ec', 'e.id = ec.employer_id')
-					->join('organizations o', 'o.id = ec.organization_id')
-					->where('o.id', $params['organization_id'])
-					->where('DATE(pa.date_time_applied) >=', $f)
-					->where('DATE(pa.date_time_applied) <=', $t)
-					->group_by('DATE(pa.date_time_applied)')
-					->order_by('DATE(pa.date_time_applied)', 'ASC')
-					->get()->result();
+						(
+							(
+								SELECT COUNT(pa.id) 
+								FROM position_applications pa
+								JOIN `positions` p ON `pa`.`position_id` = `p`.`id`
+								JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+								JOIN `users` u ON `e`.`user_id` = `u`.`id`
+								JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+								JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+								WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+								AND DATE(pa.date_time_applied) >= DATE(pi.date_time_viewed)
+								AND DATE(pa.date_time_applied) <= DATE(pi.date_time_viewed)
+								GROUP BY DATE(pa.date_time_applied)
+								ORDER BY DATE(pa.date_time_applied) ASC
+							)
+							/ 
+							COUNT(pi.id)
+						) * 100
+					) value
+					FROM (`position_impressions` pi)
+					JOIN `positions` p ON `pi`.`position_id` = `p`.`id`
+					JOIN `employers` e ON `p`.`employer_id` = `e`.`id`
+					JOIN `users` u ON `e`.`user_id` = `u`.`id`
+					JOIN `employer_companies` ec ON `e`.`id` = `ec`.`employer_id`
+					JOIN `organizations` o ON `o`.`id` = `ec`.`organization_id`
+					WHERE `o`.`id` =  '" . $params['organization_id'] . "'
+					AND DATE(pi.date_time_viewed) >= '" . $f . "'
+					AND DATE(pi.date_time_viewed) <= '" . $t . "'
+					GROUP BY DATE(pi.date_time_viewed)
+					ORDER BY DATE(pi.date_time_viewed) ASC";
+			$r = $this->db->query($s)->result();
 			$a = $this->getDataProviderAndParams($r);
 			return $a;
 		}

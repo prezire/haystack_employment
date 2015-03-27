@@ -2,7 +2,7 @@
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Simplifie Haystack</title>
+    <title>Simplifie JobFormity</title>
   </head>
   <body>
     <?php $s = base_url('public/img') . '/'; ?>
@@ -17,12 +17,12 @@
           
           Click <a href="{activation_url}" target="_blank">here</a> 
           to activate your account and start using 
-          <a href="{site_url}" target="_blank">Simplifie Haystack</a>.
+          <a href="{site_url}" target="_blank">Simplifie JobFormity</a>.
           
           <br /><br />
           
           Thank you,<br />
-          The Simplifie Haystack Team
+          The Simplifie JobFormity Team
         </td>
       </tr>
        <tr>
@@ -30,7 +30,7 @@
           <br />
 
           <a href="{site_url}" target="_blank">
-            <img src="<?php echo $s . 'logo.png'; ?>" />
+            <img src="<?php echo $s . 'logo_jobformity.png'; ?>" />
           </a>
         </td>
       </tr>

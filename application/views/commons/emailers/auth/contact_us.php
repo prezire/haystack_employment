@@ -2,7 +2,7 @@
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Simplifie Haystack - Contact Us</title>
+    <title>Simplifie JobFormity - Contact Us</title>
   </head>
   <body>
     <?php $s = base_url('public/img') . '/'; ?>
@@ -10,7 +10,7 @@
             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
       <tr>
         <td colspan="4">
-        	Dear Simplifie Haystack admin,
+        	Dear Simplifie JobFormity admin,
 
         	<br /><br />
 
@@ -29,7 +29,7 @@
         	<br /><br />
           
 			Thank you,<br />
-			The Simplifie Haystack Team
+			The Simplifie JobFormity Team
         </td>
       </tr>
        <tr>
@@ -37,7 +37,7 @@
           <br />
 
           <a href="{site_url}" target="_blank">
-            <img src="<?php echo $s . 'logo.png'; ?>" />
+            <img src="<?php echo $s . 'logo_jobformity.png'; ?>" />
           </a>
         </td>
       </tr>

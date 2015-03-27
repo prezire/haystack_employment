@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Simplifie Haystack - Forgot Password</title>
+    <title>Simplifie JobFormity - Forgot Password</title>
   </head>
   <body>
     <table style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
@@ -29,7 +29,12 @@
           <br /><br />
           
           Thank you,<br />
-          The Simplifie Haystack Team
+          The Simplifie JobFormity Team
+
+          <br /><br />
+          <a href="{site_url}" target="_blank">
+            <img src="<?php echo $s . 'logo_jobformity.png'; ?>" />
+          </a>
         </td>
       </tr>
     </table>
