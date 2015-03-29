@@ -115,7 +115,32 @@ class Resume extends CI_Controller
 	public final function read($id)
 	{
     $a = $this->resumemodel->readDetails($id);
-		showView('resumes/read', $a);
+    $uId = $a['resume']->user_id;
+    $accessType = $a['resume']->access_type;
+    $bViewable = true;
+    if(isLoggedIn())
+    {
+      $r = getRoleName();
+      if($r == 'Applicant')
+      {
+        //Check if owner during Preview purposes.
+        if(getLoggedUser()->id != $uId)
+        {
+          $bViewable = false;
+        }
+      }
+      else
+      {
+        $bViewable = false;
+      }
+    }
+    else
+    {
+      $bViewable = false;
+    }
+    if(!$bViewable) 
+      redirect(site_url('resume/readByUserId/' . $uId));
+    showView('resumes/read', $a);
 	}
   //Used when someone is viewing an Applicant's Profile and
   //requests to view his Public Resume.
@@ -157,5 +182,10 @@ class Resume extends CI_Controller
 	public final function delete($id)
   {
     showJsonView(array('resume' => $this->resume_model->delete($id)->row()));
+  }
+  public final function downloadFile($applicantId)
+  {
+    $this->load->helper('export_helper');
+    exportResume($applicantId);
   }
 }

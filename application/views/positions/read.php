@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="small-12 medium-6 large-6 columns">
-      <b>Dates:</b> 
+      <b>Post Date:</b> 
       <?php echo toHumanReadableDate($position->date_from); ?> - 
       <?php echo toHumanReadableDate($position->date_to); ?>
     </div>
@@ -99,7 +99,7 @@
         } 
         else if($r == 'Applicant')
         {
-          if(isset($hasApplied))
+          if($hasApplied === true)
           {
       ?>
             <div class="button tiny disabled">Applied</div>

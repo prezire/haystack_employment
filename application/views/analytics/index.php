@@ -35,6 +35,6 @@
 		$a = array('savedReports' => $savedReports);
 		echo $this->load->view($s . 'header', null, true);
 		echo $this->load->view($s . 'body', null, true);
-		echo $this->load->view($s . 'footer', $a, true);
+		//echo $this->load->view($s . 'footer', $a, true);
 	?>
 </div>

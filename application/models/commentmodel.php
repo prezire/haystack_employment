@@ -1,4 +1,5 @@
-<?php	class CommentModel extends CI_Model
+<?php
+	class CommentModel extends CI_Model
 	{
 		public function __construct()
 		{
@@ -6,7 +7,11 @@
 		}
 		public final function index()
 		{
-			$this->db->select('c.*, u1.full_name commenter_full_name, u2.full_name commented_full_name');
+			$this->db->select
+			(
+				'c.*, u1.full_name commenter_full_name, ' . 
+				'u2.full_name commented_full_name'
+			);
 			$this->db->from('comments c');
 			$this->db->join('users u1', 'c.from_user_id = u1.id');
 			$this->db->join('users u2', 'c.to_user_id = u2.id');
@@ -48,11 +53,13 @@
 			'c.*, c.id comment_id, ' . 
 			'u1.id commenter_id, ' . 
 			'u1.full_name commenter_full_name, ' . 
-			'u2.full_name commented_full_name'
+			'u2.full_name commented_full_name, ' . 
+			'a.id applicant_id'
 		);
 		$this->db->from('comments c');
 		$this->db->join('users u1', 'c.from_user_id = u1.id');
 		$this->db->join('users u2', 'c.to_user_id = u2.id');
+		$this->db->join('applicants a', 'c.to_user_id = a.user_id');
 		if($type == 'to')
 		{
 			$this->db->where('to_user_id', $userId);

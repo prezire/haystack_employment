@@ -57,12 +57,17 @@
       return $b;
     }
     public final function read( $id ) {
-      $p = $this->positionmodel->read( $id )->row();
+      $o = $this->positionmodel->read( $id );
+      $p = $o->row();
       if ( $this->hasExpired( $p ) ) {
         redirect( site_url( 'position/expired/' . $p->employer_id ) );
       }
       else {
         $a = array( 'position' => $p );
+        if ( $o->num_rows() > 0 ) 
+        {
+          $this->positionmodel->createImpression( $p->position_id );
+        }
         if(isLoggedIn())
         {
           if(getRoleName() == 'Applicant')

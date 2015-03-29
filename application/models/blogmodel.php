@@ -12,7 +12,8 @@
 			return $this->db->get();
 		}
 		public final function create() {
-			$a = getPostValuePair();
+			$a = getPostValuePair(array('slug'));
+			$a['slug'] = strtolower($this->input->post('slug'));
 			$a['date_time_created'] = getDateTime();
 			$this->db->insert( 'blogs', $a );
 			return $this->read( $this->db->insert_id() );

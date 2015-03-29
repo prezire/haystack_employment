@@ -58,7 +58,7 @@
               <a href="<?php echo site_url('resume/read/' . $resume->resume_id); ?>" class="button tiny preview">
                 Preview
               </a>
-              <a href="#" class="button tiny download">
+              <a href="<?php echo site_url('resume/downloadFile/' . $resume->applicant_id); ?>" class="button tiny download">
                 Download
               </a>
               <a href="#" class="button tiny forward">

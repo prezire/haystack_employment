@@ -19,11 +19,11 @@
 		}
 		public final function applicantHasApplied($id, $applicantId)
 		{
-			return $this->db->from('position_applications')
-							->where('id', $id)
+			$i = $this->db->from('position_applications')
+							->where('position_id', $id)
 							->where('applicant_id', $applicantId)
-							->count_all_results() > 0;
-
+							->count_all_results();
+			return $i > 0;
 		}
 		public final function readBrowsablePositionsCount() {
 			$this->db->where( 'CURDATE() >= date_from' );
@@ -122,9 +122,6 @@
 			$this->db->join('position_applications pa', 'p.id = pa.position_id', 'left');
 			$this->db->where( 'p.id', $id );
 			$o = $this->db->get();
-			if ( $o->num_rows() > 0 ) {
-				$this->createImpression( $o->row()->position_id );
-			}
 			return $o;
 		}
 		public final function readByIndustry( $industry ) {
@@ -156,41 +153,57 @@
 			return $this->db->update( 'positions', array( 'archived' => $state ) );
 		}
 		//
+		//Exclude biased reporting.
+		function isRecordable()
+		{
+			$r = getRoleName();
+			$bIsAdmin = $r == 'Administrator' || $r == 'Employer';
+			return !$bIsAdmin;
+		}
 		public final function createImpression( $id ) {
 			//TODO: Include loc address using IP.
-			$a = array
-			(
-				'position_id' => $id,
-				'ip_address' => $this->input->ip_address()
-			);
-			if ( isLoggedIn() ) {
-				$a['user_id'] = getLoggedUser()->id;
+			if($this->isRecordable())
+			{
+				$a = array
+				(
+					'position_id' => $id,
+					'ip_address' => $this->input->ip_address()
+				);
+				if ( isLoggedIn() ) {
+					$a['user_id'] = getLoggedUser()->id;
+				}
+				$this->db->insert( 'position_impressions', $a );
 			}
-			$this->db->insert( 'position_impressions', $a );
 		}
 		public final function createClick( $id ) {
-			$a = array
-			(
-				'position_id' => $id,
-				'date_time_clicked' => getDateTime(),
-				'ip_address' => $this->input->ip_address()
-			);
-			if ( isLoggedIn() ) {
-				$a['user_id'] = getLoggedUser()->id;
+			if($this->isRecordable())
+			{
+				$a = array
+				(
+					'position_id' => $id,
+					'date_time_clicked' => getDateTime(),
+					'ip_address' => $this->input->ip_address()
+				);
+				if ( isLoggedIn() ) {
+					$a['user_id'] = getLoggedUser()->id;
+				}
+				$this->db->insert( 'position_clicks', $a );
 			}
-			$this->db->insert( 'position_clicks', $a );
 		}
 		public final function createDwell( $id, $seconds ) {
-			$a = array
-			(
-				'position_id' => $id,
-				'date_time_created' => getDateTime(),
-				'ip_address' => $this->input->ip_address(),
-				'seconds' => $seconds
-			);
-			if ( isLoggedIn() ) {
-				$a['user_id'] = getLoggedUser()->id;
+			if($this->isRecordable())
+			{
+				$a = array
+				(
+					'position_id' => $id,
+					'date_time_created' => getDateTime(),
+					'ip_address' => $this->input->ip_address(),
+					'seconds' => $seconds
+				);
+				if ( isLoggedIn() ) {
+					$a['user_id'] = getLoggedUser()->id;
+				}
+				$this->db->insert( 'position_dwells', $a );
 			}
-			$this->db->insert( 'position_dwells', $a );
 		}
 	}

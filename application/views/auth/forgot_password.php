@@ -2,20 +2,16 @@
 	<div class="row">
 	  <div class="small-12 medium-12 large-12 columns">
 	  	<h4>Reset Password</h4>
+	  	<?php 
+          echo $this->load->view
+          (
+            'commons/partials/header_messages', 
+            array('status' => @$status), 
+            true
+          );
+        ?>
 	  </div>
 	</div>
-
-	<?php 
-		echo $this->load->view
-		(
-			'commons/partials/errors', 
-			isset($error) ? array('error' => $error) : null, 
-			true
-		); 
-	?>
-
-	<?php echo $this->load->view('commons/partials/success', null, true); ?>
-
 	<div class="row">
 		<?php echo form_open('auth/forgotPassword'); ?>
 			<div class="small-12 medium-9 large-10 columns">

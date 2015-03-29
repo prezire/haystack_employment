@@ -270,42 +270,45 @@
     </section>
   </section>
   <div class="row">
+    <div class="small-12 medium-12 large-12 columns">
     <?php 
       if(isLoggedIn())
-      { 
+      {
         $r = getRoleName();
         if($r == 'Applicant')
         {
     ?>
-      <div class="small-12 medium-12 large-12 columns">
-        <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">
-          Back To Resumes
-        </a>
-        <a href="<?php echo site_url('resume/update/' . $resume->resume_id); ?>" class="button tiny">
-          Update
-        </a>
-      </div>
+          <a href="<?php echo site_url('resume'); ?>" class="button tiny alert">
+            Back To Resumes
+          </a>
+          <a href="<?php echo site_url('resume/update/' . $resume->resume_id); ?>" class="button tiny">
+            Update
+          </a>
     <?php
         }
         else if($r == 'Employer')
         {
     ?>
-          <div class="small-12 medium-12 large-12 columns">
-            <a href="<?php echo site_url('applicant/read/' . $resume->applicant_id); ?>" class="button tiny alert">
-              Back
-            </a>
-          </div>
+          <a href="<?php echo site_url('applicant/read/' . $resume->applicant_id); ?>" class="button tiny alert">
+            Back
+          </a>
     <?php
-        }
-      }
+        }///if/else.
+    ?>
+          <a href="<?php echo site_url('resume/downloadFile/' . $resume->applicant_id); ?>" class="button tiny download">
+            Download
+          </a>
+    <?php
+      }///isLoggedIn().
       else
       {
     ?>
-      <div class="small-12 medium-12 large-12 columns">
         <a href="<?php echo site_url('applicant/read/' . $resume->applicant_id); ?>" class="button tiny alert">
           Back
         </a>
-      </div>
-    <?php } ?>
+    <?php 
+      }///else.
+    ?>
+    </div>
   </div>
 </div>

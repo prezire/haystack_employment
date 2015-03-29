@@ -25,7 +25,18 @@ Employer
 * Post a new Job
 * View Applications
 
+Applicant
+ * Sort resume jobs and schools by dates
+
 Test emails:
  * Employer e@e.com
  * Applicant a@c.com
  * Faculty f1@f.com
+
+BUGS:
+ - Applicant a@c.com. Browsable Positions. All Apply buttons are disabled. x
+ - Position Impressions. Remove from model and transf only to read(). x
+ - tolower Blog slug x
+ - Private Resume shouldn't be viewable. x
+
+Proper Routes.

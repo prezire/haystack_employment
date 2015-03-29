@@ -27,7 +27,7 @@ class Comment extends CI_Controller
         $o = $this->commentmodel->readByUserId($uId)->result();
       break;
       case 'Employer':
-      case 'Subscriber':
+      case 'Faculty':
         $o = $this->commentmodel->readByUserId($uId, 'from')->result();
       break;
     }

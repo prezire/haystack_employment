@@ -1,7 +1,9 @@
 <div id="user" class="read row">
      <div class="row">
       <div class="large-12 columns">
-        <h4>Profile (<?php echo getRoleName(); ?>)</h4>
+        <h4>
+          Profile (<?php echo getRoleName(); ?>)
+        </h4>
       </div>
      </div>
 

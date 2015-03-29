@@ -74,11 +74,12 @@
 			    	<dl class="accordion" data-accordion>
 			    	  <dd>
 			    	    <a href="#panel<?php echo $panelName; ?>">
-			    	    	<?php echo $appl->full_name; ?>
-			    	    	|
-			    	    	Current Position Title: 
-			    	    	<?php echo $appl->current_position_title; ?>
-			    	    	|
+			    	    	<?php 
+			    	    		echo $appl->full_name . 
+			    	    				' (' . 
+			    	    				$appl->current_position_title . ')';
+			    	    	?>
+			    	    	<br />
 				    	    Applied On: 
 				    	    <?php echo toHumanReadableDate($appl->date_time_applied); ?>
 			    	    </a>

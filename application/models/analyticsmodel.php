@@ -372,7 +372,7 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsUniqueDwellingApplicants($params)
+		private final function readPositionsUniqueCtrs($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -380,7 +380,7 @@
 					->where('', '')
 					->get();
 		}
-		private final function readPositionsUniqueDwellingFrequencies($params)
+		private final function readPositionsUniqueDwellingApplicants($params)
 		{
 			return $this->db->select('')
 					->from('')
@@ -397,80 +397,63 @@
 					->where('', '')
 					->get();
 		}
+		private final function readApplicantEngagementDataByDays($params)
+		{
+			return $this->db->select('')
+					->from('')
+					->join('', '')
+					->where('', '')
+					->get();
+		}
 		//
-		private final function readPositionsFrequencyPerformanceDwells($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceCtrs($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceImpressions($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceUniqueFrequencyLevels($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceTotalImpressionsFrequencies($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
-		private final function readPositionsFrequencyPerformanceConversionRatesFrequencies($params)
-		{
-			return $this->db->select('')
-					->from('')
-					->join('', '')
-					->where('', '')
-					->get();
-		}
 		public final function readDelivery($params = array())
 		{
-			switch($params['metric'])
-	        {
-	          case 'Clicks':
-	            $data = $this->readPositionsClicks($params);
-	          break;
-	          case 'Impressions':
-	            $data = $this->readPositionsImpressions($params);
-	          break;
-	          case 'Click-Through Rates':
-	            $data = $this->readPositionsCtrs($params);
-	          break;
-	          case 'Dwells':
-	            $data = $this->readPositionsDwells($params);
-	          break;
-	          case 'Average Dwell Rates':
-	            $data = $this->readPositionsAvgDwellRates($params);
-	          break;
-	          case 'Conversions':
-	            $data = $this->readPositionsConversions($params);
-	          break;
-	          case 'Conversion Rates':
-	            $data = $this->readPositionsConversionRates($params);
-	          break;
+			$data = null;
+			switch($params['report_type'])
+			{
+				case 'Delivery':
+					switch($params['metric'])
+			        {
+			          case 'Clicks':
+			            $data = $this->readPositionsClicks($params);
+			          break;
+			          case 'Impressions':
+			            $data = $this->readPositionsImpressions($params);
+			          break;
+			          case 'Click-Through Rates':
+			            $data = $this->readPositionsCtrs($params);
+			          break;
+			          case 'Dwells':
+			            $data = $this->readPositionsDwells($params);
+			          break;
+			          case 'Average Dwell Rates':
+			            $data = $this->readPositionsAvgDwellRates($params);
+			          break;
+			          case 'Conversions':
+			            $data = $this->readPositionsConversions($params);
+			          break;
+			          case 'Conversion Rates':
+			            $data = $this->readPositionsConversionRates($params);
+			          break;
+			        }
+			    break;
+			    case 'Unique':
+			    	switch($params['metric'])
+			        {
+			          case 'Clicks':
+			            $data = $this->readPositionsUniqueClicks($params);
+			          break;
+			          case 'Impressions':
+			            $data = $this->readPositionsUniqueImpressions($params);
+			          break;
+			          case 'Click-Through Rates':
+			            $data = $this->readPositionsUniqueCtrs($params);
+			          break;
+			          case 'Dwelling Applicants':
+			            $data = $this->readPositionsDwellingApplicants($params);
+			          break;
+			        }
+			    break;
 	        }
 	        return $data;
 		}

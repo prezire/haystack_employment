@@ -19,25 +19,33 @@
       <div class="row panel radius comment">
         <div class="small-12 medium-12 large-11 columns">
           <div>
-            <?php if($r == 'Applicant') { ?>
-              <a href="#" class="commenter">
-                <strong>Commenter:</strong>
-                <?php echo $c->commenter_full_name; ?>
-              </a>
+            <?php 
+              if($r == 'Applicant') 
+              { 
+            ?>
+                <a href="#" class="commenter">
+                  <strong>Commenter:</strong>
+                  <?php echo $c->commenter_full_name; ?>
+                </a>
             <?php 
               } 
-              else if($r == 'Employer')
-              {
+                else if($r == 'Employer' || $r == 'Faculty')
+                {
             ?>
-              <a href="#" class="commented">
-                <strong>Applicant:</strong>
-                <?php echo $c->commented_full_name; ?>
-              </a>
-            <?php } ?>
+              You gave a comment to 
+                <a href="<?php echo site_url('applicant/read/' . $c->applicant_id); ?>" class="commented">
+                  <strong>Applicant:</strong>
+                  <?php echo $c->commented_full_name; ?>
+                </a>
+                on
+                <span class="dateTimeUpdated">
+                  <?php echo toHumanReadableDate($c->date_time_updated); ?>.
+                </span>
+                <br />
+            <?php 
+              }
+            ?>
             <span class="comment"><?php echo $c->comment; ?></span>
-          </div>
-          <div class="dateTimeUpdated">
-            <?php echo toHumanReadableDate($c->date_time_updated); ?>
           </div>
         </div>
         <div class="small-12 medium-12 large-1 columns">

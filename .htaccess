@@ -1,3 +1,13 @@
+#SetEnvIf Host jf.simplifie.net passreq
+#AuthType Basic
+#AuthName "Password Required"
+#AuthUserFile ./.htpasswd
+#Require valid-user
+#Order allow,deny
+#Allow from all
+#Deny from env=passreq
+#Satisfy any
+
 RewriteEngine on
 RewriteCond $1 !^(index\.php|public|uploads|img|css|js|fonts|libs|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -38,8 +38,39 @@
 |
 */
 
-$route['default_controller'] = "main";
-$route['404_override'] = '';
+$route['default_controller'] = 'main';
+$route['404_override'] = 'main';
+
+
+/*User.*/
+
+/*Applicant.*/
+
+/*Employer.*/
+/*/Employer.*/
+
+/*Company.*/
+$route['employer/company/member'] = 'companymember';
+$route['employer/company/update/(:any)'] = 'company/updateFromEmployerProfile/$1';
+/*/Company.*/
+
+/*Faculty.*/
+
+/*Auth.*/
+$route['auth/password/forgot'] = 'auth/forgotPassword';
+/*/Auth.*/
+
+/*Position.*/
+$route['employer/position/post'] = 'position/readMyPosts';
+/*/Position.*/
+
+/*Analytics.*/
+
+/*Resume.*/
+$route['resume/user/(:any)'] = 'resume/readByUserId/$1';
+/*/Resume.*/
+
+
 
 
 /* End of file routes.php */
