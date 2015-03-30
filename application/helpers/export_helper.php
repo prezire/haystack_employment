@@ -16,23 +16,24 @@
 		$CI->word->addFontStyle
 		(
 			'normalStyle',
-			array( 'name' => 'Arial', 'color' => '000000', 'size' => 9 )
+			array( 'name' => 'Verdana', 'color' => '000000', 'size' => 9 )
 		);
 		$CI->word->addFontStyle
 		(
 			'resumeTitleStyle',
-			array( 'bold' => true, 'italic' => false, 'size' => 27 )
+			array( 'name' => 'Arial', 'bold' => true, 'italic' => false, 'size' => 27 )
 		);
 		$CI->word->addFontStyle
 		(
 			'headerStyle',
-			array( 'bold' => true, 'italic' => false, 'size' => 12 )
+			array( 'name' => 'Arial', 'bold' => true, 'italic' => false, 'size' => 12 )
 		);
 		$CI->word->addParagraphStyle
 		(
 			'paragraphStyle',
 			array( 'align' => 'center', 'spaceAfter' => 100 )
 		);
+		//TODO: Bullets...
 		//Table.
 		//BUG: borderSize not working. Changing borderColor to ffffff instead.
 		$styleTable = array( 'borderSize'=>0, 'borderColor'=>'000000', 'cellMargin'=>80 );
@@ -47,81 +48,105 @@
 		//Add table.
 		$table = $section->addTable( 'tableStyle' );
 		//A4 paper size in PX.
-		$ppw = PhpOffice\PhpWord\Shared\Converter::pixelToTwip(595);
-		$pph = PhpOffice\PhpWord\Shared\Converter::pixelToTwip(842);
+		$ppw = PhpOffice\PhpWord\Shared\Converter::inchToTwip(8.5);
+		$pph = PhpOffice\PhpWord\Shared\Converter::inchToTwip(11);
 		//
 		$width = 624;
 		//
 		//Basic details.
 		$table->addRow();
-		$table->addCell( $width )->addText( 'Resume of ' . $resume->full_name, 'resumeTitleStyle' );
-		$table->addCell( $width, array('align' => 'right') )->addImage
+		$table->addCell( $ppw )->addText( 'Resume of ' . $resume->full_name, 'resumeTitleStyle' );
+		$table->addCell( $ppw )->addText( '', 'normalStyle' );
+		$table->addCell( 100, array('align' => 'right') )->addImage
 		(
 			base_url( 'public/uploads/' . $resume->image_path ),
 			array('width' => 100, 'height' => 100)
 		);
 		$table->addRow();
-		$table->addCell( $ppw, array('gridSpan' => 2) )->addText( $resume->headline, 'normalStyle' );
+		$table->addCell( $ppw, array('gridSpan' => 3) )->addText( 'Headline: ' .  $resume->headline, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width, array('gridSpan' => 2) )->addText( $resume->address, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( 'Address: ' . $resume->address, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width )->addText( $resume->city, 'normalStyle' );
-		$table->addCell( $width )->addText( $resume->state, 'normalStyle' );
+		$table->addCell( $width )->addText( 'City: ' . $resume->city, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 2) )->addText( 'State: ' . $resume->state, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width )->addText( $resume->country, 'normalStyle' );
-		$table->addCell( $width )->addText( $resume->landline, 'normalStyle' );
+		$table->addCell( $width )->addText( 'Country: ' . $resume->country, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Landline: ' . $resume->landline, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width )->addText( $resume->mobile, 'normalStyle' );
-		$table->addCell( $width )->addText( $resume->availability, 'normalStyle' );
+		$table->addCell( $width )->addText( 'Mobile: ' . $resume->mobile, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Availability: ' . $resume->availability, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width )->addText( $resume->expected_salary, 'normalStyle' );
-		$table->addCell( $width )->addText( $resume->current_position_title, 'normalStyle' );
+		$table->addCell( $width )->addText( 'Expected Salary: ' . $resume->expected_salary, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Job Title: ' . $resume->current_position_title, 'normalStyle' );
 		$table->addRow();
-		$table->addCell( $width )->addText( $resume->qualification, 'normalStyle' );
-		$table->addCell( $width )->addText( $resume->summary, 'normalStyle' );
-		$table->addCell( $width )->addTextBreak( 1 );
+		$table->addCell( $width )->addText( 'Qualification: ' . $resume->qualification, 'normalStyle' );
+		$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Summary: ' . $resume->summary, 'normalStyle' );
 		//
-		$section->addText( 'Work History', 'headerStyle' );
+		$table->addrow();
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( '', 'normalStyle' );
+		
+		$table->addRow();
+		$table->addCell($ppw, array('gridSpan' => 3))->addText( 'Work History', 'headerStyle' );
 		foreach ( $result['workHistories'] as $w ) {
 			$table->addRow();
-			$table->addCell( $width )->addText( $w->position );
-			$table->addCell( $width )->addText( $w->company );
-			$table->addCell( $width )->addText( $w->date_from . ' - ' . $w->date_to );
-			$table->addCell( $width )->addText( $w->location );
-			$table->addCell( $width )->addText( $w->summary );
+			$table->addCell( $width )->addText( 'Position: ' . $w->position );
+			$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Company: ' . $w->company );
+			$table->addRow();
+			$table->addCell( $width )->addText
+			( 
+				'From: ' . toHumanReadableDate($w->date_from) . ' - ' . 
+				'To: ' . toHumanReadableDate($w->date_to) 
+			);
+			$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Location: ' . $w->location );
+			$table->addRow();
+			$table->addCell( $ppw, array('gridSpan' => 3) )->addText( 'Summary: ' . $w->summary );
 		}
-		$table->addCell( $width )->addTextBreak( 1 );
+		$table->addrow();
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( '', 'normalStyle' );
 		//
 		$table->addRow();
-		$table->addCell( $width )->addText( 'Education', 'headerStyle' );
+		$table->addCell( $ppw, array('gridSpan' => 3) )->addText( 'Education', 'headerStyle' );
 		foreach ( $result['educations'] as $e ) {
 			$table->addRow();
-			$table->addCell( $width )->addText( $e->degree );
-			$table->addCell( $width )->addText( $e->field_of_study );
-			$table->addCell( $width )->addText( $e->school );
-			$table->addCell( $width )->addText( $e->city . ', ' . $e->country );
-			$table->addCell( $width )->addText( $e->date_from . ' - ' . $w->date_to );
+			$table->addCell( $width )->addText( 'Degree: ' . $e->degree );
+			$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Field Of Study: ' . $e->field_of_study );
+			$table->addRow();
+			$table->addCell( $width )->addText( 'School: ' . $e->school );
+			$table->addCell( $width, array('gridSpan' => 2) )->addText( 'Location: ' . $e->city . ', ' . $e->country );
+			$table->addRow();
+			$table->addCell( $width )->addText
+			( 
+				'From: ' . toHumanReadableDate($e->date_from) . ' - ' . 
+				'To: ' . toHumanReadableDate($w->date_to) 
+			);
 		}
-		$table->addCell( $width )->addTextBreak( 1 );
+		$table->addrow();
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( '', 'normalStyle' );
 		//
-		$section->addText( 'Skills', 'headerStyle' );
+		$table->addRow();
+		$table->addCell($ppw, array('gridSpan' => 3))->addText( 'Skills', 'headerStyle' );
 		foreach ( $result['skills'] as $s ) {
 			$table->addRow();
-			$table->addCell( $width )->addText( $s->name );
+			$table->addCell( $width, array('gridSpan' => 3) )->addText( $s->name );
 		}
-		$table->addCell( $width )->addTextBreak( 1 );
+		$table->addrow();
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( '', 'normalStyle' );
 		//
-		$section->addText( 'Certifications', 'headerStyle' );
+		$table->addRow();
+		$table->addCell($ppw, array('gridSpan' => 3))->addText( 'Certifications', 'headerStyle' );
 		foreach ( $result['certifications'] as $c ) {
 			$table->addRow();
-			$table->addCell( $width )->addText( $c->name );
+			$table->addCell( $width, array('gridSpan' => 3) )->addText( $c->name );
 		}
-		$table->addCell( $width )->addTextBreak( 1 );
+		$table->addrow();
+		$table->addCell( $width, array('gridSpan' => 3) )->addText( '', 'normalStyle' );
 		//
-		$table->addCell( $width )->addText( 'Additional Information', 'headerStyle' );
-		$table->addCell( $width )->addText( $result['additionalInformations'], 'normalStyle' );
+		$table->addRow();
+		$table->addCell( $ppw, array('gridSpan' => 3) )->addText( 'Additional Information', 'headerStyle' );
+		$table->addRow();
+		$table->addCell( $ppw, array('gridSpan' => 3) )->addText( $result['additionalInformations'], 'normalStyle' );
 		//
-		$filename = 'Applicant_Resume_' . $resId . rand( 0, $resId );
+		$filename = 'Resume of ' . $resume->full_name . ' ' . $resId . rand( 0, $resId );
 		$filename .= generateToken( $filename ) . '.docx';
 		//MIME type.
 		header( 'Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document' );
